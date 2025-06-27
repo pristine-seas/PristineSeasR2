@@ -1,19 +1,16 @@
 url: https://pristine-seas.github.io/PristineSeasR2/
-
 template:
   bootstrap: 5
-  theme: cerulean  # Ocean-themed color
-
+  theme: cerulean
 navbar:
-  title: "PristineSeasR2"
+  title: PristineSeasR2
   left:
-    - text: "Functions"
-      href: reference/index.html
-    - text: "Get Started"
-      href: articles/index.html
-
+  - text: Functions
+    href: reference/index.html
+  - text: Get Started
+    href: articles/index.html
 reference:
-  - title: "Data Access"
-    desc: "Functions for accessing Pristine Seas data"
-    contents:
-    - get_drive_paths
+- title: Data Access
+  desc: Functions for accessing Pristine Seas data
+  contents: get_drive_paths
+
