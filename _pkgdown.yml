@@ -1,7 +1,7 @@
 url: https://pristine-seas.github.io/PristineSeasR2/
 template:
   bootstrap: 5
-  theme: cerulean
+  theme: flatly
 navbar:
   title: PristineSeasR2
   left:
