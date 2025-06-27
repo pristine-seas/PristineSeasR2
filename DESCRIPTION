@@ -1,0 +1,32 @@
+Package: PristineSeasR2
+Title: Tools for Pristine Seas Scientific Data Analysis and Visualization
+Version: 0.0.0.9000
+Authors@R: 
+    person("Juan", "Mayorga", , "marine.data.science@ngs.org", role = c("aut", "cre"))
+Description:Provides helper functions for analyzing Pristine Seas scientific data,
+    custom color palettes and themes for data visualization, and standardized
+    vocabularies for consistent data analysis across expeditions. 
+    Designed for internal use by Pristine Seas research team to enhance workflow efficiency 
+    and maintain analytical consistency.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    dplyr,
+    ggplot2,
+    RColorBrewer,
+    readr,
+    scales,
+    stringr,
+    tibble,
+    tidyr
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    covr
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+URL: https://github.com/pristine-seas/PristineSeasR2
+BugReports: https://github.com/pristine-seas/PristineSeasR2/issues

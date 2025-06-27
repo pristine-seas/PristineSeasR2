@@ -1,0 +1,39 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# PristineSeasR2
+
+<!-- badges: start -->
+
+<!-- badges: end -->
+
+PristineSeasR2 provides a toolkit for marine scientists and researchers
+working with Pristine Seas data. The package streamlines analytical
+workflows while ensuring visual consistency and data standardization
+across projects.
+
+## Features
+
+## Installation
+
+You can install the development version of PristineSeasR2 from GitHub
+with:
+
+``` r
+# install.packages("pak")
+pak::pak("pristine-seas/PristineSeasR2")
+
+# Or with devtools
+# devtools::install_github("pristine-seas/PristineSeasR2")
+```
+
+## Quick Start
+
+``` r
+library(PristineSeasR2)
+
+paths <- get_drive_paths()
+
+paths$expeditions |> 
+  list.dirs(recursive = FALSE, full.names = FALSE)
+```
