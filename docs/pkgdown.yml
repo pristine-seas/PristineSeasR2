@@ -1,0 +1,8 @@
+pandoc: 3.6.3
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles: {}
+last_built: 2025-06-27T16:55Z
+urls:
+  reference: https://pristine-seas.github.io/PristineSeasR2/reference
+  article: https://pristine-seas.github.io/PristineSeasR2/articles
