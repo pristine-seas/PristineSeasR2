@@ -13,19 +13,11 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
-    dplyr,
-    ggplot2,
-    RColorBrewer,
-    readr,
-    scales,
-    stringr,
-    tibble,
-    tidyr
+    dplyr
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
-    rmarkdown,
-    covr
+    rmarkdown
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 URL: https://github.com/pristine-seas/PristineSeasR2, https://pristine-seas.github.io/PristineSeasR2/

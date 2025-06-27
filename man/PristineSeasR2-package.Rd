@@ -12,6 +12,7 @@ Provides helper functions for analyzing Pristine Seas scientific data, custom co
 Useful links:
 \itemize{
   \item \url{https://github.com/pristine-seas/PristineSeasR2}
+  \item \url{https://pristine-seas.github.io/PristineSeasR2/}
   \item Report bugs at \url{https://github.com/pristine-seas/PristineSeasR2/issues}
 }
 
