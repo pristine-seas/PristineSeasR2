@@ -24,6 +24,7 @@ reference:
     - stratify
     - station_suffix
     - allowed_vocab
+    - ps_researchers
 
   - title: "Color Palettes"
     desc: "Beautiful colors for marine data visualization"
