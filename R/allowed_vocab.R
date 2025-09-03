@@ -48,7 +48,7 @@
 #' - **erect_algae** — Erect/branching macroalgae
 #' - **encrusting_algae** — Encrusting algal forms
 #' - **turf** — Algal turf matrices
-#' - **sediment_rubble_barren** — Sediment, rubble, or barren substrate
+#' - **sediment|rubble|barren** — Sediment, rubble, or barren substrate
 #' - **other** — Other functional groups not classified above
 #' @export
 allowed_vocab <- list(trophic_group = c("shark",
@@ -90,6 +90,7 @@ allowed_vocab <- list(trophic_group = c("shark",
                                             "erect_algae",
                                             "encrusting_algae",
                                             "turf",
-                                            "sediment_rubble_barren",
+                                            "sediment|rubble|barren",
+                                            "eam",
                                             "other")
                       )

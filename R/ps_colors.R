@@ -46,7 +46,7 @@ ps_palettes <- list(
                         "erect_algae"            = "#007f5f",
                         "encrusting_algae"       = "#80b918",
                         "turf"                   = "#936639",
-                        "sediment_rubble_barren" = "#d3d3d3",
+                        "sediment|rubble|barren" = "#d3d3d3",
                         "other"                  = "#6f4e7c")
 )
 
