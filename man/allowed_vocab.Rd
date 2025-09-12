@@ -67,7 +67,7 @@ Standardized vocabularies for Pristine Seas data collection and analysis.
 \item \strong{erect_algae} — Erect/branching macroalgae
 \item \strong{encrusting_algae} — Encrusting algal forms
 \item \strong{turf} — Algal turf matrices
-\item \strong{sediment_rubble_barren} — Sediment, rubble, or barren substrate
+\item \strong{sediment|rubble|barren} — Sediment, rubble, or barren substrate
 \item \strong{other} — Other functional groups not classified above
 }
 }

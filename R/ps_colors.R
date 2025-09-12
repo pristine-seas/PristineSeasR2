@@ -43,8 +43,8 @@ ps_palettes <- list(
                         "cyanobacteria"          = "#03071e",
                         "soft_coral"             = "#3399cc",
                         "sponges"                = "#ffcb69",
-                        "erect_algae"            = "#007f5f",
-                        "encrusting_algae"       = "#80b918",
+                        "algae_erect"            = "#007f5f",
+                        "algae_encrusting"       = "#80b918",
                         "turf"                   = "#936639",
                         "sediment|rubble|barren" = "#d3d3d3",
                         "other"                  = "#6f4e7c")
