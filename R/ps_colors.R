@@ -6,7 +6,7 @@ ps_palettes <- list(
   trophic_group = c("shark"                 = "#BB4430",
                     "top_predator"          = "#ED9B40",
                     "lower_carnivore"       = "#7EBDC2",
-                    "herbivore_detritivore" = "#04724D",
+                    "herbivore|detritivore" = "#04724D",
                     "planktivore"           = "#FF9FB2"),
 
   # Depth strata

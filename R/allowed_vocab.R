@@ -8,7 +8,7 @@
 #' - **shark** — All sharks
 #' - **top_predator** — Large predatory fish excluding sharks
 #' - **lower_carnivore** — Mid-level carnivorous fish
-#' - **herbivore_detritivore** — Plant and detritus feeding fish
+#' - **herbivore | detritivore** — Plant and detritus feeding fish
 #' - **planktivore** — Plankton feeding fish
 #'
 #' **depth_strata** - Survey depth categories:
@@ -54,7 +54,7 @@
 allowed_vocab <- list(trophic_group = c("shark",
                                         "top_predator",
                                         "lower_carnivore",
-                                        "herbivore_detritivore",
+                                        "herbivore | detritivore",
                                         "planktivore"),
 
                       depth_strata = c("supershallow",

@@ -19,7 +19,7 @@ Standardized vocabularies for Pristine Seas data collection and analysis.
 \item \strong{shark} — All sharks
 \item \strong{top_predator} — Large predatory fish excluding sharks
 \item \strong{lower_carnivore} — Mid-level carnivorous fish
-\item \strong{herbivore_detritivore} — Plant and detritus feeding fish
+\item \strong{herbivore | detritivore} — Plant and detritus feeding fish
 \item \strong{planktivore} — Plankton feeding fish
 }
 
