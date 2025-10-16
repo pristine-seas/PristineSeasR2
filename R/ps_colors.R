@@ -3,11 +3,11 @@
 ps_palettes <- list(
 
   # Reef fish trophic groups
-  trophic_group = c("shark"                 = "#BB4430",
-                    "top_predator"          = "#ED9B40",
-                    "lower_carnivore"       = "#7EBDC2",
-                    "herbivore|detritivore" = "#04724D",
-                    "planktivore"           = "#FF9FB2"),
+  trophic_group = c("shark"                   = "#BB4430",
+                    "top_predator"            = "#ED9B40",
+                    "lower_carnivore"         = "#7EBDC2",
+                    "herbivore | detritivore" = "#04724D",
+                    "planktivore"             = "#FF9FB2"),
 
   # Depth strata
   depth_strata = c("supershallow" = "#A8DADC",
