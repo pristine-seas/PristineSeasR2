@@ -2,17 +2,17 @@
 # Internal data - not exported
 ps_palettes <- list(
 
+  # Depth strata
+  depth_strata = c("supershallow" = "#6CD4CF",
+                   "shallow"      = "#247BA0",
+                   "deep"         = "#003E6B" ),
+
   # Reef fish trophic groups
   trophic_group = c("shark"                   = "#BB4430",
-                    "top_predator"            = "#ED9B40",
+                    "top_predator"            = "#EE9B00",
                     "lower_carnivore"         = "#7EBDC2",
                     "herbivore | detritivore" = "#04724D",
                     "planktivore"             = "#FF9FB2"),
-
-  # Depth strata
-  depth_strata = c("supershallow" = "#A8DADC",
-                   "shallow"      = "#457B9D",
-                   "deep"         = "#1D3557"),
 
   # Site exposure conditions
   exposure = c("windward"  = "#B22222",
