@@ -10,7 +10,8 @@ stratify(avg_depth_m)
 \item{avg_depth_m}{Numeric vector. Average depth measurements in meters}
 }
 \value{
-Character vector with depth stratum labels: "surface", "supershallow", "shallow", "deep", or NA
+Character vector with depth stratum labels: "surface", "supershallow",
+"shallow", "deep", "superdeep", or NA
 }
 \description{
 Converts depth measurements in meters to standardized Pristine Seas depth
@@ -23,14 +24,16 @@ Standard Pristine Seas depth strata:
 \item Supershallow: 0.1 - 6m
 \item Shallow: 6.1 - 14m
 \item Deep: 14.1 - 30m
-\item NA: > 30m (beyond standard survey depths)
+\item Superdeep: > 30m
+\item NA: missing or invalid depth values
 }
 }
 \examples{
 \dontrun{
 # Stratify survey depths
-depths <- c(0, 3, 8, 12, 18, 25, 35)
+depths <- c(0, 3, 8, 12, 18, 25, 35, 45)
 stratify(depths)
+# Returns: "surface" "supershallow" "shallow" "shallow" "deep" "deep" "superdeep" "superdeep"
 
 # Use with data frame
 survey_data$depth_stratum <- stratify(survey_data$avg_depth_m)

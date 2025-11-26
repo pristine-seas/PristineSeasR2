@@ -48,7 +48,7 @@
 #' - **erect_algae** — Erect/branching macroalgae
 #' - **encrusting_algae** — Encrusting algal forms
 #' - **turf** — Algal turf matrices
-#' - **sediment|rubble|barren** — Sediment, rubble, or barren substrate
+#' - **sediment | rubble | barren** — Sediment, rubble, or barren substrate
 #' - **other** — Other functional groups not classified above
 #' @export
 allowed_vocab <- list(trophic_group = c("shark",
@@ -57,7 +57,8 @@ allowed_vocab <- list(trophic_group = c("shark",
                                         "herbivore | detritivore",
                                         "planktivore"),
 
-                      depth_strata = c("supershallow",
+                      depth_strata = c("superdeep",
+                                       "supershallow",
                                        "shallow",
                                        "deep"),
 
@@ -83,14 +84,25 @@ allowed_vocab <- list(trophic_group = c("shark",
                                        "seagrass"),
 
                       functional_groups = c("hard_coral",
-                                            "cca",
-                                            "cyanobacteria",
                                             "soft_coral",
-                                            "sponges",
-                                            "erect_algae",
-                                            "encrusting_algae",
+                                            "algae_erect",
+                                            "algae_encrusting",
+                                            "algae_canopy", # Kelp, Sargassum, and other large macroalgae
+                                            "cca",
                                             "turf",
-                                            "sediment|rubble|barren",
+                                            "cyanobacteria",
+                                            "seagrass",
+                                            "sponges",
+                                            "bryozoans",
+                                            "ascidians",
+                                            "hydrozoans",
+                                            "other_cnidarians",
+                                            "sediment | rubble | barren",
                                             "eam",
+                                            "worms",
+                                            "echinoderms",
+                                            "molluscs",
+                                            "forams",
+                                            "barnacles",
                                             "other")
                       )

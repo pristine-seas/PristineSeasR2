@@ -15,12 +15,23 @@ Character vector of station suffixes
 \description{
 Converts depth strata to standardized station suffixes for consistent station ID creation.
 }
+\details{
+Standard suffix mapping:
+\itemize{
+\item surface: "00m"
+\item supershallow: "05m"
+\item shallow: "10m"
+\item deep: "20m"
+\item superdeep: "30m"
+}
+}
 \examples{
 \dontrun{
 # Basic usage
-depths <- c(0, 3, 8, 15, 25)
+depths <- c(0, 3, 8, 15, 25, 35)
 strata <- stratify(depths)
 station_suffix(strata)
+# Returns: "00m" "05m" "10m" "20m" "20m" "30m"
 
 # Complete workflow
 survey_data$depth_strata <- stratify(survey_data$station_depth_m)

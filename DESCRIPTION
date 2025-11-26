@@ -1,25 +1,21 @@
-Package: PristineSeasR2
-Title: Tools for Pristine Seas Scientific Data Analysis and Visualization
-Version: 0.0.0.9000
+Package: pristineseas
+Title: Marine Conservation Data Analysis Tools
+Version: 0.1.0
 Authors@R: 
-    person("Juan", "Mayorga", , "marine.data.science@ngs.org", role = c("aut", "cre"))
-Description: Provides helper functions for analyzing Pristine Seas scientific data,
-    custom color palettes and themes for data visualization, and standardized
-    vocabularies for consistent data analysis across expeditions. 
-    Designed for internal use by Pristine Seas research team to enhance workflow efficiency 
-    and maintain analytical consistency.
+    person("Juan", "Mayorga", email = "marine.data.science@ngs.org", role = c("aut", "cre"))
+Description: Tools for analyzing marine biodiversity data from Pristine Seas 
+    expeditions. Includes functions for taxonomic data cleaning and spatial analysis.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-Imports: 
+Depends: 
+    R (>= 3.5.0)
+Imports:
+    utils,
     dplyr,
     ggplot2
-Suggests: 
-    testthat (>= 3.0.0),
-    knitr,
-    rmarkdown
-Config/testthat/edition: 3
-VignetteBuilder: knitr
-URL: https://github.com/pristine-seas/PristineSeasR2, https://pristine-seas.github.io/PristineSeasR2/
-BugReports: https://github.com/pristine-seas/PristineSeasR2/issues
+Suggests:
+    stringr,
+    testthat (>= 3.0.0)
+LazyData: true
