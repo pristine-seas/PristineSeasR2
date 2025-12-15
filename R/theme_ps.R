@@ -16,9 +16,9 @@
 #' ggplot(mpg, aes(class, hwy)) +
 #'   geom_boxplot(fill = "#0A9396", color = "white") +
 #'   labs(title = "Fuel efficiency by car class") +
-#'   theme_pristineseas()
+#'   theme_ps()
 #'
-theme_pristineseas <- function(base_size = 12, base_family = "Helvetica") {
+theme_ps <- function(base_size = 12, base_family = "Helvetica") {
   ggplot2::theme_minimal(base_size = base_size, base_family = base_family) %+replace%
     ggplot2::theme(
       # Backgrounds

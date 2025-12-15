@@ -3,35 +3,30 @@
 
 # Hierarchical regions palette (region -> subregions)
 ps_regions <- list(
-
   region_1 = c(
-    subregion_1 = "#153a5c",
-    subregion_2 = "#2f6f9b",
-    subregion_3 = "#8bb7dd"
+    subregion_1 = "#2D6FA3",
+    subregion_2 = "#5C9BC8",
+    subregion_3 = "#9FC6E0"
   ),
-
   region_2 = c(
-    subregion_1 = "#094f33",
-    subregion_2 = "#2f8f5f",
-    subregion_3 = "#8fd0b5"
+    subregion_1 = "#2F8D75",
+    subregion_2 = "#65B8A1",
+    subregion_3 = "#A9DED1"
   ),
-
   region_3 = c(
-    subregion_1 = "#6a2f2f",
-    subregion_2 = "#a35353",
-    subregion_3 = "#e1a3a3"
+    subregion_1 = "#C24E4A",
+    subregion_2 = "#DB847D",
+    subregion_3 = "#F0B8AF"
   ),
-
   region_4 = c(
-    subregion_1 = "#3e285f",
-    subregion_2 = "#6d4fa3",
-    subregion_3 = "#c1b0e2"
+    subregion_1 = "#6A5BA6",
+    subregion_2 = "#9A8FC8",
+    subregion_3 = "#CDC6E6"
   ),
-
   region_5 = c(
-    subregion_1 = "#8c5414",
-    subregion_2 = "#c68436",
-    subregion_3 = "#f0d2ad"
+    subregion_1 = "#D4A017",
+    subregion_2 = "#E6BE5C",
+    subregion_3 = "#F3DEB0"
   )
 )
 
