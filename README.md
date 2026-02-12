@@ -73,26 +73,23 @@ library(ggplot2)
 trophic_colors <- ps_colors("trophic_group")
 
 # Sample data
-fish_data <- data.frame(
-  trophic_group = factor(names(trophic_colors), levels = names(trophic_colors)),
-  biomass = c(45, 120, 280, 190, 85)
-)
+fish_data <- data.frame(trophic_group = factor(names(trophic_colors), 
+                                               levels = names(trophic_colors)),
+                        biomass       = c(45, 120, 280, 190, 85))
 
-ggplot(fish_data, aes(x = trophic_group, y = biomass, fill = trophic_group)) +
+ggplot(fish_data, 
+       aes(x = trophic_group, y = biomass, fill = trophic_group)) +
   geom_col(width = 0.7) +
-  scale_fill_ps("trophic_group") +
-  labs(
-    title = "Reef Fish Biomass by Trophic Group",
-    x = NULL,
-    y = expression(Biomass~(g/m^2))
-  ) +
-  theme_ps() +
-  theme(legend.position = "none")
+  scale_fill_ps("trophic_group", drop = TRUE) +
+  labs(title = "Reef Fish Biomass by Trophic Group",
+       x = NULL,
+       y = expression(Biomass~(g/m^2))) +
+  theme_ps() 
 ```
 
 <img src="man/figures/README-palettes-1.png" width="100%" />
 
-### Available Palettes
+### Main Palettes
 
 <img src="man/figures/README-show-palettes-1.png" width="100%" />
 
@@ -122,7 +119,7 @@ station_suffix(stratify(depths_m))
 | `scale_fill_ps()` / `scale_color_ps()` | ggplot2 color scales |
 | `theme_ps()` / `theme_ps_map()` | ggplot2 themes |
 | `stratify()` | Depth stratification |
-| `get_drive_paths()` | Access shared Google Drive folders |
+| `ps_science_paths()` | Access shared Google Drive folders |
 | `create_expedition()` | Create expedition folder structure |
 
 ## Learn More

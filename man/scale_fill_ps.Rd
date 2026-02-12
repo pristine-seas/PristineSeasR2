@@ -4,11 +4,13 @@
 \alias{scale_fill_ps}
 \title{Discrete fill scale using Pristine Seas palettes}
 \usage{
-scale_fill_ps(palette, ...)
+scale_fill_ps(palette, drop = FALSE, ...)
 }
 \arguments{
-\item{palette}{Character. Palette name passed to \code{ps_colors()}.
-Should return a named vector (not the hierarchical \code{regions} list).}
+\item{palette}{Character. Palette name passed to \code{ps_colors()}.}
+
+\item{drop}{Logical. Passed to \code{ggplot2::scale_color_manual()}. Default \code{FALSE}
+to preserve palette order even if levels are unused.}
 
 \item{...}{Additional arguments passed to \code{ggplot2::scale_color_manual()}.}
 }
@@ -17,29 +19,42 @@ A ggplot2 fill scale.
 }
 \description{
 Convenience wrapper around \code{ggplot2::scale_fill_manual()} that pulls
-colors from the Pristine Seas palette system via \code{ps_colors()}.
-}
-\details{
-This is intended for discrete fill aesthetics where factor levels in your
-data match the names of a palette (for example, \code{trophic_group},
-\code{functional_groups}, \code{uvs_habitats}, \code{region},
-or \code{subregion}).
+colors from \code{ps_colors()}.
 }
 \examples{
-\dontrun{
 library(ggplot2)
-library(tibble)
 
-df <- tibble(
-  habitat = names(ps_colors("uvs_habitats")),
-  value   = runif(length(habitat))
-)
+# Benthic cover composition (stacked bar) - all functional groups
 
-ggplot(df, aes(x = habitat, y = value, fill = habitat)) +
-  geom_col() +
-  scale_fill_ps("uvs_habitats") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+benthic <- data.frame(site             = rep(c("Site A", "Site B"), each = 11),
+                     functional_group = factor(rep(c("hard_coral", "soft_coral", "cca", "turf",
+                                                     "algae_erect", "algae_encrusting", "algae_canopy",
+                                                     "sponges", "cyanobacteria", "other", "sediment | rubble | barren"), 2),
+                                               levels = rev(names(ps_colors("functional_groups")))),
+                     cover            = c(32, 5, 18, 15, 8, 3, 2, 4, 1, 2, 10, 22, 8, 12, 20, 10, 5, 4, 6, 3, 3, 7))
+
+ggplot(benthic,
+       aes(x = site, y = cover, fill = functional_group)) +
+  geom_col(position = "stack") +
+  scale_fill_ps("functional_groups") +
+  labs(x = NULL, y = "Cover (\%)", fill = "Functional group") +
+  theme_ps()
+
+# Fish biomass by trophic group (stacked bar)
+
+fish_trophic <- data.frame(site = rep(c("Protected", "Fished"), each = 5),
+                           trophic_group = factor(rep(c("shark", "top_predator", "lower_carnivore",
+                                                        "herbivore | detritivore", "planktivore"), 2),
+                                                  levels = rev(names(ps_colors("trophic_group")))),
+  biomass = c(45, 120, 180, 210, 95, 5, 35, 150, 190, 80)/2)
+
+ggplot(fish_trophic,
+       aes(x = site, y = biomass, fill = trophic_group)) +
+  geom_col(position = "stack") +
+  scale_fill_ps("trophic_group") +
+  labs(x = NULL, y = expression(Biomass~(g/m^2)), fill = "Trophic group") +
+  theme_ps()
 }
-
+\seealso{
+\code{\link[=scale_color_ps]{scale_color_ps()}} for color aesthetic, \code{\link[=ps_colors]{ps_colors()}} for raw palettes
 }

@@ -4,70 +4,25 @@
 \alias{ps_colors}
 \title{Get Pristine Seas colors}
 \usage{
-ps_colors(palette)
+ps_colors(palette = NULL)
 }
 \arguments{
-\item{palette}{Character. Name of the palette to retrieve.}
+\item{palette}{Character. Name of the palette to retrieve. If \code{NULL},
+returns the available palette names.}
 }
 \value{
-A named character vector of hex color codes, or a named list
-(for \code{palette = "regions"}).
+If \code{palette} is \code{NULL}, a character vector of palette names.
+Otherwise, a named character vector of hex codes.
 }
 \description{
-Access internal Pristine Seas color palettes by name.
+Retrieve Pristine Seas color palettes by name.
 }
 \details{
-Available palettes include:
-
-\itemize{
-\item \code{depth_strata}
-\item \code{exposure}
-\item \code{functional_groups}
-\item \code{trophic_group}
-\item \code{uvs_habitats}
-\item \code{region}     (one color per region)
-\item \code{subregion}  (one color per subregion)
-\item \code{regions}    (hierarchical list: region -> subregions)
-}
+Palettes are returned as named character vectors of hex color codes.
 }
 \examples{
-\dontrun{
-# raw palettes -------------------------------------------------------
-ps_colors("trophic_group")
-ps_colors("functional_groups")
-
-# region-level vs subregion-level palettes --------------------------
-library(ggplot2)
-library(tibble)
-library(dplyr)
-
-region_cols    <- ps_colors("region")
-subregion_cols <- ps_colors("subregion")
-
-df_regions <- tibble(
-  site      = paste0("site_", 1:9),
-  region    = rep(names(region_cols), each = 3)[1:9],
-  subregion = factor(
-    sample(names(subregion_cols), 9, replace = TRUE),
-    levels = names(subregion_cols)
-  ),
-  value     = runif(9, 10, 100)
-)
-
-# region-level color (one color per region)
-ggplot(df_regions, aes(x = region, y = value, fill = region)) +
-  geom_col() +
-  scale_fill_manual(values = region_cols) +
-  labs(title = "Region-level palette") +
-  theme_minimal()
-
-# subregion-level color (distinct shade per subregion)
-ggplot(df_regions, aes(x = subregion, y = value, fill = subregion)) +
-  geom_col() +
-  scale_fill_manual(values = subregion_cols) +
-  labs(title = "Subregion-level palette") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-}
+ps_colors()                    # list available palettes
+ps_colors("trophic_group")     # named vector
+ps_colors("functional_groups") # named vector
 
 }

@@ -12,9 +12,6 @@ theme_ps_map <- function(default_font_family = "Hind",
                          show_grid           = TRUE,
                          ...) {
 
-  # NOTE: avoid library() calls inside package functions.
-  # Use explicit namespaces (ggplot2::, grid::) instead.
-
   # Text
   text_color_main    <- "#000000"
   text_color_axis    <- "#000000"

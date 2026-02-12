@@ -7,35 +7,43 @@
 stratify(avg_depth_m)
 }
 \arguments{
-\item{avg_depth_m}{Numeric vector. Average depth measurements in meters}
+\item{avg_depth_m}{Numeric vector. Average depth measurements in meters.}
 }
 \value{
-Character vector with depth stratum labels: "surface", "supershallow",
-"shallow", "deep", "superdeep", or NA
+Character vector with depth stratum labels.
 }
 \description{
 Converts depth measurements in meters to standardized Pristine Seas depth
 strata categories using fixed thresholds for consistency across all projects.
 }
-\details{
-Standard Pristine Seas depth strata:
-\itemize{
-\item Surface: exactly 0m
-\item Supershallow: 0.1 - 6m
-\item Shallow: 6.1 - 14m
-\item Deep: 14.1 - 30m
-\item Superdeep: > 30m
-\item NA: missing or invalid depth values
+\section{Depth Strata}{
+\tabular{ll}{
+   Stratum \tab Depth Range \cr
+   \code{surface} \tab 0m \cr
+   \code{supershallow} \tab 0.1 – 6m \cr
+   \code{shallow} \tab 6.1 – 14m \cr
+   \code{deep} \tab 14.1 – 30m \cr
+   \code{superdeep} \tab > 30m \cr
 }
 }
+
 \examples{
-\dontrun{
 # Stratify survey depths
 depths <- c(0, 3, 8, 12, 18, 25, 35, 45)
 stratify(depths)
-# Returns: "surface" "supershallow" "shallow" "shallow" "deep" "deep" "superdeep" "superdeep"
 
-# Use with data frame
-survey_data$depth_stratum <- stratify(survey_data$avg_depth_m)
+# Combine with station_suffix for IDs
+station_suffix(stratify(depths))
+
+# Typical workflow
+survey_data <- data.frame(ps_station_id = c("RMI_2023_uvs_01", "RMI_2023_uvs_01", "RMI_2023_uvs_02", "RMI_2023_uvs_02"),
+                          depth_m       = c(12, 21, 5, 12))
+
+survey_data$depth_strata <- stratify(survey_data$depth_m)
+survey_data$suffix <- station_suffix(survey_data$depth_strata)
+survey_data
+
 }
+\seealso{
+\code{\link[=station_suffix]{station_suffix()}} to convert strata to station ID suffixes
 }

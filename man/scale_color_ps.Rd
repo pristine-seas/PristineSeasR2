@@ -4,11 +4,13 @@
 \alias{scale_color_ps}
 \title{Discrete color scale using Pristine Seas palettes}
 \usage{
-scale_color_ps(palette, ...)
+scale_color_ps(palette, drop = FALSE, ...)
 }
 \arguments{
-\item{palette}{Character. Palette name passed to \code{ps_colors()}.
-Should return a named vector (not the hierarchical \code{regions} list).}
+\item{palette}{Character. Palette name passed to \code{ps_colors()}.}
+
+\item{drop}{Logical. Passed to \code{ggplot2::scale_color_manual()}. Default \code{FALSE}
+to preserve palette order even if levels are unused.}
 
 \item{...}{Additional arguments passed to \code{ggplot2::scale_color_manual()}.}
 }
@@ -17,28 +19,29 @@ A ggplot2 color scale.
 }
 \description{
 Convenience wrapper around \code{ggplot2::scale_color_manual()} that pulls
-colors from the Pristine Seas palette system via \code{ps_colors()}.
+colors from \code{ps_colors()}.
 }
 \details{
-This is intended for discrete color aesthetics where factor levels in your
-data match the names of a palette (for example, \code{trophic_group},
-\code{functional_groups}, \code{region}, or \code{subregion}).
+Intended for discrete color aesthetics where factor levels match palette names.
 }
 \examples{
-\dontrun{
 library(ggplot2)
-library(tibble)
 
-df <- tibble(
-  trophic_group = names(ps_colors("trophic_group")),
-  x             = seq_along(trophic_group),
-  y             = runif(length(trophic_group))
-)
+# Species diversity by habitat (points with error bars)
+diversity <- data.frame(habitat = factor(c("fore_reef", "back_reef", "patch_reef"),
+                                         levels = names(ps_colors("uvs_habitats"))),
+                        species_richness = c(42, 35, 20),
+                        se = c(10, 8, 9))
 
-ggplot(df, aes(x = x, y = y, color = trophic_group)) +
-  geom_point(size = 3) +
-  scale_color_ps("trophic_group") +
-  theme_minimal()
+ggplot(diversity,
+       aes(x = species_richness, y = habitat, color = habitat)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(xmin = species_richness - se, xmax = species_richness + se), width = 0.2) +
+  scale_color_ps("uvs_habitats", drop = TRUE) +
+  labs(x = "Species richness", y = NULL) +
+  theme_ps()
+
 }
-
+\seealso{
+\code{\link[=scale_fill_ps]{scale_fill_ps()}} for fill aesthetic, \code{\link[=ps_colors]{ps_colors()}} for raw palettes
 }

@@ -36,14 +36,9 @@ theme_ps <- function(base_size = 12, base_family = "Helvetica") {
       axis.title       = ggplot2::element_text(size = base_size + 1, face = "bold", color = "#1f1f1f"),
 
       # Titles and subtitles
-      plot.title       = ggplot2::element_text(size = base_size + 6, face = "bold",
-                                               color = "#0f1c1f", hjust = 0,
-                                               margin = ggplot2::margin(b = 6)),
-      plot.subtitle    = ggplot2::element_text(size = base_size + 1, color = "#4c4c4c",
-                                               hjust = 0, margin = ggplot2::margin(b = 10)),
-      plot.caption     = ggplot2::element_text(size = base_size - 1, color = "#6b6b6b",
-                                               hjust = 1, face = "italic",
-                                               margin = ggplot2::margin(t = 8)),
+      plot.title       = ggplot2::element_text(size = base_size + 6, face = "bold", color = "#0f1c1f", hjust = 0, margin = ggplot2::margin(b = 6)),
+      plot.subtitle    = ggplot2::element_text(size = base_size + 1, color = "#4c4c4c", hjust = 0, margin = ggplot2::margin(b = 10)),
+      plot.caption     = ggplot2::element_text(size = base_size - 1, color = "#6b6b6b", hjust = 1, face = "italic", margin = ggplot2::margin(t = 8)),
 
       # Legends
       legend.position   = "bottom",
@@ -53,19 +48,14 @@ theme_ps <- function(base_size = 12, base_family = "Helvetica") {
       legend.key.size   = grid::unit(0.4, "cm"),
 
       # Facet strips
-      strip.background = ggplot2::element_rect(
-        fill = "#efefef",          # neutral light gray
-        color = "#d0d0d0",         # subtle border
-        linewidth = 0.5
-      ),
-      strip.text = ggplot2::element_text(
-        size  = base_size + 0.5,   # slightly larger for hierarchy
-        face  = "bold",
-        color = "#0f1c1f",
-        margin = ggplot2::margin(2, 4, 2, 4)
-      ),
-
+      strip.background = ggplot2::element_rect(fill = "#efefef",          # neutral light gray
+                                               color = "#d0d0d0",         # subtle border
+                                               linewidth = 0.5),
+      strip.text = ggplot2::element_text(size  = base_size + 0.5,   # slightly larger for hierarchy
+                                         face  = "bold",
+                                         color = "#0f1c1f",
+                                         margin = ggplot2::margin(2, 4, 2, 4)),
       # Margins
       plot.margin = ggplot2::margin(10, 20, 10, 10)
     )
-}
+  }
