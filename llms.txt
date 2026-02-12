@@ -64,26 +64,23 @@ library(ggplot2)
 trophic_colors <- ps_colors("trophic_group")
 
 # Sample data
-fish_data <- data.frame(
-  trophic_group = factor(names(trophic_colors), levels = names(trophic_colors)),
-  biomass = c(45, 120, 280, 190, 85)
-)
+fish_data <- data.frame(trophic_group = factor(names(trophic_colors), 
+                                               levels = names(trophic_colors)),
+                        biomass       = c(45, 120, 280, 190, 85))
 
-ggplot(fish_data, aes(x = trophic_group, y = biomass, fill = trophic_group)) +
+ggplot(fish_data, 
+       aes(x = trophic_group, y = biomass, fill = trophic_group)) +
   geom_col(width = 0.7) +
-  scale_fill_ps("trophic_group") +
-  labs(
-    title = "Reef Fish Biomass by Trophic Group",
-    x = NULL,
-    y = expression(Biomass~(g/m^2))
-  ) +
-  theme_ps() +
-  theme(legend.position = "none")
+  scale_fill_ps("trophic_group", drop = TRUE) +
+  labs(title = "Reef Fish Biomass by Trophic Group",
+       x = NULL,
+       y = expression(Biomass~(g/m^2))) +
+  theme_ps() 
 ```
 
 ![](reference/figures/README-palettes-1.png)
 
-### Available Palettes
+### Main Palettes
 
 ![](reference/figures/README-show-palettes-1.png)
 
@@ -113,7 +110,7 @@ station_suffix(stratify(depths_m))
 | [`scale_fill_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_fill_ps.md) / [`scale_color_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_color_ps.md) | ggplot2 color scales                      |
 | [`theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps.md) / [`theme_ps_map()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps_map.md)               | ggplot2 themes                            |
 | [`stratify()`](https://pristine-seas.github.io/PristineSeasR2/reference/stratify.md)                                                                                                              | Depth stratification                      |
-| [`get_drive_paths()`](https://pristine-seas.github.io/PristineSeasR2/reference/get_drive_paths.md)                                                                                                | Access shared Google Drive folders        |
+| [`ps_science_paths()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_science_paths.md)                                                                                              | Access shared Google Drive folders        |
 | [`create_expedition()`](https://pristine-seas.github.io/PristineSeasR2/reference/create_expedition.md)                                                                                            | Create expedition folder structure        |
 
 ## Learn More
@@ -145,6 +142,10 @@ station_suffix(stratify(depths_m))
   : Get Pristine Seas colors
 - [`ps_researchers`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_researchers.md)
   : Scientists Lookup Table
+- [`ps_science_paths()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_science_paths.md)
+  : Get standardized Pristine Seas Google Drive paths
+- [`ps_show_palette()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_show_palette.md)
+  : Preview a Pristine Seas palette
 - [`scale_color_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_color_ps.md)
   : Discrete color scale using Pristine Seas palettes
 - [`scale_fill_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_fill_ps.md)

@@ -16,6 +16,10 @@
   : Get Pristine Seas colors
 - [`ps_researchers`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_researchers.md)
   : Scientists Lookup Table
+- [`ps_science_paths()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_science_paths.md)
+  : Get standardized Pristine Seas Google Drive paths
+- [`ps_show_palette()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_show_palette.md)
+  : Preview a Pristine Seas palette
 - [`scale_color_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_color_ps.md)
   : Discrete color scale using Pristine Seas palettes
 - [`scale_fill_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_fill_ps.md)

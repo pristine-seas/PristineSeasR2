@@ -1,83 +1,51 @@
 # Get Pristine Seas colors
 
-Access internal Pristine Seas color palettes by name.
+Retrieve Pristine Seas color palettes by name.
 
 ## Usage
 
 ``` r
-ps_colors(palette)
+ps_colors(palette = NULL)
 ```
 
 ## Arguments
 
 - palette:
 
-  Character. Name of the palette to retrieve.
+  Character. Name of the palette to retrieve. If `NULL`, returns the
+  available palette names.
 
 ## Value
 
-A named character vector of hex color codes, or a named list (for
-`palette = "regions"`).
+If `palette` is `NULL`, a character vector of palette names. Otherwise,
+a named character vector of hex codes.
 
 ## Details
 
-Available palettes include:
-
-- `depth_strata`
-
-- `exposure`
-
-- `functional_groups`
-
-- `trophic_group`
-
-- `uvs_habitats`
-
-- `region` (one color per region)
-
-- `subregion` (one color per subregion)
-
-- `regions` (hierarchical list: region -\> subregions)
+Palettes are returned as named character vectors of hex color codes.
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-# raw palettes -------------------------------------------------------
-ps_colors("trophic_group")
-ps_colors("functional_groups")
-
-# region-level vs subregion-level palettes --------------------------
-library(ggplot2)
-library(tibble)
-library(dplyr)
-
-region_cols    <- ps_colors("region")
-subregion_cols <- ps_colors("subregion")
-
-df_regions <- tibble(
-  site      = paste0("site_", 1:9),
-  region    = rep(names(region_cols), each = 3)[1:9],
-  subregion = factor(
-    sample(names(subregion_cols), 9, replace = TRUE),
-    levels = names(subregion_cols)
-  ),
-  value     = runif(9, 10, 100)
-)
-
-# region-level color (one color per region)
-ggplot(df_regions, aes(x = region, y = value, fill = region)) +
-  geom_col() +
-  scale_fill_manual(values = region_cols) +
-  labs(title = "Region-level palette") +
-  theme_minimal()
-
-# subregion-level color (distinct shade per subregion)
-ggplot(df_regions, aes(x = subregion, y = value, fill = subregion)) +
-  geom_col() +
-  scale_fill_manual(values = subregion_cols) +
-  labs(title = "Subregion-level palette") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-} # }
+ps_colors()                    # list available palettes
+#> [1] "depth_strata"      "exposure"          "trophic_group"    
+#> [4] "functional_groups" "uvs_habitats"     
+ps_colors("trophic_group")     # named vector
+#>                   shark            top_predator         lower_carnivore 
+#>               "#7A0010"               "#E0B83F"               "#8EC9F0" 
+#> herbivore | detritivore             planktivore 
+#>               "#1F7A4C"               "#B9A3E3" 
+ps_colors("functional_groups") # named vector
+#>                 hard_coral                        cca 
+#>                  "#2E4A9E"                  "#FF7FA7" 
+#>                 soft_coral                algae_erect 
+#>                  "#6FD3E3"                  "#2FA84F" 
+#>           algae_encrusting               algae_canopy 
+#>                  "#8FCFA9"                  "#8A7A3A" 
+#>                    sponges                      other 
+#>                  "#E07A5F"                  "#7A5C8F" 
+#>              cyanobacteria                       turf 
+#>                  "#0B0B0B"                  "#4A3A2A" 
+#> sediment | rubble | barren 
+#>                  "#D9D9D9" 
 ```

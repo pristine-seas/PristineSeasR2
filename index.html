@@ -101,24 +101,21 @@
 <span><span class="va">trophic_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ps_colors.html">ps_colors</a></span><span class="op">(</span><span class="st">"trophic_group"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Sample data</span></span>
-<span><span class="va">fish_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  trophic_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trophic_colors</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trophic_colors</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  biomass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">45</span>, <span class="fl">120</span>, <span class="fl">280</span>, <span class="fl">190</span>, <span class="fl">85</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
+<span><span class="va">fish_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>trophic_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trophic_colors</span><span class="op">)</span>, </span>
+<span>                                               levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trophic_colors</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                        biomass       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">45</span>, <span class="fl">120</span>, <span class="fl">280</span>, <span class="fl">190</span>, <span class="fl">85</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">fish_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">trophic_group</span>, y <span class="op">=</span> <span class="va">biomass</span>, fill <span class="op">=</span> <span class="va">trophic_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">fish_data</span>, </span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">trophic_group</span>, y <span class="op">=</span> <span class="va">biomass</span>, fill <span class="op">=</span> <span class="va">trophic_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/scale_fill_ps.html">scale_fill_ps</a></span><span class="op">(</span><span class="st">"trophic_group"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Reef Fish Biomass by Trophic Group"</span>,</span>
-<span>    x <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">Biomass</span><span class="op">~</span><span class="op">(</span><span class="va">g</span><span class="op">/</span><span class="va">m</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/theme_ps.html">theme_ps</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/scale_fill_ps.html">scale_fill_ps</a></span><span class="op">(</span><span class="st">"trophic_group"</span>, drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Reef Fish Biomass by Trophic Group"</span>,</span>
+<span>       x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>       y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">Biomass</span><span class="op">~</span><span class="op">(</span><span class="va">g</span><span class="op">/</span><span class="va">m</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/theme_ps.html">theme_ps</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="reference/figures/README-palettes-1.png" width="100%"></p>
 <div class="section level3">
-<h3 id="available-palettes">Available Palettes<a class="anchor" aria-label="anchor" href="#available-palettes"></a>
+<h3 id="main-palettes">Main Palettes<a class="anchor" aria-label="anchor" href="#main-palettes"></a>
 </h3>
 <p><img src="reference/figures/README-show-palettes-1.png" width="100%"></p>
 </div>
@@ -176,7 +173,7 @@
 <td>Depth stratification</td>
 </tr>
 <tr class="odd">
-<td><code><a href="reference/get_drive_paths.html">get_drive_paths()</a></code></td>
+<td><code><a href="reference/ps_science_paths.html">ps_science_paths()</a></code></td>
 <td>Access shared Google Drive folders</td>
 </tr>
 <tr class="even">

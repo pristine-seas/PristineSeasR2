@@ -6,8 +6,8 @@ multiple cleaning steps, asking for user approval at each stage to
 prevent unintended data loss.
 
 This function is specifically designed for marine benthic taxonomy and
-implements field-tested rules for handling taxonomic uncertainty
-markers, species-level designations, and common field survey artifacts.
+implements rules for handling taxonomic uncertainty markers,
+species-level designations, and common field survey artifacts.
 
 ## Usage
 

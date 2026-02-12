@@ -49,35 +49,47 @@ strata categories using fixed thresholds for consistency across all projects.</p
 
 
 <dl><dt id="arg-avg-depth-m">avg_depth_m<a class="anchor" aria-label="anchor" href="#arg-avg-depth-m"></a></dt>
-<dd><p>Numeric vector. Average depth measurements in meters</p></dd>
+<dd><p>Numeric vector. Average depth measurements in meters.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Character vector with depth stratum labels: "surface", "supershallow",
-"shallow", "deep", "superdeep", or NA</p>
+    <p>Character vector with depth stratum labels.</p>
     </div>
     <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Standard Pristine Seas depth strata:</p><ul><li><p>Surface: exactly 0m</p></li>
-<li><p>Supershallow: 0.1 - 6m</p></li>
-<li><p>Shallow: 6.1 - 14m</p></li>
-<li><p>Deep: 14.1 - 30m</p></li>
-<li><p>Superdeep: &gt; 30m</p></li>
-<li><p>NA: missing or invalid depth values</p></li>
-</ul></div>
+    <h2 id="depth-strata">Depth Strata<a class="anchor" aria-label="anchor" href="#depth-strata"></a></h2>
+
+<table class="table table"><tr><td>Stratum</td><td>Depth Range</td></tr><tr><td><code>surface</code></td><td>0m</td></tr><tr><td><code>supershallow</code></td><td>0.1 – 6m</td></tr><tr><td><code>shallow</code></td><td>6.1 – 14m</td></tr><tr><td><code>deep</code></td><td>14.1 – 30m</td></tr><tr><td><code>superdeep</code></td><td>&gt; 30m</td></tr></table></div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="station_suffix.html">station_suffix()</a></code> to convert strata to station ID suffixes</p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># Stratify survey depths</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Stratify survey depths</span></span></span>
 <span class="r-in"><span><span class="va">depths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">8</span>, <span class="fl">12</span>, <span class="fl">18</span>, <span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">45</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">stratify</span><span class="op">(</span><span class="va">depths</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># Returns: "surface" "supershallow" "shallow" "shallow" "deep" "deep" "superdeep" "superdeep"</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "surface"      "supershallow" "shallow"      "shallow"      "deep"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] "deep"         "superdeep"    "superdeep"   </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Use with data frame</span></span></span>
-<span class="r-in"><span><span class="va">survey_data</span><span class="op">$</span><span class="va">depth_stratum</span> <span class="op">&lt;-</span> <span class="fu">stratify</span><span class="op">(</span><span class="va">survey_data</span><span class="op">$</span><span class="va">avg_depth_m</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># Combine with station_suffix for IDs</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="station_suffix.html">station_suffix</a></span><span class="op">(</span><span class="fu">stratify</span><span class="op">(</span><span class="va">depths</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "00m" "05m" "10m" "10m" "20m" "20m" "30m" "30m"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Typical workflow</span></span></span>
+<span class="r-in"><span><span class="va">survey_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>ps_station_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"RMI_2023_uvs_01"</span>, <span class="st">"RMI_2023_uvs_01"</span>, <span class="st">"RMI_2023_uvs_02"</span>, <span class="st">"RMI_2023_uvs_02"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                          depth_m       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">21</span>, <span class="fl">5</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">survey_data</span><span class="op">$</span><span class="va">depth_strata</span> <span class="op">&lt;-</span> <span class="fu">stratify</span><span class="op">(</span><span class="va">survey_data</span><span class="op">$</span><span class="va">depth_m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">survey_data</span><span class="op">$</span><span class="va">suffix</span> <span class="op">&lt;-</span> <span class="fu"><a href="station_suffix.html">station_suffix</a></span><span class="op">(</span><span class="va">survey_data</span><span class="op">$</span><span class="va">depth_strata</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">survey_data</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ps_station_id depth_m depth_strata suffix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 RMI_2023_uvs_01      12      shallow    10m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 RMI_2023_uvs_01      21         deep    20m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 RMI_2023_uvs_02       5 supershallow    05m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 RMI_2023_uvs_02      12      shallow    10m</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
