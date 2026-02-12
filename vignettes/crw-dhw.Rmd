@@ -1,0 +1,163 @@
+---
+title: "Thermal stress (DHW) from NOAA Coral Reef Watch"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Thermal stress (DHW) from NOAA Coral Reef Watch}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  message  = TRUE,
+  warning  = FALSE
+)
+
+library(ggplot2)
+library(PristineSeasR2)
+library(sf)
+library(dplyr)
+library(purrr)
+```
+
+This vignette shows how to retrieve **NOAA Coral Reef Watch Degree Heating Week (DHW)** (°C-weeks) from NOAA’s ERDDAP servers using **PristineSeasR2**.
+
+**DHW** is a cumulative measure of heat stress that integrates both intensity and duration of anomalous temperatures. It is widely used as a high-level indicator of bleaching risk and historical thermal exposure.
+
+You can query DHW using:
+
+- `get_crw_dhw_bbox()` for a numeric bounding box (lat/lon), or
+- `get_crw_dhw_sf()` for an `sf` feature (the function derives a bbox from the geometry).
+
+By default, `get_crw_dhw_sf()` returns a **daily mean DHW** across all grid cells within the feature’s bounding box:
+
+- `summarise_daily = TRUE` **(default)** → daily mean DHW time series (recommended for comparisons)
+- `summarise_daily = FALSE` → raw gridded values (one row per grid cell per day), useful for QC or spatial heterogeneity checks
+
+> Practical note: these helpers query by **bounding box** (not polygon clipping). This is typically stable at the CRW grid resolution and is fast and robust for expedition-scale comparisons.
+
+# Query by coords (numeric bbox)
+
+Use `get_crw_dhw_bbox()` when you already know your bounding box in WGS84 (EPSG:4326). This returns **gridded** values (lat/lon pixels) for each day.
+
+```{r}
+lat_min <- 10.00
+lat_max <- 10.20
+lon_min <- 169.40
+lon_max <- 169.70
+
+dhw_grid <- get_crw_dhw_bbox(lat_min = lat_min,
+                             lat_max = lat_max,
+                             lon_min = lon_min,
+                             lon_max = lon_max,
+                             start   = "2023-01-01",
+                             end     = "2024-12-31",
+                             verbose = TRUE)
+
+head(dhw_grid)
+```
+
+### Summarize by day (daily mean across the bbox)
+
+A common pattern is to collapse the gridded output into a single daily mean DHW time series, which is what `get_crw_dhw_sf()` does by default.
+
+```{r}
+dhw_daily <- dhw_grid |>
+  group_by(date) |>
+  summarise(avg_dhw = mean(dhw, na.rm = TRUE), .groups = "drop")
+
+head(dhw_daily)
+```
+
+# Query by `sf` feature (recommended)
+
+Use `get_crw_dhw_sf()` when you have an `sf` polygon (atoll, reef area, MPA boundary, site footprint, etc.). The function will:
+
+1) transform the geometry to WGS84 (EPSG:4326)  
+2) compute the bounding box  
+3) query ERDDAP in yearly chunks  
+4) **return a daily mean DHW time series by default** (`summarise_daily = TRUE`)
+
+```{r}
+ps_paths <- ps_science_paths()
+
+ralik_gpkg <- file.path(ps_paths$expeditions, "RMI-2026/data/secondary/AOIs/AOIs_ralik.gpkg")
+ratak_gpkg <- file.path(ps_paths$expeditions, "RMI-2026/data/secondary/AOIs/AOIs_ratak.gpkg")
+
+AOIs <- bind_rows(st_read(ralik_gpkg, quiet = TRUE),
+                  st_read(ratak_gpkg, quiet = TRUE))
+```
+
+## Single AOI example
+
+```{r}
+jemo <- AOIs[AOIs$atoll == "Jemo", ]
+
+jemo_dhw <- get_crw_dhw_sf(feature  = jemo,
+                           start    = "2023-01-01",
+                           end      = "2024-12-31",
+                           name_col = "atoll",
+                           out_col  = "atoll",
+                           summarise_daily = TRUE,  # DEFAULT: daily mean DHW time series
+                           verbose  = TRUE)
+
+jemo_dhw
+```
+
+# Multiple AOIs
+
+For multiple features, iterate over rows and bind results. This keeps the core function simple (one feature in, one feature out) while still supporting batch workflows.
+
+```{r}
+two_AOIs <- AOIs[AOIs$atoll %in% c("Jemo", "Ujelang"), ]
+
+dhw_two <- map_dfr(seq_len(nrow(two_AOIs)), \(i) {
+  get_crw_dhw_sf(feature  = two_AOIs[i, ],
+                 start    = "2023-01-01",
+                 end      = "2024-12-31",
+                 name_col = "atoll",
+                 out_col  = "atoll",
+                 summarise_daily = TRUE,  # DEFAULT
+                 verbose  = TRUE)
+  }
+  )
+
+dhw_two
+```
+
+# Plotting DHW time series
+
+This plot visualizes the daily mean DHW histories for two AOIs. The horizontal reference lines are common heuristics:
+
+- **4 DHW**: elevated bleaching risk  
+- **8 DHW**: severe bleaching / high mortality risk
+
+These are rules of thumb and should be interpreted with context (seasonality, species composition, local adaptation, survey observations).
+
+```{r}
+# Safer annotation x position: early in the series, but not necessarily the absolute min (which could be NA)
+x_annot <- min(dhw_two$date, na.rm = TRUE)
+
+p <- dhw_two |>
+  ggplot(aes(x = date, y = avg_dhw, color = atoll)) +
+  geom_line(linewidth = 0.9, alpha = 0.85) +
+  geom_hline(yintercept = 4, linetype = "dashed", color = "grey30", linewidth = 0.5) +
+  geom_hline(yintercept = 8, linetype = "dotted", color = "grey30", linewidth = 0.5) +
+  annotate("text", x = x_annot, y = 4.5, label = "Bleaching threshold (~4 DHW)",
+           size = 3, color = "grey30", hjust = 0) +
+  annotate("text", x = x_annot, y = 8.5, label = "Severe threshold (~8 DHW)",
+           size = 3, color = "grey30", hjust = 0) +
+  paletteer::scale_color_paletteer_d("ggthemes::calc")+
+  scale_x_date(date_breaks = "3 months", date_labels = "%Y-%m") +
+  scale_y_continuous(name = "DHW (°C-weeks)", limits = c(0, NA)) +
+  labs(title = "Thermal stress histories",
+       subtitle = "NOAA Coral Reef Watch Degree Heating Weeks (DHW)",
+       x = NULL,
+       color = NULL,
+       caption = "Source: NOAA Coral Reef Watch via ERDDAP")+
+  PristineSeasR2::theme_ps()
+
+p
+```
