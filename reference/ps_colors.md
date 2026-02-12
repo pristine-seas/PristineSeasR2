@@ -1,0 +1,83 @@
+# Get Pristine Seas colors
+
+Access internal Pristine Seas color palettes by name.
+
+## Usage
+
+``` r
+ps_colors(palette)
+```
+
+## Arguments
+
+- palette:
+
+  Character. Name of the palette to retrieve.
+
+## Value
+
+A named character vector of hex color codes, or a named list (for
+`palette = "regions"`).
+
+## Details
+
+Available palettes include:
+
+- `depth_strata`
+
+- `exposure`
+
+- `functional_groups`
+
+- `trophic_group`
+
+- `uvs_habitats`
+
+- `region` (one color per region)
+
+- `subregion` (one color per subregion)
+
+- `regions` (hierarchical list: region -\> subregions)
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# raw palettes -------------------------------------------------------
+ps_colors("trophic_group")
+ps_colors("functional_groups")
+
+# region-level vs subregion-level palettes --------------------------
+library(ggplot2)
+library(tibble)
+library(dplyr)
+
+region_cols    <- ps_colors("region")
+subregion_cols <- ps_colors("subregion")
+
+df_regions <- tibble(
+  site      = paste0("site_", 1:9),
+  region    = rep(names(region_cols), each = 3)[1:9],
+  subregion = factor(
+    sample(names(subregion_cols), 9, replace = TRUE),
+    levels = names(subregion_cols)
+  ),
+  value     = runif(9, 10, 100)
+)
+
+# region-level color (one color per region)
+ggplot(df_regions, aes(x = region, y = value, fill = region)) +
+  geom_col() +
+  scale_fill_manual(values = region_cols) +
+  labs(title = "Region-level palette") +
+  theme_minimal()
+
+# subregion-level color (distinct shade per subregion)
+ggplot(df_regions, aes(x = subregion, y = value, fill = subregion)) +
+  geom_col() +
+  scale_fill_manual(values = subregion_cols) +
+  labs(title = "Subregion-level palette") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+} # }
+```
