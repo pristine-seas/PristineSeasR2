@@ -18,7 +18,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Juan Mayorga \email{marine.data.science@ngs.org} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Juan Mayorga \email{marine.data.science@ngs.org}
 
 }
 \keyword{internal}

@@ -1,36 +1,7 @@
 url: https://pristine-seas.github.io/PristineSeasR2/
-destination: docs
 
 template:
   bootstrap: 5
+  bslib:
+    bootswatch: sandstone
 
-navbar:
-  title: "PristineSeasR2"
-  structure:
-    left: [intro, reference, articles]
-    right: [github]
-
-reference:
-  - title: "Data Management"
-    desc: "Accessing and organizing Pristine Seas data"
-    contents:
-    - get_drive_paths
-    - create_project
-    - create_expedition
-
-  - title: "Data Processing"
-    desc: "Standardizing and categorizing marine data"
-    contents:
-    - stratify
-    - station_suffix
-    - allowed_vocab
-    - ps_researchers
-
-  - title: "Color Palettes"
-    desc: "Beautiful colors for marine data visualization"
-    contents:
-    - ps_colors
-
-home:
-  title: "PristineSeasR2"
-  description: "Tools for Pristine Seas scientific data analysis and visualization"

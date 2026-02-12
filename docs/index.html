@@ -5,24 +5,24 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>PristineSeasR2 • PristineSeasR2</title>
+<title>Marine Conservation Data Analysis Tools for Pristine Seas • PristineSeasR2</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="PristineSeasR2">
-<meta name="description" content="Tools for Pristine Seas scientific data analysis and visualization">
-<meta property="og:description" content="Tools for Pristine Seas scientific data analysis and visualization">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Marine Conservation Data Analysis Tools for Pristine Seas">
+<meta name="description" content="Tools for analyzing marine biodiversity data from Pristine Seas expeditions. Includes functions for taxonomic data cleaning, standardized vocabularies, color palettes for visualization, and spatial analysis utilities.">
+<meta property="og:description" content="Tools for analyzing marine biodiversity data from Pristine Seas expeditions. Includes functions for taxonomic data cleaning, standardized vocabularies, color palettes for visualization, and spatial analysis utilities.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">PristineSeasR2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,6 +34,9 @@
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
       </ul>
 <ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+</form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/pristine-seas/PristineSeasR2/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
@@ -46,33 +49,154 @@
 <div class="page-header"><h1 id="pristineseasr2">PristineSeasR2<a class="anchor" aria-label="anchor" href="#pristineseasr2"></a>
 </h1></div>
 <!-- badges: start -->
-<!-- badges: end -->
-<p>PristineSeasR2 provides a toolkit for marine scientists and researchers working with Pristine Seas data. The package streamlines analytical workflows while ensuring visual consistency and data standardization across projects.</p>
-<div class="section level2">
-<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
-</h2>
-</div>
+
+<p><strong>PristineSeasR2</strong> is the data science toolkit for <a href="https://www.nationalgeographic.org/society/our-programs/pristine-seas/" class="external-link">National Geographic Pristine Seas</a>. It provides standardized vocabularies, validation tools, color palettes, and utilities that ensure consistency across our marine conservation research.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of PristineSeasR2 from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"pristine-seas/PristineSeasR2"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Or with devtools</span></span>
-<span><span class="co"># devtools::install_github("pristine-seas/PristineSeasR2")</span></span></code></pre></div>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"pristine-seas/PristineSeasR2"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+<h2 id="standardized-vocabularies">Standardized Vocabularies<a class="anchor" aria-label="anchor" href="#standardized-vocabularies"></a>
 </h2>
+<p>Controlled vocabularies ensure consistent data entry across expeditions and analysts:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pristine-seas/PristineSeasR2" class="external-link">PristineSeasR2</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_drive_paths.html">get_drive_paths</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Five standardized vocabularies</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">allowed_vocab</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "trophic_group"     "depth_strata"      "exposure"         </span></span>
+<span><span class="co">#&gt; [4] "uvs_habitats"      "functional_groups"</span></span>
 <span></span>
-<span><span class="va">paths</span><span class="op">$</span><span class="va">expeditions</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.dirs</a></span><span class="op">(</span>recursive <span class="op">=</span> <span class="cn">FALSE</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Trophic classifications for reef fish</span></span>
+<span><span class="va">allowed_vocab</span><span class="op">$</span><span class="va">trophic_group</span></span>
+<span><span class="co">#&gt; [1] "shark"                   "top_predator"           </span></span>
+<span><span class="co">#&gt; [3] "lower_carnivore"         "herbivore | detritivore"</span></span>
+<span><span class="co">#&gt; [5] "planktivore"</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="data-validation">Data Validation<a class="anchor" aria-label="anchor" href="#data-validation"></a>
+</h3>
+<p>Catch non-standard entries early — <code><a href="reference/validate_vocab.html">validate_vocab()</a></code> stops your pipeline if invalid values are found:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Valid data passes</span></span>
+<span><span class="fu"><a href="reference/validate_vocab.html">validate_vocab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"shark"</span>, <span class="st">"top_predator"</span>, <span class="st">"planktivore"</span><span class="op">)</span>, <span class="st">"trophic_group"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Invalid data stops with informative error</span></span>
+<span><span class="fu"><a href="reference/validate_vocab.html">validate_vocab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"shark"</span>, <span class="st">"apex_predator"</span><span class="op">)</span>, <span class="st">"trophic_group"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error: Invalid values found in 'trophic_group'</span></span>
+<span><span class="co">#&gt; Found 1 invalid value(s): apex_predator</span></span>
+<span><span class="co">#&gt; Allowed values: shark, top_predator, lower_carnivore, herbivore | detritivore, planktivore</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="color-palettes">Color Palettes<a class="anchor" aria-label="anchor" href="#color-palettes"></a>
+</h2>
+<p>Publication-ready colors designed for marine science visualization:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Example: Trophic group colors</span></span>
+<span><span class="va">trophic_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ps_colors.html">ps_colors</a></span><span class="op">(</span><span class="st">"trophic_group"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Sample data</span></span>
+<span><span class="va">fish_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  trophic_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trophic_colors</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">trophic_colors</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  biomass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">45</span>, <span class="fl">120</span>, <span class="fl">280</span>, <span class="fl">190</span>, <span class="fl">85</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">fish_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">trophic_group</span>, y <span class="op">=</span> <span class="va">biomass</span>, fill <span class="op">=</span> <span class="va">trophic_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/scale_fill_ps.html">scale_fill_ps</a></span><span class="op">(</span><span class="st">"trophic_group"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Reef Fish Biomass by Trophic Group"</span>,</span>
+<span>    x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">Biomass</span><span class="op">~</span><span class="op">(</span><span class="va">g</span><span class="op">/</span><span class="va">m</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/theme_ps.html">theme_ps</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-palettes-1.png" width="100%"></p>
+<div class="section level3">
+<h3 id="available-palettes">Available Palettes<a class="anchor" aria-label="anchor" href="#available-palettes"></a>
+</h3>
+<p><img src="reference/figures/README-show-palettes-1.png" width="100%"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="depth-stratification">Depth Stratification<a class="anchor" aria-label="anchor" href="#depth-stratification"></a>
+</h2>
+<p>Convert continuous depths to standardized survey categories:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">depths_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">12</span>, <span class="fl">22</span>, <span class="fl">45</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Classify into strata</span></span>
+<span><span class="fu"><a href="reference/stratify.html">stratify</a></span><span class="op">(</span><span class="va">depths_m</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "supershallow" "shallow"      "shallow"      "deep"         "superdeep"</span></span>
+<span></span>
+<span><span class="co"># Get station suffixes for IDs</span></span>
+<span><span class="fu"><a href="reference/station_suffix.html">station_suffix</a></span><span class="op">(</span><span class="fu"><a href="reference/stratify.html">stratify</a></span><span class="op">(</span><span class="va">depths_m</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "05m" "10m" "10m" "20m" "30m"</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="key-functions">Key Functions<a class="anchor" aria-label="anchor" href="#key-functions"></a>
+</h2>
+<table class="table">
+<thead><tr>
+<th>Function</th>
+<th>Purpose</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>allowed_vocab</code></td>
+<td>Standardized vocabularies for survey data</td>
+</tr>
+<tr>
+<td><code><a href="reference/validate_vocab.html">validate_vocab()</a></code></td>
+<td>Validate data against vocabularies</td>
+</tr>
+<tr>
+<td><code><a href="reference/ps_colors.html">ps_colors()</a></code></td>
+<td>Get color palettes</td>
+</tr>
+<tr>
+<td>
+<code><a href="reference/scale_fill_ps.html">scale_fill_ps()</a></code> / <code><a href="reference/scale_color_ps.html">scale_color_ps()</a></code>
+</td>
+<td>ggplot2 color scales</td>
+</tr>
+<tr>
+<td>
+<code><a href="reference/theme_ps.html">theme_ps()</a></code> / <code><a href="reference/theme_ps_map.html">theme_ps_map()</a></code>
+</td>
+<td>ggplot2 themes</td>
+</tr>
+<tr>
+<td><code><a href="reference/stratify.html">stratify()</a></code></td>
+<td>Depth stratification</td>
+</tr>
+<tr>
+<td><code><a href="reference/get_drive_paths.html">get_drive_paths()</a></code></td>
+<td>Access shared Google Drive folders</td>
+</tr>
+<tr>
+<td><code><a href="reference/create_expedition.html">create_expedition()</a></code></td>
+<td>Create expedition folder structure</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="learn-more">Learn More<a class="anchor" aria-label="anchor" href="#learn-more"></a>
+</h2>
+<ul>
+<li><a href="https://pristine-seas.github.io/PristineSeasR2/reference/">Function Reference</a></li>
+<li><a href="https://www.nationalgeographic.org/society/our-programs/pristine-seas/" class="external-link">Pristine Seas Website</a></li>
+</ul>
+<hr>
+<p align="center">
+<em>Developed by the Pristine Seas Science Team</em>
+</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -103,11 +227,17 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Juan Mayorga <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Juan Mayorga <br><small class="roles"> Author, maintainer </small>   </li>
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/pristine-seas/PristineSeasR2/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/pristine-seas/PristineSeasR2/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
@@ -118,7 +248,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

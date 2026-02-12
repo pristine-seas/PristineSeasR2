@@ -5,42 +5,162 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE,
-                      comment = "#>",
-                      fig.path = "man/figures/README-",
-                      out.width = "100%")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%",
+  message = FALSE,
+  warning = FALSE
+)
 ```
 
-# PristineSeasR2
+# PristineSeasR2 
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/pristine-seas/PristineSeasR2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pristine-seas/PristineSeasR2/actions/workflows/R-CMD-check.yaml)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-PristineSeasR2 provides a toolkit for marine scientists and researchers working with Pristine Seas data. The package streamlines analytical workflows while ensuring visual consistency and data standardization across projects.
-
-## Features
-
+**PristineSeasR2** is the data science toolkit for [National Geographic Pristine Seas](https://www.nationalgeographic.org/society/our-programs/pristine-seas/). It provides standardized vocabularies, validation tools, color palettes, and utilities that ensure consistency across our marine conservation research.
 
 ## Installation
-
-You can install the development version of PristineSeasR2 from GitHub with:
-
-``` r
+ 
+```r
 # install.packages("pak")
 pak::pak("pristine-seas/PristineSeasR2")
-
-# Or with devtools
-# devtools::install_github("pristine-seas/PristineSeasR2")
 ```
 
-## Quick Start
+## Standardized Vocabularies
 
-```{r example, eval = FALSE}
+Controlled vocabularies ensure consistent data entry across expeditions and analysts:
+
+```{r vocab-example}
 library(PristineSeasR2)
 
-paths <- get_drive_paths()
+# Five standardized vocabularies
+names(allowed_vocab)
 
-paths$expeditions |> 
-  list.dirs(recursive = FALSE, full.names = FALSE)
+# Trophic classifications for reef fish
+allowed_vocab$trophic_group
 ```
 
+### Data Validation
+
+Catch non-standard entries early — `validate_vocab()` stops your pipeline if invalid values are found:
+ 
+```{r validate-success}
+# Valid data passes
+validate_vocab(c("shark", "top_predator", "planktivore"), "trophic_group")
+```
+
+```{r validate-error, error=TRUE}
+# Invalid data stops with informative error
+validate_vocab(c("shark", "apex_predator"), "trophic_group")
+```
+
+## Color Palettes
+
+Publication-ready colors designed for marine science visualization:
+
+```{r palettes, fig.height=5, fig.width=8, dpi=150}
+library(ggplot2)
+
+# Example: Trophic group colors
+trophic_colors <- ps_colors("trophic_group")
+
+# Sample data
+fish_data <- data.frame(
+  trophic_group = factor(names(trophic_colors), levels = names(trophic_colors)),
+  biomass = c(45, 120, 280, 190, 85)
+)
+
+ggplot(fish_data, aes(x = trophic_group, y = biomass, fill = trophic_group)) +
+  geom_col(width = 0.7) +
+  scale_fill_ps("trophic_group") +
+  labs(
+    title = "Reef Fish Biomass by Trophic Group",
+    x = NULL,
+    y = expression(Biomass~(g/m^2))
+  ) +
+  theme_ps() +
+  theme(legend.position = "none")
+```
+
+### Available Palettes
+
+```{r show-palettes, echo=FALSE, fig.height=6, fig.width=9, dpi=150}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Build palette display data
+palette_names <- c("trophic_group", "depth_strata", "functional_groups")
+
+palette_data <- lapply(palette_names, function(pal) {
+  colors <- ps_colors(pal)
+  data.frame(
+    palette = pal,
+    value = factor(names(colors), levels = names(colors)),
+    color = unname(colors),
+    stringsAsFactors = FALSE
+  )
+}) |> bind_rows()
+
+palette_data$palette <- factor(
+  palette_data$palette, 
+  levels = palette_names,
+  labels = c("trophic_group", "depth_strata", "functional_groups")
+)
+
+ggplot(palette_data, aes(x = value, y = 1, fill = color)) +
+ geom_tile(color = "white", linewidth = 0.5) +
+  scale_fill_identity() +
+  facet_wrap(~palette, scales = "free_x", ncol = 1) +
+  labs(title = "PristineSeasR2 Color Palettes") +
+  theme_void() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5, margin = margin(b = 15)),
+    strip.text = element_text(size = 11, face = "bold", margin = margin(b = 8)),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8, margin = margin(t = 5)),
+    plot.margin = margin(20, 20, 20, 20)
+  )
+```
+
+## Depth Stratification
+
+Convert continuous depths to standardized survey categories:
+
+```{r stratify}
+depths_m <- c(2, 8, 12, 22, 45)
+
+# Classify into strata
+stratify(depths_m)
+
+# Get station suffixes for IDs
+station_suffix(stratify(depths_m))
+```
+
+## Key Functions
+ 
+| Function | Purpose |
+|----------|---------|
+| `allowed_vocab` | Standardized vocabularies for survey data |
+| `validate_vocab()` | Validate data against vocabularies |
+| `ps_colors()` | Get color palettes |
+| `scale_fill_ps()` / `scale_color_ps()` | ggplot2 color scales |
+| `theme_ps()` / `theme_ps_map()` | ggplot2 themes |
+| `stratify()` | Depth stratification |
+| `get_drive_paths()` | Access shared Google Drive folders |
+| `create_expedition()` | Create expedition folder structure |
+
+## Learn More
+
+- [Function Reference](https://pristine-seas.github.io/PristineSeasR2/reference/)
+- [Pristine Seas Website](https://www.nationalgeographic.org/society/our-programs/pristine-seas/)
+
+---
+
+<p align="center">
+<em>Developed by the Pristine Seas Science Team</em>
+</p>
