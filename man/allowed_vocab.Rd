@@ -12,63 +12,110 @@ allowed_vocab
 }
 \description{
 Standardized vocabularies for Pristine Seas data collection and analysis.
+Use with \code{\link[=validate_vocab]{validate_vocab()}} to check data conformance.
 }
 \details{
-\strong{trophic_group} - Fish trophic classifications:
-\itemize{
-\item \strong{shark} — All sharks
-\item \strong{top_predator} — Large predatory fish excluding sharks
-\item \strong{lower_carnivore} — Mid-level carnivorous fish
-\item \strong{herbivore | detritivore} — Plant and detritus feeding fish
-\item \strong{planktivore} — Plankton feeding fish
+\subsection{trophic_group}{
+
+Fish trophic classifications:
+\describe{
+\item{shark}{All sharks}
+\item{top_predator}{Large predatory fish excluding sharks}
+\item{lower_carnivore}{Mid-level carnivorous fish}
+\item{herbivore | detritivore}{Plant and detritus feeding fish}
+\item{planktivore}{Plankton feeding fish}
+}
 }
 
-\strong{depth_strata} - Survey depth categories:
-\itemize{
-\item \strong{supershallow} — 0.1 - 6m depth
-\item \strong{shallow} — 6.1 - 14m depth
-\item \strong{deep} — 14.1 - 30m depth
+\subsection{depth_strata}{
+
+Survey depth categories:
+\describe{
+\item{surface}{0m depth (surface observations)}
+\item{supershallow}{0.1 - 6m depth}
+\item{shallow}{6.1 - 14m depth}
+\item{deep}{14.1 - 30m depth}
+\item{superdeep}{> 30m depth}
+}
 }
 
-\strong{exposure} - Site exposure conditions:
-\itemize{
-\item \strong{windward} — Exposed to prevailing swell or wind; typically high wave energy and surge
-\item \strong{leeward} — Sheltered side of reef or island protected from prevailing swell
-\item \strong{lagoon} — Located inside a reef or atoll, generally protected from direct wave action
-\item \strong{channel} — Within a reef pass or surge channel; often features strong tidal currents
-\item \strong{sheltered} — Protected from wave energy by a bay or other geomorphic feature
-\item \strong{exposed} — Generally high energy due to wave or swell exposure; used where windward/leeward doesn't apply
-\item \strong{unknown} — Exposure not determined or insufficient data to classify
+\subsection{exposure}{
+
+Site exposure conditions:
+\describe{
+\item{windward}{Exposed to prevailing swell or wind; typically high wave energy and surge}
+\item{leeward}{Sheltered side of reef or island protected from prevailing swell}
+\item{lagoon}{Located inside a reef or atoll, generally protected from direct wave action}
+\item{channel}{Within a reef pass or surge channel; often features strong tidal currents}
+\item{sheltered}{Protected from wave energy by a bay or other geomorphic feature}
+\item{exposed}{Generally high energy due to wave or swell exposure; used where windward/leeward doesn't apply}
+\item{unknown}{Exposure not determined or insufficient data to classify}
+}
 }
 
-\strong{uvs_habitats} - UVS habitat classifications:
-\itemize{
-\item \strong{fore_reef} — Seaward-facing outer slope of coral reef
-\item \strong{back_reef} — Lagoon-facing side behind the reef crest
-\item \strong{reef_flat} — Horizontal shallow zone near the crest
-\item \strong{patch_reef} — Isolated reef outcrop within lagoon or sand plain
-\item \strong{pinnacle_reef} — Steep-sided, often isolated coral structures
-\item \strong{bank} — Flat-topped offshore feature with reef or rocky habitat
-\item \strong{rocky_reef} — Non-coral reef formed from rock, with reef biota
-\item \strong{reef_pavement} — Flat, low-relief hard-bottom reef surface
-\item \strong{channel_pass} — Channel through reef system with strong flow
-\item \strong{wall} — Vertical or steep reef drop-off
-\item \strong{kelp_forest} — Dense canopy-forming macroalgae habitat
-\item \strong{seagrass} — Dominant seagrass bed habitat
+\subsection{uvs_habitats}{
+
+Underwater visual survey habitat classifications:
+\describe{
+\item{fore_reef}{Seaward-facing outer slope of coral reef}
+\item{back_reef}{Lagoon-facing side behind the reef crest}
+\item{reef_flat}{Horizontal shallow zone near the crest}
+\item{patch_reef}{Isolated reef outcrop within lagoon or sand plain}
+\item{pinnacle_reef}{Steep-sided, often isolated coral structures}
+\item{bank}{Flat-topped offshore feature with reef or rocky habitat}
+\item{rocky_reef}{Non-coral reef formed from rock, with reef biota}
+\item{reef_pavement}{Flat, low-relief hard-bottom reef surface}
+\item{channel_pass}{Channel through reef system with strong flow}
+\item{wall}{Vertical or steep reef drop-off}
+\item{kelp_forest}{Dense canopy-forming macroalgae habitat}
+\item{seagrass}{Dominant seagrass bed habitat}
+}
 }
 
-\strong{functional_groups} - Benthic functional group classifications:
-\itemize{
-\item \strong{hard_coral} — Hard coral colonies and structures
-\item \strong{cca} — Crustose coralline algae
-\item \strong{cyanobacteria} — Cyanobacterial mats and films
-\item \strong{soft_coral} — Soft coral colonies and sea fans
-\item \strong{sponges} — Sponge communities and structures
-\item \strong{erect_algae} — Erect/branching macroalgae
-\item \strong{encrusting_algae} — Encrusting algal forms
-\item \strong{turf} — Algal turf matrices
-\item \strong{sediment | rubble | barren} — Sediment, rubble, or barren substrate
-\item \strong{other} — Other functional groups not classified above
+\subsection{functional_groups}{
+
+Benthic functional group classifications:
+\describe{
+\item{hard_coral}{Hard coral colonies and structures (Scleractinia)}
+\item{soft_coral}{Soft coral colonies, sea fans, and gorgonians}
+\item{algae_erect}{Erect/branching macroalgae (fleshy and calcareous)}
+\item{algae_encrusting}{Encrusting algal forms (non-coralline)}
+\item{algae_canopy}{Kelp, Sargassum, and other large canopy-forming macroalgae}
+\item{cca}{Crustose coralline algae}
+\item{turf}{Algal turf matrices (< 2cm height)}
+\item{cyanobacteria}{Cyanobacterial mats and films}
+\item{seagrass}{Seagrass species}
+\item{sponges}{Sponge communities and structures (Porifera)}
+\item{bryozoans}{Bryozoan colonies}
+\item{ascidians}{Tunicates and sea squirts}
+\item{hydrozoans}{Hydrozoan colonies (fire corals, hydroids)}
+\item{other_cnidarians}{Other cnidarians (anemones, zoanthids, corallimorphs)}
+\item{sediment | rubble | barren}{Sediment, rubble, or barren substrate}
+\item{eam}{Epilithic algal matrix (turf + detritus + microbes)}
+\item{worms}{Tube worms and other sessile polychaetes}
+\item{echinoderms}{Sessile echinoderms (crinoids, urchins in crevices)}
+\item{molluscs}{Sessile molluscs (giant clams, oysters, vermetids)}
+\item{forams}{Large benthic foraminifera}
+\item{barnacles}{Barnacle assemblages}
+\item{other}{Other functional groups not classified above}
 }
+}
+}
+\examples{
+# View available vocabularies
+names(allowed_vocab)
+
+# Get valid trophic groups
+allowed_vocab$trophic_group
+
+# Get valid depth strata
+allowed_vocab$depth_strata
+
+# Check if a value is valid
+"shark" \%in\% allowed_vocab$trophic_group
+
+}
+\seealso{
+\code{\link[=validate_vocab]{validate_vocab()}} to validate data against these vocabularies
 }
 \keyword{datasets}
