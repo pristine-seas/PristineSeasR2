@@ -10,6 +10,7 @@ research.
 ## Installation
 
 ``` r
+
 # install.packages("pak")
 pak::pak("pristine-seas/PristineSeasR2")
 ```
@@ -20,6 +21,7 @@ Controlled vocabularies ensure consistent data entry across expeditions
 and analysts:
 
 ``` r
+
 library(PristineSeasR2)
 
 # Five standardized vocabularies
@@ -41,11 +43,13 @@ Catch non-standard entries early —
 stops your pipeline if invalid values are found:
 
 ``` r
+
 # Valid data passes
 validate_vocab(c("shark", "top_predator", "planktivore"), "trophic_group")
 ```
 
 ``` r
+
 # Invalid data stops with informative error
 validate_vocab(c("shark", "apex_predator"), "trophic_group")
 #> Error: Invalid values found in 'trophic_group'
@@ -58,6 +62,7 @@ validate_vocab(c("shark", "apex_predator"), "trophic_group")
 Publication-ready colors designed for marine science visualization:
 
 ``` r
+
 library(ggplot2)
 
 # Example: Trophic group colors
@@ -89,6 +94,7 @@ ggplot(fish_data,
 Convert continuous depths to standardized survey categories:
 
 ``` r
+
 depths_m <- c(2, 8, 12, 22, 45)
 
 # Classify into strata
@@ -102,16 +108,16 @@ station_suffix(stratify(depths_m))
 
 ## Key Functions
 
-| Function                                                                                                                                                                                          | Purpose                                   |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------|
-| `allowed_vocab`                                                                                                                                                                                   | Standardized vocabularies for survey data |
-| [`validate_vocab()`](https://pristine-seas.github.io/PristineSeasR2/reference/validate_vocab.md)                                                                                                  | Validate data against vocabularies        |
-| [`ps_colors()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_colors.md)                                                                                                            | Get color palettes                        |
-| [`scale_fill_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_fill_ps.md) / [`scale_color_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_color_ps.md) | ggplot2 color scales                      |
-| [`theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps.md) / [`theme_ps_map()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps_map.md)               | ggplot2 themes                            |
-| [`stratify()`](https://pristine-seas.github.io/PristineSeasR2/reference/stratify.md)                                                                                                              | Depth stratification                      |
-| [`ps_science_paths()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_science_paths.md)                                                                                              | Access shared Google Drive folders        |
-| [`create_expedition()`](https://pristine-seas.github.io/PristineSeasR2/reference/create_expedition.md)                                                                                            | Create expedition folder structure        |
+| Function | Purpose |
+|----|----|
+| `allowed_vocab` | Standardized vocabularies for survey data |
+| [`validate_vocab()`](https://pristine-seas.github.io/PristineSeasR2/reference/validate_vocab.md) | Validate data against vocabularies |
+| [`ps_colors()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_colors.md) | Get color palettes |
+| [`scale_fill_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_fill_ps.md) / [`scale_color_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_color_ps.md) | ggplot2 color scales |
+| [`theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps.md) / [`theme_ps_map()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps_map.md) | ggplot2 themes |
+| [`stratify()`](https://pristine-seas.github.io/PristineSeasR2/reference/stratify.md) | Depth stratification |
+| [`ps_science_paths()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_science_paths.md) | Access shared Google Drive folders |
+| [`create_expedition()`](https://pristine-seas.github.io/PristineSeasR2/reference/create_expedition.md) | Create expedition folder structure |
 
 ## Learn More
 

@@ -37,6 +37,7 @@ when you already know your bounding box in WGS84 (EPSG:4326). This
 returns **gridded** values (lat/lon pixels) for each day.
 
 ``` r
+
 # Bounding box for Jemo Island, Marshall Islands
 lat_min <- 10.0547
 lat_max <- 10.1306
@@ -74,6 +75,7 @@ mean DHW time series, which is what
 does by default.
 
 ``` r
+
 dhw_daily <- dhw_grid |>
   group_by(date) |>
   summarise(avg_dhw = mean(dhw, na.rm = TRUE), .groups = "drop")
@@ -104,6 +106,7 @@ footprint, etc.). The function will:
     (`summarise_daily = TRUE`)
 
 ``` r
+
 # Create sf features for Samoa islands from bounding box coordinates
 
 # Savaii
@@ -136,6 +139,7 @@ AOIs
 ### Single AOI example
 
 ``` r
+
 savaii_dhw <- get_crw_dhw_sf(feature  = savaii,
                              start    = "2023-01-01",
                              end      = "2024-12-31",
@@ -171,6 +175,7 @@ the core function simple (one feature in, one feature out) while still
 supporting batch workflows.
 
 ``` r
+
 dhw_samoa <- map_dfr(seq_len(nrow(AOIs)), \(i) {
   get_crw_dhw_sf(feature  = AOIs[i, ],
                  start    = "2023-01-01",
@@ -219,6 +224,7 @@ These are rules of thumb and should be interpreted with context
 observations).
 
 ``` r
+
 x_annot <- min(dhw_samoa$date, na.rm = TRUE)
 
 dhw_samoa |>

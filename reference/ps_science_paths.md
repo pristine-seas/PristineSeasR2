@@ -39,6 +39,7 @@ A named list with normalized paths:
 
 ## Details
 
+
     My Drive/
     └── Pristine Seas/
         └── SCIENCE/
@@ -63,6 +64,7 @@ This function requires Google Drive for Desktop with the
 
 For non-standard setups (e.g., custom drive letters, CI, or shared
 machines), set an environment variable in `.Renviron`:
+
 
     PS_SCIENCE_PATH=G:/My Drive/Pristine Seas/SCIENCE
 
