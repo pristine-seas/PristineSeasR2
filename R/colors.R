@@ -55,18 +55,18 @@ ps_palettes <- list(
     "sediment | rubble | barren" = "#D9D9D9"
   ),
 
-  functional_groups2 <- c(
-    hard_coral                   = "#F5A623",
-    cca                          = "#DB228C",
-    soft_coral                   = "#9077C4",
-    algae_erect                  = "#3E7D5B",
-    algae_encrusting             = "#95BFB7",
-    algae_canopy                 = "#265045",
-    sponges                      = "#D05A37",
-    other                        = "#B5AB8D",
-    cyanobacteria                = "#28121F",
-    turf                         = "#584C2D",
-    "sediment | rubble | barren" = "#E8E6E2"
+  functional_groups2 = c(
+    hard_coral                   = "#FFD51C",
+    cca                          = "#DD207E",
+    soft_coral                   = "#512E98",
+    sponges                      = "#2B7BDD",
+    algae_erect                  = "#1E9B49",
+    algae_encrusting             = "#51C7B8",
+    algae_canopy                 = "#1D6764",
+    other                        = "#818CAF",
+    "sediment | rubble | barren" = "#BBB38B",
+    turf                         = "#5F5739",
+    cyanobacteria                = "#3E243E"
   ),
 
   # UVS habitat types
