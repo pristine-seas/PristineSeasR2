@@ -53,18 +53,19 @@ ps_palettes <- list(
                           turf                          = "#7A6E3E",
                           cyanobacteria                 = "#2E1B26"),
 
-  uvs_habitats = c(fore_reef     = "#D85C41",
-                   back_reef     = "#F2A06F",
-                   patch_reef    = "#EBA5BE",
-                   pinnacle_reef = "#A8325A",
-                   reef_flat     = "#47B9C9",
-                   channel_pass  = "#28659A",
-                   reef_pavement = "#958166",
-                   bank          = "#D5B66F",
-                   rocky_reef    = "#73777E",
-                   wall          = "#303B44",
-                   kelp_forest   = "#176B52",
-                   seagrass      = "#91BA3F")
+  uvs_habitats = c(fore_reef      = "#D85C41",
+                   back_reef      = "#F2A06F",
+                   fringing_reef  = "#8F5AA8",
+                   patch_reef     = "#EBA5BE",
+                   pinnacle_reef  = "#A8325A",
+                   reef_flat      = "#47B9C9",
+                   channel_pass   = "#28659A",
+                   reef_pavement  = "#958166",
+                   bank           = "#D5B66F",
+                   rocky_reef     = "#73777E",
+                   wall           = "#303B44",
+                   kelp_forest    = "#176B52",
+                   seagrass       = "#91BA3F")
 )
 
 
