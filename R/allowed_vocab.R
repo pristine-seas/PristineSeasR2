@@ -131,6 +131,7 @@ allowed_vocab <- list(
     "back_reef",
     "reef_flat",
     "patch_reef",
+    "fringing_reef",
     "pinnacle_reef",
     "bank",
     "rocky_reef",

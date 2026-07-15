@@ -4,87 +4,69 @@
 # All palettes in one registry
 ps_palettes <- list(
 
-  # depth strata
-  depth_strata = c(
-    supershallow = "#9DEFFF",
-    shallow      = "#8FB8D8",
-    deep         = "#264E86",
-    superdeep    = "#0B1026"
-  ),
+  depth_strata = c(supershallow = "#8DE7F2",
+                   shallow      = "#69A9D0",
+                   deep         = "#2E6498",
+                   superdeep    = "#111A35"),
 
-  # exposure
-  exposure = c(
-    # --- Core (most used)
-    windward  = "#8C1D18",
-    leeward   = "#2E6F95",
-    lagoon    = "#2CB1A6",
+  exposure = c(windward  = "#9B302B",
+               leeward   = "#34749B",
+               lagoon    = "#198F88",
+               exposed   = "#D46B5B",
+               channel   = "#1F4E79",
+               sheltered = "#79C9C1",
+               unknown   = "#AEB5B8"),
 
-    # --- Secondary (tints of core hues)
-    exposed   = "#C75A4A",  # lighter windward tint
-    channel   = "#1F4E79",  # darker leeward variant
-    sheltered = "#8FD6CF",  # lighter lagoon tint
+  trophic_group = c(shark                     = "#7A0010",
+                    top_predator              = "#E0B83F",
+                    lower_carnivore           = "#8EC9F0",
+                    "herbivore | detritivore" = "#1F7A4C",
+                    planktivore               = "#B9A3E3"),
 
-    # --- Neutral
-    unknown   = "#CFCFCF"
-  ),
+  functional_groups = c(hard_coral                   = "#2E4A9E",
+                        cca                          = "#FF7FA7",
+                        soft_coral                   = "#6FD3E3",
+                        algae_erect                  = "#2FA84F",
+                        algae_encrusting             = "#8FCFA9",
+                        algae_canopy                 = "#8A7A3A",
+                        sponges                      = "#E07A5F",
+                        other                        = "#7A5C8F",
+                        cyanobacteria                = "#0B0B0B",
+                        turf                         = "#4A3A2A",
+                        "sediment | rubble | barren" = "#D9D9D9"),
 
-  # reef fish trophic groups
-  trophic_group = c(
-    shark                     = "#7A0010",
-    top_predator              = "#E0B83F",
-    lower_carnivore           = "#8EC9F0",
-    "herbivore | detritivore" = "#1F7A4C",
-    planktivore               = "#B9A3E3"
-  ),
+  trophic_group2 <- c(shark                     = "#651A32",
+                      top_predator              = "#E48B22",
+                      lower_carnivore           = "#3C82B5",
+                      "herbivore | detritivore" = "#178A78",
+                      planktivore               = "#8B70B2"),
 
-  # benthic functional groups
-  functional_groups = c(
-    hard_coral                   = "#2E4A9E",
-    cca                          = "#FF7FA7",
-    soft_coral                   = "#6FD3E3",
-    algae_erect                  = "#2FA84F",
+  functional_groups2 <- c(hard_coral                    = "#F4B740",
+                          cca                           = "#DE5B8C",
+                          soft_coral                    = "#7E5AA2",
+                          sponges                       = "#46B4C9",
+                          algae_erect                   = "#4E9E5B",
+                          algae_encrusting              = "#7FC8B3",
+                          algae_canopy                  = "#245C54",
+                          other                         = "#A8A29A",
+                          "sediment | rubble | barren"  = "#D3C9A5",
+                          turf                          = "#7A6E3E",
+                          cyanobacteria                 = "#2E1B26"),
 
-    algae_encrusting             = "#8FCFA9",
-    algae_canopy                 = "#8A7A3A",
-    sponges                      = "#E07A5F",
-    other                        = "#7A5C8F",
-
-    cyanobacteria                = "#0B0B0B",
-    turf                         = "#4A3A2A",
-
-    "sediment | rubble | barren" = "#D9D9D9"
-  ),
-
-  functional_groups2 = c(
-    hard_coral                   = "#FFD51C",
-    cca                          = "#DD207E",
-    soft_coral                   = "#512E98",
-    sponges                      = "#2B7BDD",
-    algae_erect                  = "#1E9B49",
-    algae_encrusting             = "#51C7B8",
-    algae_canopy                 = "#1D6764",
-    other                        = "#818CAF",
-    "sediment | rubble | barren" = "#BBB38B",
-    turf                         = "#5F5739",
-    cyanobacteria                = "#3E243E"
-  ),
-
-  # UVS habitat types
-  uvs_habitats = c(
-    fore_reef     = "#E26B47",
-    back_reef     = "#F39C6B",
-    patch_reef    = "#F4A7B9",
-    pinnacle_reef = "#C23B55",
-    reef_flat     = "#4FC3D5",
-    channel_pass  = "#2F6FA3",
-    reef_pavement = "#B19A7A",
-    bank          = "#CFAF7A",
-    rocky_reef    = "#6B7078",
-    wall          = "#3E4A52",
-    kelp_forest   = "#2E6A3B",
-    seagrass      = "#7BBF3F"
-  )
+  uvs_habitats = c(fore_reef     = "#D85C41",
+                   back_reef     = "#F2A06F",
+                   patch_reef    = "#EBA5BE",
+                   pinnacle_reef = "#A8325A",
+                   reef_flat     = "#47B9C9",
+                   channel_pass  = "#28659A",
+                   reef_pavement = "#958166",
+                   bank          = "#D5B66F",
+                   rocky_reef    = "#73777E",
+                   wall          = "#303B44",
+                   kelp_forest   = "#176B52",
+                   seagrass      = "#91BA3F")
 )
+
 
 # Small internal helpers -----------------------------------------------------
 
