@@ -35,13 +35,13 @@ ps_palettes <- list(
                         turf                         = "#4A3A2A",
                         "sediment | rubble | barren" = "#D9D9D9"),
 
-  trophic_group2 <- c(shark                     = "#651A32",
+  trophic_group2 = c(shark                     = "#651A32",
                       top_predator              = "#E48B22",
                       lower_carnivore           = "#3C82B5",
                       "herbivore | detritivore" = "#178A78",
                       planktivore               = "#8B70B2"),
 
-  functional_groups2 <- c(hard_coral                    = "#F4B740",
+  functional_groups2 = c(hard_coral                    = "#F4B740",
                           cca                           = "#DE5B8C",
                           soft_coral                    = "#7E5AA2",
                           sponges                       = "#46B4C9",
