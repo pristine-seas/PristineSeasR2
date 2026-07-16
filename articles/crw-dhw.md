@@ -52,19 +52,15 @@ dhw_grid <- get_crw_dhw_bbox(lat_min = lat_min,
                              end     = "2025-12-31",
                              verbose = TRUE)
 #>   Fetching 2023...
+#>   Failed 2023: HTTP 502 Bad Gateway.
 #>   Fetching 2024...
+#>   Failed 2024: HTTP 502 Bad Gateway.
 #>   Fetching 2025...
+#>   Failed 2025: HTTP 502 Bad Gateway.
 
 head(dhw_grid)
-#> # A tibble: 6 × 4
-#>   date       latitude longitude   dhw
-#>   <date>        <dbl>     <dbl> <dbl>
-#> 1 2023-01-01     10.1      170.     0
-#> 2 2023-01-01     10.1      170.     0
-#> 3 2023-01-01     10.1      170.     0
-#> 4 2023-01-01     10.1      170.     0
-#> 5 2023-01-02     10.1      170.     0
-#> 6 2023-01-02     10.1      170.     0
+#> # A tibble: 0 × 4
+#> # ℹ 4 variables: date <date>, latitude <dbl>, longitude <dbl>, dhw <dbl>
 ```
 
 #### Summarize by day (daily mean across the bbox)
@@ -81,15 +77,8 @@ dhw_daily <- dhw_grid |>
   summarise(avg_dhw = mean(dhw, na.rm = TRUE), .groups = "drop")
 
 head(dhw_daily)
-#> # A tibble: 6 × 2
-#>   date       avg_dhw
-#>   <date>       <dbl>
-#> 1 2023-01-01       0
-#> 2 2023-01-02       0
-#> 3 2023-01-03       0
-#> 4 2023-01-04       0
-#> 5 2023-01-05       0
-#> 6 2023-01-06       0
+#> # A tibble: 0 × 2
+#> # ℹ 2 variables: date <date>, avg_dhw <dbl>
 ```
 
 ## Query by `sf` feature (recommended)

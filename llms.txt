@@ -157,6 +157,9 @@ station_suffix(stratify(depths_m))
 - [`get_drive_paths()`](https://pristine-seas.github.io/PristineSeasR2/reference/get_drive_paths.md)
   : Get Standardized Paths for the Science Team in Google Drive
 
+- [`get_taxonomic_ranks()`](https://pristine-seas.github.io/PristineSeasR2/reference/get_taxonomic_ranks.md)
+  : Get Higher Taxonomic Ranks from WoRMS by AphiaID
+
 - [`ps_colors()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_colors.md)
   : Get Pristine Seas colors
 
