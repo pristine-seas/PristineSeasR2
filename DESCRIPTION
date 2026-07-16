@@ -34,7 +34,10 @@ Suggests:
     knitr,
     rmarkdown,
     pkgdown,
-    paletteer
+    paletteer,
+    worrms,
+    furrr,
+    future
 LazyData: true
 Config/testthat/edition: 3
 VignetteBuilder: knitr
