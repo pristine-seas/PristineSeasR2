@@ -190,6 +190,10 @@ station_suffix(stratify(depths_m))
 - [`theme_ps_map()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps_map.md)
   : Pristine Seas map theme (ggplot2)
 
+- [`validate_and_export_csv()`](https://pristine-seas.github.io/PristineSeasR2/reference/validate_and_export_csv.md)
+  : Validate a Data Frame's Columns Against a BigQuery Table, Then
+  Export to CSV
+
 - [`validate_vocab()`](https://pristine-seas.github.io/PristineSeasR2/reference/validate_vocab.md)
   : Validate Values Against Allowed Vocabularies
 
