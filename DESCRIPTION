@@ -28,7 +28,16 @@ Imports:
     purrr,
     readr,
     sf,
-    bigrquery
+    bigrquery,
+    leaflet,
+    leaflet.minicharts,
+    leaflet.extras,
+    leafem,
+    htmlwidgets,
+    htmltools,
+    jsonlite,
+    grDevices,
+    cli
 Suggests:
     stringr,
     testthat (>= 3.0.0),

@@ -72,7 +72,7 @@ validate_and_export_csv <- function(df, table_ref, path, label = table_ref,
   out <- dplyr::select(df, dplyr::all_of(ref_cols))
   readr::write_csv(out, path)
 
-  if (!quiet) message(sprintf("✓ %s → %s", label, path))
+  if (!quiet) cli::cli_alert_success("{label} written to {.path {path}}")
 
   invisible(path)
 }
