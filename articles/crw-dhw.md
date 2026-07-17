@@ -52,19 +52,15 @@ dhw_grid <- get_crw_dhw_bbox(lat_min = lat_min,
                              end     = "2025-12-31",
                              verbose = TRUE)
 #>   Fetching 2023...
+#>   Failed 2023: HTTP 502 Bad Gateway.
 #>   Fetching 2024...
+#>   Failed 2024: HTTP 502 Bad Gateway.
 #>   Fetching 2025...
+#>   Failed 2025: HTTP 502 Bad Gateway.
 
 head(dhw_grid)
-#> # A tibble: 6 × 4
-#>   date       latitude longitude   dhw
-#>   <date>        <dbl>     <dbl> <dbl>
-#> 1 2023-01-01     10.1      170.     0
-#> 2 2023-01-01     10.1      170.     0
-#> 3 2023-01-01     10.1      170.     0
-#> 4 2023-01-01     10.1      170.     0
-#> 5 2023-01-02     10.1      170.     0
-#> 6 2023-01-02     10.1      170.     0
+#> # A tibble: 0 × 4
+#> # ℹ 4 variables: date <date>, latitude <dbl>, longitude <dbl>, dhw <dbl>
 ```
 
 #### Summarize by day (daily mean across the bbox)
@@ -81,15 +77,8 @@ dhw_daily <- dhw_grid |>
   summarise(avg_dhw = mean(dhw, na.rm = TRUE), .groups = "drop")
 
 head(dhw_daily)
-#> # A tibble: 6 × 2
-#>   date       avg_dhw
-#>   <date>       <dbl>
-#> 1 2023-01-01       0
-#> 2 2023-01-02       0
-#> 3 2023-01-03       0
-#> 4 2023-01-04       0
-#> 5 2023-01-05       0
-#> 6 2023-01-06       0
+#> # A tibble: 0 × 2
+#> # ℹ 2 variables: date <date>, avg_dhw <dbl>
 ```
 
 ## Query by `sf` feature (recommended)
@@ -149,23 +138,24 @@ savaii_dhw <- get_crw_dhw_sf(feature  = savaii,
                              verbose  = TRUE)
 #> Fetching DHW for Savaii...
 #>   Fetching 2023...
+#>   Failed 2023: HTTP 502 Bad Gateway.
 #>   Fetching 2024...
 
 savaii_dhw
-#> # A tibble: 731 × 3
+#> # A tibble: 366 × 3
 #>    island date       avg_dhw
 #>    <chr>  <date>       <dbl>
-#>  1 Savaii 2023-01-01       0
-#>  2 Savaii 2023-01-02       0
-#>  3 Savaii 2023-01-03       0
-#>  4 Savaii 2023-01-04       0
-#>  5 Savaii 2023-01-05       0
-#>  6 Savaii 2023-01-06       0
-#>  7 Savaii 2023-01-07       0
-#>  8 Savaii 2023-01-08       0
-#>  9 Savaii 2023-01-09       0
-#> 10 Savaii 2023-01-10       0
-#> # ℹ 721 more rows
+#>  1 Savaii 2024-01-01 0.00296
+#>  2 Savaii 2024-01-02 0.00296
+#>  3 Savaii 2024-01-03 0.00480
+#>  4 Savaii 2024-01-04 0.0175 
+#>  5 Savaii 2024-01-05 0.0175 
+#>  6 Savaii 2024-01-06 0.0357 
+#>  7 Savaii 2024-01-07 0.0562 
+#>  8 Savaii 2024-01-08 0.0562 
+#>  9 Savaii 2024-01-09 0.185  
+#> 10 Savaii 2024-01-10 0.268  
+#> # ℹ 356 more rows
 ```
 
 ## Multiple AOIs

@@ -146,6 +146,19 @@ station_suffix(stratify(depths_m))
 - [`create_project()`](https://pristine-seas.github.io/PristineSeasR2/reference/create_project.md)
   : Create New Pristine Seas Project Structure
 
+- [`default_benthic_cover_groups()`](https://pristine-seas.github.io/PristineSeasR2/reference/default_benthic_cover_groups.md)
+  :
+
+  Standard Benthic Cover Groups for
+  [`explore_benthic_cover()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_benthic_cover.md)
+
+- [`explore_benthic_cover()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_benthic_cover.md)
+  : Build the Interactive Benthic Cover Map (Pie Charts by Site)
+
+- [`explore_uvs_sites()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_uvs_sites.md)
+  : Build the Interactive UVS Sites Map (Color-By
+  Region/Subregion/Habitat/Exposure)
+
 - [`get_crw_dhw_bbox()`](https://pristine-seas.github.io/PristineSeasR2/reference/get_crw_dhw_bbox.md)
   : Fetch NOAA CRW DHW (Degree Heating Week) for a bounding box (bbox)
 
