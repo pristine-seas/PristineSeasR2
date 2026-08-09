@@ -31,4 +31,5 @@ ps_researchers <- tibble::tribble(~initials, ~name,               ~affiliation, 
                                   "SAS",     "Stuart Sandin",     "Scripps",              "Visiting",     "Fish ecology",
                                   "AMF",     "Alan Friedlander",  "University of Hawaii", "Emeritus",     "Fish ecology",
                                   "KB",      "Kike Ballesteros",  "CEAB",                 "Emeritus",     "Benthic ecology",
-                                  "YW",      "Yvonne Wong",       "Pristine Seas",        "Local",        "Stakeholder engagement")
+                                  "YW",      "Yvonne Wong",       "Pristine Seas",        "Local",        "Stakeholder engagement",
+                                  "AS",      "Ada Sokach",        "Vanuatu Fisheries Department", "Local", "Coral recruitment, Reef monitoring")

@@ -37,9 +37,11 @@ Imports:
     htmltools,
     jsonlite,
     grDevices,
-    cli
+    cli,
+    viridisLite,
+    gt,
+    stringr
 Suggests:
-    stringr,
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
