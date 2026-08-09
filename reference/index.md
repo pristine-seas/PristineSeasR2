@@ -23,6 +23,17 @@
 - [`explore_benthic_cover()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_benthic_cover.md)
   : Build the Interactive Benthic Cover Map (Pie Charts by Site)
 
+- [`explore_fish_biomass()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_fish_biomass.md)
+  : Build the Interactive Fish Survey Results Map (Metric Toggle by
+  Site)
+
+- [`explore_invert_density()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_invert_density.md)
+  : Build the Interactive Invertebrate Survey Results Map (Metric Toggle
+  by Site)
+
+- [`explore_recruit_density()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_recruit_density.md)
+  : Build the Interactive Recruit Density Map (Circle Markers by Site)
+
 - [`explore_uvs_sites()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_uvs_sites.md)
   : Build the Interactive UVS Sites Map (Color-By
   Region/Subregion/Habitat/Exposure)
@@ -40,6 +51,12 @@
 
 - [`get_taxonomic_ranks()`](https://pristine-seas.github.io/PristineSeasR2/reference/get_taxonomic_ranks.md)
   : Get Higher Taxonomic Ranks from WoRMS by AphiaID
+
+- [`gt_theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/gt_theme_ps.md)
+  : Pristine Seas gt Theme for Summary Tables
+
+- [`light_gt()`](https://pristine-seas.github.io/PristineSeasR2/reference/light_gt.md)
+  : Apply the Pristine Seas Light, Compact gt Style to a Data Frame
 
 - [`ps_colors()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_colors.md)
   : Get Pristine Seas colors

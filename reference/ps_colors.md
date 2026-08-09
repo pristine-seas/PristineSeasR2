@@ -30,7 +30,7 @@ Palettes are returned as named character vectors of hex color codes.
 ps_colors()                    # list available palettes
 #> [1] "depth_strata"       "exposure"           "trophic_group"     
 #> [4] "functional_groups"  "trophic_group2"     "functional_groups2"
-#> [7] "uvs_habitats"      
+#> [7] "uvs_habitats"       "invert_groups"     
 ps_colors("trophic_group")     # named vector
 #>                   shark            top_predator         lower_carnivore 
 #>               "#7A0010"               "#E0B83F"               "#8EC9F0" 
