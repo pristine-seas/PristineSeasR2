@@ -52,6 +52,22 @@ export_ps_map <- function(m, title, subtitle, export_path) {
                    if (nzchar(subtitle)) paste0("<small>", subtitle, "</small>") else ""),
     position = "topleft", className = "map-title-ctl"
   )
-  htmlwidgets::saveWidget(m_export, export_path, selfcontained = TRUE, title = title)
+  # `saveWidget(selfcontained = TRUE)` writes the widget's dependency folder —
+  # jquery, leaflet, the provider list — beside the output, inlines it into the
+  # HTML, and then does not reliably clear up. What it leaves behind is a
+  # `<name>_files/` directory of about a megabyte that nothing references: the
+  # HTML is already complete without it, but anyone sharing the file sees it and
+  # reasonably assumes it is needed. Building in a temp directory and moving the
+  # finished file leaves one self-contained HTML and nothing else.
+  staging <- tempfile("ps_map_")
+  dir.create(staging, recursive = TRUE, showWarnings = FALSE)
+  on.exit(unlink(staging, recursive = TRUE), add = TRUE)
+
+  tmp <- file.path(staging, basename(export_path))
+  htmlwidgets::saveWidget(m_export, tmp, selfcontained = TRUE, title = title)
+
+  dir.create(dirname(export_path), recursive = TRUE, showWarnings = FALSE)
+  file.copy(tmp, export_path, overwrite = TRUE)
+
   invisible(export_path)
 }

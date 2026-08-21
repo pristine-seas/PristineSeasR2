@@ -7,7 +7,7 @@
 #     a set-off total column, a heatmap fill), each opt-in via an argument so
 #     one function serves a flat effort table and a full cover matrix alike
 #
-# Companion: light_gt() is the plain, compact style for diagnostic tables.
+# Companion: gt_theme_ps_light() is the plain, compact style for diagnostic tables.
 # Use that one for "here are the rows a QA/QC check flagged"; use this one for
 # the headline tables a reader is meant to study.
 
@@ -54,7 +54,8 @@
 #' @return A `gt_tbl`. Chain [gt::fmt_number()], [gt::tab_footnote()], etc.
 #'   afterward to finish.
 #'
-#' @seealso [light_gt()] for the plain, compact style used for diagnostic tables.
+#' @seealso [gt_theme_ps_light()] for the plain, compact style used for diagnostic
+#'   tables.
 #'
 #' @examples
 #' \dontrun{
@@ -125,7 +126,7 @@ gt_theme_ps <- function(data,
   }
 
   if (isTRUE(zero_dash)) {
-    tbl <- tbl |> gt::sub_zero(zero_text = "–")
+    tbl <- tbl |> gt::sub_zero(zero_text = "\u2013")
   }
 
   if (isTRUE(grand_summary)) {

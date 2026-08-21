@@ -107,7 +107,7 @@ explore_recruit_density <- function(stations,
   }
 
   num     <- function(x) suppressWarnings(as.numeric(x))
-  fmt_num <- function(v, digits) ifelse(is.na(v), "—",
+  fmt_num <- function(v, digits) ifelse(is.na(v), "\u2014",
     formatC(v, format = "f", digits = digits, big.mark = ","))
 
   # ---- Color + size: both driven by density -----------------------------------
@@ -141,7 +141,7 @@ explore_recruit_density <- function(stations,
   ", ps_map_title_css())))
 
   txt   <- function(x) { x <- as.character(x); ifelse(is.na(x) | !nzchar(trimws(x)), NA, trimws(x)) }
-  crumb <- function(...) { p <- c(...); p <- p[!is.na(p)]; if (length(p)) paste(p, collapse = " › ") else NA }
+  crumb <- function(...) { p <- c(...); p <- p[!is.na(p)]; if (length(p)) paste(p, collapse = " \u203a ") else NA }
   row_  <- function(k, v) ifelse(is.na(v), "",
     sprintf("<tr><td class='k'>%s</td><td class='v'>%s</td></tr>", k, htmltools::htmlEscape(v)))
   metric_row <- function(label, valstr, units) sprintf(
@@ -161,12 +161,12 @@ explore_recruit_density <- function(stations,
     )
     mblock <- paste0(
       "<div class='metrics'>",
-      metric_row("Density",        fmt_num(by_site$avg_density_m2[i], 2), "recruits/m²"),
+      metric_row("Density",        fmt_num(by_site$avg_density_m2[i], 2), "recruits/m\u00b2"),
       metric_row("Taxa richness",  fmt_num(by_site$n_taxa[i], 0),         ""),
       metric_row("Quadrats",       fmt_num(by_site$n_quadrats[i], 0),     ""),
       metric_row("Total recruits", fmt_num(by_site$total_count[i], 0),    ""),
       "</div>")
-    coord <- sprintf("%.4f° %s, %.4f° %s",
+    coord <- sprintf("%.4f\u00b0 %s, %.4f\u00b0 %s",
                      abs(by_site$latitude[i]),  ifelse(by_site$latitude[i]  >= 0, "N", "S"),
                      abs(by_site$longitude[i]), ifelse(by_site$longitude[i] >= 0, "E", "W"))
     paste0(
@@ -187,7 +187,7 @@ explore_recruit_density <- function(stations,
   tick_html <- paste0("<span>", vapply(ticks, function(t) fmt_num(t, 2), character(1)),
                       "</span>", collapse = "")
   legend_html <- paste0(
-    "<div style='font-weight:700;font-size:15px;margin-bottom:8px'>Density (recruits/m²)</div>",
+    "<div style='font-weight:700;font-size:15px;margin-bottom:8px'>Density (recruits/m\u00b2)</div>",
     "<div style='display:flex;gap:9px;align-items:stretch'>",
       "<div style='width:16px;height:130px;border-radius:3px;",
       "background:linear-gradient(to top,", grad, ")'></div>",
@@ -197,7 +197,7 @@ explore_recruit_density <- function(stations,
     "<div style='margin-top:9px;font-size:11px;color:#6b7280;display:flex;align-items:flex-end;gap:5px'>",
       "<span style='width:7px;height:7px;border-radius:50%;background:#9aa2ad;display:inline-block'></span>",
       "<span style='width:13px;height:13px;border-radius:50%;background:#9aa2ad;display:inline-block'></span>",
-      "<span style='margin-left:3px'>point size ∝ value</span>",
+      "<span style='margin-left:3px'>point size \u221d value</span>",
     "</div>"
   )
 
@@ -209,7 +209,7 @@ explore_recruit_density <- function(stations,
       radius = scale_radius(v), stroke = TRUE, color = "white", weight = 1,
       fillColor = palf(v), fillOpacity = 0.85,
       popup = popups,
-      label = paste0(by_site$ps_site_id, "  |  Density: ", fmt_num(v, 2), " recruits/m²")
+      label = paste0(by_site$ps_site_id, "  |  Density: ", fmt_num(v, 2), " recruits/m\u00b2")
     ) |>
     leaflet::addControl(html = paste0("<div id='layer-legend' class='info legend'>", legend_html, "</div>"),
                         position = "bottomright", className = "")

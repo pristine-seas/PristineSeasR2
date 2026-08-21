@@ -104,7 +104,7 @@ explore_fish_biomass <- function(stations,
   }
 
   num     <- function(x) suppressWarnings(as.numeric(x))
-  fmt_num <- function(v, digits) ifelse(is.na(v), "—",
+  fmt_num <- function(v, digits) ifelse(is.na(v), "\u2014",
     formatC(v, format = "f", digits = digits, big.mark = ","))
 
   # ---- Metric definitions ------------------------------------------------------
@@ -113,9 +113,9 @@ explore_fish_biomass <- function(stations,
   metrics <- list(
     list(key = "Taxa richness", col = "n_taxa",          unit = "taxa",
          digits = 0, pal = viridisLite::viridis(256, option = "D")),
-    list(key = "Density",       col = "avg_density_m2",  unit = "ind / m²",
+    list(key = "Density",       col = "avg_density_m2",  unit = "ind / m\u00b2",
          digits = 2, pal = viridisLite::viridis(256, option = "B")),
-    list(key = "Biomass",       col = "avg_biomass_gm2", unit = "g / m²",
+    list(key = "Biomass",       col = "avg_biomass_gm2", unit = "g / m\u00b2",
          digits = 1, pal = viridisLite::mako(256))
   )
   group_names   <- vapply(metrics, function(m) m$key, character(1))
@@ -154,7 +154,7 @@ explore_fish_biomass <- function(stations,
   ", ps_map_title_css())))
 
   txt   <- function(x) { x <- as.character(x); ifelse(is.na(x) | !nzchar(trimws(x)), NA, trimws(x)) }
-  crumb <- function(...) { p <- c(...); p <- p[!is.na(p)]; if (length(p)) paste(p, collapse = " › ") else NA }
+  crumb <- function(...) { p <- c(...); p <- p[!is.na(p)]; if (length(p)) paste(p, collapse = " \u203a ") else NA }
   row_  <- function(k, v) ifelse(is.na(v), "",
     sprintf("<tr><td class='k'>%s</td><td class='v'>%s</td></tr>", k, htmltools::htmlEscape(v)))
   metric_row <- function(label, valstr, units) sprintf(
@@ -175,10 +175,10 @@ explore_fish_biomass <- function(stations,
     mblock <- paste0(
       "<div class='metrics'>",
       metric_row("Taxa richness", fmt_num(by_site$n_taxa[i], 0),          ""),
-      metric_row("Density",       fmt_num(by_site$avg_density_m2[i], 2),  "ind/m²"),
-      metric_row("Biomass",       fmt_num(by_site$avg_biomass_gm2[i], 1), "g/m²"),
+      metric_row("Density",       fmt_num(by_site$avg_density_m2[i], 2),  "ind/m\u00b2"),
+      metric_row("Biomass",       fmt_num(by_site$avg_biomass_gm2[i], 1), "g/m\u00b2"),
       "</div>")
-    coord <- sprintf("%.4f° %s, %.4f° %s",
+    coord <- sprintf("%.4f\u00b0 %s, %.4f\u00b0 %s",
                      abs(by_site$latitude[i]),  ifelse(by_site$latitude[i]  >= 0, "N", "S"),
                      abs(by_site$longitude[i]), ifelse(by_site$longitude[i] >= 0, "E", "W"))
     paste0(
@@ -212,7 +212,7 @@ explore_fish_biomass <- function(stations,
       "<div style='margin-top:9px;font-size:11px;color:#6b7280;display:flex;align-items:flex-end;gap:5px'>",
         "<span style='width:7px;height:7px;border-radius:50%;background:#9aa2ad;display:inline-block'></span>",
         "<span style='width:13px;height:13px;border-radius:50%;background:#9aa2ad;display:inline-block'></span>",
-        "<span style='margin-left:3px'>point size ∝ value</span>",
+        "<span style='margin-left:3px'>point size \u221d value</span>",
       "</div>"
     )
   }

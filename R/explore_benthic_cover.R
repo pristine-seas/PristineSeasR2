@@ -187,7 +187,7 @@ explore_benthic_cover <- function(stations,
   ", ps_map_title_css())))
 
   txt   <- function(x) { x <- as.character(x); ifelse(is.na(x) | !nzchar(trimws(x)), NA, trimws(x)) }
-  crumb <- function(...) { p <- c(...); p <- p[!is.na(p)]; if (length(p)) paste(p, collapse = " › ") else NA }
+  crumb <- function(...) { p <- c(...); p <- p[!is.na(p)]; if (length(p)) paste(p, collapse = " \u203a ") else NA }
   row_  <- function(k, v) ifelse(is.na(v), "",
     sprintf("<tr><td class='k'>%s</td><td class='v'>%s</td></tr>", k, htmltools::htmlEscape(v)))
 
@@ -206,7 +206,7 @@ explore_benthic_cover <- function(stations,
       row_("Stations", as.character(by_site$n_stations[i])),
       row_("Team",     txt(by_site$divers[i]))
     )
-    coord <- sprintf("%.4f° %s, %.4f° %s",
+    coord <- sprintf("%.4f\u00b0 %s, %.4f\u00b0 %s",
                      abs(by_site$latitude[i]),  ifelse(by_site$latitude[i]  >= 0, "N", "S"),
                      abs(by_site$longitude[i]), ifelse(by_site$longitude[i] >= 0, "E", "W"))
     paste0("<div class='ps-pop'>",

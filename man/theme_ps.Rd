@@ -2,26 +2,49 @@
 % Please edit documentation in R/theme_ps.R
 \name{theme_ps}
 \alias{theme_ps}
-\title{Pristine Seas ggplot2 theme}
+\title{Pristine Seas chart theme}
 \usage{
-theme_ps(base_size = 12, base_family = "Helvetica")
+theme_ps(base_size = 12, base_family = ps_font_default())
 }
 \arguments{
-\item{base_size}{Numeric. Base font size. Default is 12.}
+\item{base_size}{Numeric. Base font size in points; every other size is a
+step from it. Default 12.}
 
-\item{base_family}{Character. Base font family. Default is "Helvetica".}
+\item{base_family}{Character. Base font family. Defaults to
+\code{\link[=ps_font_default]{ps_font_default()}} — Inter where it is installed, otherwise Helvetica.}
 }
 \value{
 A ggplot2 theme object.
 }
 \description{
-A clean, publication-ready ggplot2 theme
+The house ggplot2 theme for charts. A warm pampas canvas, a horizontal grid
+that carries the eye without competing with the data, no ticks, and a title
+block aligned to the plot rather than the panel.
+
+Shares its type scale, legend geometry, and title hierarchy with
+\code{\link[=theme_ps_map]{theme_ps_map()}}, so a chart and a map can sit side by side on one page and
+read as a pair.
 }
+\section{Axis labels}{
+
+This theme does not rotate x-axis labels. Rotate where a particular figure
+needs it, rather than everywhere:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{theme_ps() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+}\if{html}{\out{</div>}}
+}
+
 \examples{
 library(ggplot2)
-ggplot(mpg, aes(class, hwy)) +
-  geom_boxplot(fill = "#0A9396", color = "white") +
-  labs(title = "Fuel efficiency by car class") +
-  theme_ps()
 
+ggplot(mpg, aes(class, hwy)) +
+  geom_boxplot(fill = "#1F6F8B", colour = "#14181A", linewidth = 0.3) +
+  labs(title    = "Fuel efficiency by car class",
+       subtitle = "Highway miles per gallon",
+       x = NULL, y = "MPG") +
+  theme_ps()
+}
+\seealso{
+\code{\link[=theme_ps_map]{theme_ps_map()}} for maps, \code{\link[=ps_ink]{ps_ink()}} for the palette
+behind both, \code{\link[=scale_fill_ps]{scale_fill_ps()}} and \code{\link[=scale_color_ps]{scale_color_ps()}} for data palettes.
 }

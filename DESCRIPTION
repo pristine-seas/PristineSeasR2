@@ -17,8 +17,9 @@ Depends:
     R (>= 3.5.0)
 Imports:
     dplyr,
-    ggplot2,
+    ggplot2 (>= 3.5.0),
     grid,
+    systemfonts,
     tibble,
     rlang,
     utils,
@@ -43,6 +44,10 @@ Imports:
     stringr
 Suggests:
     testthat (>= 3.0.0),
+    rgee,
+    reticulate,
+    withr,
+    ragg,
     knitr,
     rmarkdown,
     pkgdown,

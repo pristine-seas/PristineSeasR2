@@ -87,5 +87,6 @@ cover_by_subregion |>
 
 }
 \seealso{
-\code{\link[=light_gt]{light_gt()}} for the plain, compact style used for diagnostic tables.
+\code{\link[=gt_theme_ps_light]{gt_theme_ps_light()}} for the plain, compact style used for diagnostic
+tables.
 }

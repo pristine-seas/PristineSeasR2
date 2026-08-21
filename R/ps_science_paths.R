@@ -123,7 +123,7 @@ ps_science_paths <- function(mustWork = FALSE) {
         "Searched:\n- ", paste(norm(my_drive_roots), collapse = "\n- "), "\n\n",
         "Fixes:\n",
         " - Ensure the folder is synced locally, or\n",
-        " - åSet PS_SCIENCE_PATH to the SCIENCE folder location."
+        " - Set PS_SCIENCE_PATH to the SCIENCE folder location."
       )
 
       if (isTRUE(mustWork)) stop(msg, call. = FALSE) else warning(msg, call. = FALSE)

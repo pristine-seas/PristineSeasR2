@@ -2,20 +2,84 @@
 % Please edit documentation in R/theme_ps_map.R
 \name{theme_ps_map}
 \alias{theme_ps_map}
-\title{Pristine Seas map theme (ggplot2)}
+\title{Pristine Seas map theme}
 \usage{
-theme_ps_map(default_font_family = "Hind", show_grid = TRUE, ...)
+theme_ps_map(base_size = 12, base_family = ps_font_default(), graticule = TRUE)
 }
 \arguments{
-\item{default_font_family}{Character. Base font family (e.g., "Hind").}
+\item{base_size}{Numeric. Base font size in points; every other size is a
+step from it. Default 12. Large-format maps usually want 13–16.}
 
-\item{show_grid}{Logical. If TRUE, show major grid lines (useful for lon/lat graticules).}
+\item{base_family}{Character. Base font family. Defaults to
+\code{\link[=ps_font_default]{ps_font_default()}} — Inter where it is installed, otherwise Helvetica.}
 
-\item{...}{Additional arguments passed to \code{ggplot2::theme()}.}
+\item{graticule}{Logical. Draw longitude/latitude grid lines. Default \code{TRUE}.}
 }
 \value{
 A ggplot2 theme object.
 }
 \description{
-Clean, publication-ready map theme with optional graticule/grid lines.
+The house ggplot2 theme for maps: deep water, a barely-there graticule, a
+hairline panel frame, and no axis titles. The dark canvas is the working part
+of the design — the layers Pristine Seas maps carry are sparse and
+log-distributed (fishing effort, thermal stress, habitat suitability), and on
+a light ground they wash out. Here the data is the only bright thing on the
+page.
+
+Shares its type scale, legend geometry, and title hierarchy with \code{\link[=theme_ps]{theme_ps()}},
+so a map and a chart can sit side by side on one page and read as a pair.
+}
+\section{Drawing on it}{
+
+The theme paints the canvas; the geography is yours to draw. Take its colors
+from \code{\link[=ps_ink]{ps_ink()}} so they land in the same key:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ink <- ps_ink("map")
+
+ggplot() +
+  geom_spatraster(data = effort) +
+  geom_spatvector(data = land, fill = ink[["land"]], colour = ink[["coast"]]) +
+  geom_spatvector(data = eez,  fill = NA, colour = ink[["eez"]], linetype = "22") +
+  theme_ps_map()
+}\if{html}{\out{</div>}}
+
+A continuous fill wants a wide, thin bar along the bottom; a categorical key
+reads better stacked at the right. In ggplot2 3.5 and later each guide can
+choose for itself, so the two need not compete for one strip:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{guide_colourbar(position = "bottom")
+guide_legend(position = "right", direction = "vertical")
+}\if{html}{\out{</div>}}
+}
+
+\section{Exporting}{
+
+Nothing special is required. The theme paints an opaque \code{plot.background}
+over the whole plot, and \code{ggsave()} reads that fill when its own \code{bg} is
+unset — so a saved map carries its canvas without being told:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ggsave("map.png", p, width = 11, height = 10, dpi = 400)
+}\if{html}{\out{</div>}}
+
+Passing \code{bg} only changes anything if \code{plot.background} has been blanked or
+made transparent. See \code{\link[=ps_font_default]{ps_font_default()}} for the one device caveat that does
+matter — \code{pdf()}, which cannot see system fonts and is handled by aliasing the
+family onto Helvetica rather than by failing.
+}
+
+\examples{
+library(ggplot2)
+
+ink <- ps_ink("map")
+
+ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
+  geom_raster() +
+  scale_fill_viridis_c(option = "inferno", name = "Density") +
+  labs(title    = "A dark canvas for sparse layers",
+       subtitle = "The data is the only bright thing on the page") +
+  theme_ps_map()
+}
+\seealso{
+\code{\link[=theme_ps]{theme_ps()}} for charts, \code{\link[=ps_ink]{ps_ink()}} for the palette behind
+both.
 }

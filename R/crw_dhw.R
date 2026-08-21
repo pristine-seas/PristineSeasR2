@@ -188,14 +188,14 @@ get_crw_dhw_sf <- function(feature,
 
   if (!isTRUE(summarise_daily)) {
     out <- dat |>
-      dplyr::select(date, latitude, longitude, dhw)
+      dplyr::select(dplyr::all_of(c("date", "latitude", "longitude", "dhw")))
     out[[out_col]] <- feature_name
     return(out[, c(out_col, "date", "latitude", "longitude", "dhw")])
   }
 
   out <- dat |>
-    dplyr::group_by(date) |>
-    dplyr::summarise(avg_dhw = mean(dhw, na.rm = TRUE), .groups = "drop")
+    dplyr::group_by(.data$date) |>
+    dplyr::summarise(avg_dhw = mean(.data$dhw, na.rm = TRUE), .groups = "drop")
 
   out[[out_col]] <- feature_name
   out[, c(out_col, "date", "avg_dhw")]
@@ -245,9 +245,9 @@ crw_fetch_dhw <- function(url, timeout_sec = 300) {
   readr::read_csv(I(txt), show_col_types = FALSE, skip = 1) |>
     rlang::set_names(c("date", "latitude", "longitude", "dhw")) |>
     dplyr::transmute(
-      date      = as.Date(substr(date, 1, 10)),
-      latitude  = as.numeric(latitude),
-      longitude = as.numeric(longitude),
-      dhw       = as.numeric(dhw)
+      date      = as.Date(substr(.data$date, 1, 10)),
+      latitude  = as.numeric(.data$latitude),
+      longitude = as.numeric(.data$longitude),
+      dhw       = as.numeric(.data$dhw)
     )
 }

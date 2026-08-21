@@ -102,7 +102,7 @@ explore_uvs_sites <- function(sites,
       if (length(unmatched) > 0) {
         cols[is.na(cols)] <- grDevices::hcl.colors(length(unmatched), "Spectral")
         warning("No named color defined for: ", paste(unmatched, collapse = ", "),
-                " (palette: ", key, ") — using generated fallback colors.")
+                " (palette: ", key, ") \u2014 using generated fallback colors.")
       }
       names(cols) <- lv
     } else {
@@ -161,10 +161,10 @@ explore_uvs_sites <- function(sites,
     row  <- function(k, v) ifelse(is.na(v), "",
       sprintf("<tr><td class='k'>%s</td><td class='v'>%s</td></tr>", k, htmltools::htmlEscape(v)))
     crumb <- function(...) { p <- c(...); p <- p[!is.na(p)]
-      if (length(p)) paste(p, collapse = " › ") else NA }
+      if (length(p)) paste(p, collapse = " \u203a ") else NA }
     when  <- ifelse(is.na(d_date), NA,
-               paste0(format(d_date, "%d %b %Y"), ifelse(is.na(d_time), "", paste0(" · ", d_time))))
-    coord <- sprintf("%.4f° %s, %.4f° %s",
+               paste0(format(d_date, "%d %b %Y"), ifelse(is.na(d_time), "", paste0(" \u00b7 ", d_time))))
+    coord <- sprintf("%.4f\u00b0 %s, %.4f\u00b0 %s",
                      abs(lat), ifelse(lat >= 0, "N", "S"),
                      abs(lon), ifelse(lon >= 0, "E", "W"))
     pill  <- ifelse(is.na(in_mpa), "",
@@ -196,7 +196,7 @@ explore_uvs_sites <- function(sites,
 
   # search text shown on hover AND matched against when typing in the search box
   g_chr <- function(col) if (col %in% names(sites)) as.character(sites[[col]]) else rep(NA_character_, nrow(sites))
-  search_label <- paste0(sites$ps_site_id, " — ",
+  search_label <- paste0(sites$ps_site_id, " \u2014 ",
                          dplyr::coalesce(g_chr("site_name"), g_chr("locality"), "Unnamed site"))
 
   # ---- One legend per color-by group, swapped in client-side on switch --------

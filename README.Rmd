@@ -143,7 +143,13 @@ station_suffix(stratify(depths_m))
 | `validate_vocab()` | Validate data against vocabularies |
 | `ps_colors()` | Get color palettes |
 | `scale_fill_ps()` / `scale_color_ps()` | ggplot2 color scales |
-| `theme_ps()` / `theme_ps_map()` | ggplot2 themes |
+| `theme_ps()` / `theme_ps_map()` | ggplot2 themes — one design in two inks: charts on pampas, maps on deep water |
+| `ps_ink()` / `ps_font_default()` | the ink and typeface behind both themes |
+| `explore_uvs_sites()` / `explore_benthic_cover()` | interactive survey maps, one design across expeditions |
+| `explore_fish_biomass()` / `explore_invert_density()` / `explore_recruit_density()` | the same, per protocol |
+| `explore_s2_detections()` | Sentinel-2 vessel detections, each with the imagery behind it |
+| `ee_connect()` | open the Earth Engine connection those crops are rendered through |
+| `gt_theme_ps()` / `gt_theme_ps_light()` | the two house gt table styles — full summary, and plain |
 | `stratify()` | Depth stratification |
 | `ps_science_paths()` | Access shared Google Drive folders |
 | `create_expedition()` | Create expedition folder structure |
