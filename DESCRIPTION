@@ -1,6 +1,6 @@
 Package: PristineSeasR2
 Title: Marine Conservation Data Analysis Tools for Pristine Seas
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person("Juan", "Mayorga", email = "marine.data.science@ngs.org", role = c("aut", "cre"))
 Description: Tools for analyzing marine biodiversity data from Pristine Seas 
