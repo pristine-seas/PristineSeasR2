@@ -93,7 +93,7 @@ across the whole block rather than only within its own column.
 
 ## See also
 
-[`light_gt()`](https://pristine-seas.github.io/PristineSeasR2/reference/light_gt.md)
+[`gt_theme_ps_light()`](https://pristine-seas.github.io/PristineSeasR2/reference/gt_theme_ps_light.md)
 for the plain, compact style used for diagnostic tables.
 
 ## Examples

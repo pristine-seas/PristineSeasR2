@@ -114,7 +114,13 @@ station_suffix(stratify(depths_m))
 | [`validate_vocab()`](https://pristine-seas.github.io/PristineSeasR2/reference/validate_vocab.md) | Validate data against vocabularies |
 | [`ps_colors()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_colors.md) | Get color palettes |
 | [`scale_fill_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_fill_ps.md) / [`scale_color_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_color_ps.md) | ggplot2 color scales |
-| [`theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps.md) / [`theme_ps_map()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps_map.md) | ggplot2 themes |
+| [`theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps.md) / [`theme_ps_map()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps_map.md) | ggplot2 themes — one design in two inks: charts on pampas, maps on deep water |
+| [`ps_ink()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_ink.md) / [`ps_font_default()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_font_default.md) | the ink and typeface behind both themes |
+| [`explore_uvs_sites()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_uvs_sites.md) / [`explore_benthic_cover()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_benthic_cover.md) | interactive survey maps, one design across expeditions |
+| [`explore_fish_biomass()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_fish_biomass.md) / [`explore_invert_density()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_invert_density.md) / [`explore_recruit_density()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_recruit_density.md) | the same, per protocol |
+| [`explore_s2_detections()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_s2_detections.md) | Sentinel-2 vessel detections, each with the imagery behind it |
+| [`ee_connect()`](https://pristine-seas.github.io/PristineSeasR2/reference/ee_connect.md) | open the Earth Engine connection those crops are rendered through |
+| [`gt_theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/gt_theme_ps.md) / [`gt_theme_ps_light()`](https://pristine-seas.github.io/PristineSeasR2/reference/gt_theme_ps_light.md) | the two house gt table styles — full summary, and plain |
 | [`stratify()`](https://pristine-seas.github.io/PristineSeasR2/reference/stratify.md) | Depth stratification |
 | [`ps_science_paths()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_science_paths.md) | Access shared Google Drive folders |
 | [`create_expedition()`](https://pristine-seas.github.io/PristineSeasR2/reference/create_expedition.md) | Create expedition folder structure |
@@ -152,6 +158,9 @@ station_suffix(stratify(depths_m))
   Standard Benthic Cover Groups for
   [`explore_benthic_cover()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_benthic_cover.md)
 
+- [`ee_connect()`](https://pristine-seas.github.io/PristineSeasR2/reference/ee_connect.md)
+  : Connect to Google Earth Engine
+
 - [`explore_benthic_cover()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_benthic_cover.md)
   : Build the Interactive Benthic Cover Map (Pie Charts by Site)
 
@@ -165,6 +174,10 @@ station_suffix(stratify(depths_m))
 
 - [`explore_recruit_density()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_recruit_density.md)
   : Build the Interactive Recruit Density Map (Circle Markers by Site)
+
+- [`explore_s2_detections()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_s2_detections.md)
+  : Explore Sentinel-2 Vessel Detections, With The Imagery Behind Each
+  One
 
 - [`explore_uvs_sites()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_uvs_sites.md)
   : Build the Interactive UVS Sites Map (Color-By
@@ -187,11 +200,22 @@ station_suffix(stratify(depths_m))
 - [`gt_theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/gt_theme_ps.md)
   : Pristine Seas gt Theme for Summary Tables
 
-- [`light_gt()`](https://pristine-seas.github.io/PristineSeasR2/reference/light_gt.md)
-  : Apply the Pristine Seas Light, Compact gt Style to a Data Frame
+- [`gt_theme_ps_light()`](https://pristine-seas.github.io/PristineSeasR2/reference/gt_theme_ps_light.md)
+  [`light_gt()`](https://pristine-seas.github.io/PristineSeasR2/reference/gt_theme_ps_light.md)
+  : The Light, Compact Pristine Seas gt Style
+
+- [`guide_ps_colourbar()`](https://pristine-seas.github.io/PristineSeasR2/reference/guide_ps_colourbar.md)
+  : A colourbar proportioned for Pristine Seas figures
 
 - [`ps_colors()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_colors.md)
   : Get Pristine Seas colors
+
+- [`ps_font_default()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_font_default.md)
+  : The Pristine Seas house typeface
+
+- [`ps_ink()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_ink.md)
+  [`ps_theme_colors()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_ink.md)
+  : The Ink Behind The Themes
 
 - [`ps_researchers`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_researchers.md)
   : Scientists Lookup Table
@@ -215,10 +239,10 @@ station_suffix(stratify(depths_m))
   : Stratify Depths into Standard Categories
 
 - [`theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps.md)
-  : Pristine Seas ggplot2 theme
+  : Pristine Seas chart theme
 
 - [`theme_ps_map()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps_map.md)
-  : Pristine Seas map theme (ggplot2)
+  : Pristine Seas map theme
 
 - [`validate_and_export_csv()`](https://pristine-seas.github.io/PristineSeasR2/reference/validate_and_export_csv.md)
   : Validate a Data Frame's Columns Against a BigQuery Table, Then

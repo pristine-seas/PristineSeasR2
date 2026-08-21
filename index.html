@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">PristineSeasR2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,7 @@
 <li><a class="dropdown-item" href="articles/crw-dhw.html">Thermal stress (DHW) from NOAA Coral Reef Watch</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -145,6 +146,10 @@
 <h2 id="key-functions">Key Functions<a class="anchor" aria-label="anchor" href="#key-functions"></a>
 </h2>
 <table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
 <thead><tr>
 <th>Function</th>
 <th>Purpose</th>
@@ -172,7 +177,39 @@
 <td>
 <code><a href="reference/theme_ps.html">theme_ps()</a></code> / <code><a href="reference/theme_ps_map.html">theme_ps_map()</a></code>
 </td>
-<td>ggplot2 themes</td>
+<td>ggplot2 themes — one design in two inks: charts on pampas, maps on deep water</td>
+</tr>
+<tr>
+<td>
+<code><a href="reference/ps_ink.html">ps_ink()</a></code> / <code><a href="reference/ps_font_default.html">ps_font_default()</a></code>
+</td>
+<td>the ink and typeface behind both themes</td>
+</tr>
+<tr>
+<td>
+<code><a href="reference/explore_uvs_sites.html">explore_uvs_sites()</a></code> / <code><a href="reference/explore_benthic_cover.html">explore_benthic_cover()</a></code>
+</td>
+<td>interactive survey maps, one design across expeditions</td>
+</tr>
+<tr>
+<td>
+<code><a href="reference/explore_fish_biomass.html">explore_fish_biomass()</a></code> / <code><a href="reference/explore_invert_density.html">explore_invert_density()</a></code> / <code><a href="reference/explore_recruit_density.html">explore_recruit_density()</a></code>
+</td>
+<td>the same, per protocol</td>
+</tr>
+<tr>
+<td><code><a href="reference/explore_s2_detections.html">explore_s2_detections()</a></code></td>
+<td>Sentinel-2 vessel detections, each with the imagery behind it</td>
+</tr>
+<tr>
+<td><code><a href="reference/ee_connect.html">ee_connect()</a></code></td>
+<td>open the Earth Engine connection those crops are rendered through</td>
+</tr>
+<tr>
+<td>
+<code><a href="reference/gt_theme_ps.html">gt_theme_ps()</a></code> / <code><a href="reference/gt_theme_ps_light.html">gt_theme_ps_light()</a></code>
+</td>
+<td>the two house gt table styles — full summary, and plain</td>
 </tr>
 <tr>
 <td><code><a href="reference/stratify.html">stratify()</a></code></td>

@@ -20,6 +20,9 @@
   Standard Benthic Cover Groups for
   [`explore_benthic_cover()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_benthic_cover.md)
 
+- [`ee_connect()`](https://pristine-seas.github.io/PristineSeasR2/reference/ee_connect.md)
+  : Connect to Google Earth Engine
+
 - [`explore_benthic_cover()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_benthic_cover.md)
   : Build the Interactive Benthic Cover Map (Pie Charts by Site)
 
@@ -33,6 +36,10 @@
 
 - [`explore_recruit_density()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_recruit_density.md)
   : Build the Interactive Recruit Density Map (Circle Markers by Site)
+
+- [`explore_s2_detections()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_s2_detections.md)
+  : Explore Sentinel-2 Vessel Detections, With The Imagery Behind Each
+  One
 
 - [`explore_uvs_sites()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_uvs_sites.md)
   : Build the Interactive UVS Sites Map (Color-By
@@ -55,11 +62,22 @@
 - [`gt_theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/gt_theme_ps.md)
   : Pristine Seas gt Theme for Summary Tables
 
-- [`light_gt()`](https://pristine-seas.github.io/PristineSeasR2/reference/light_gt.md)
-  : Apply the Pristine Seas Light, Compact gt Style to a Data Frame
+- [`gt_theme_ps_light()`](https://pristine-seas.github.io/PristineSeasR2/reference/gt_theme_ps_light.md)
+  [`light_gt()`](https://pristine-seas.github.io/PristineSeasR2/reference/gt_theme_ps_light.md)
+  : The Light, Compact Pristine Seas gt Style
+
+- [`guide_ps_colourbar()`](https://pristine-seas.github.io/PristineSeasR2/reference/guide_ps_colourbar.md)
+  : A colourbar proportioned for Pristine Seas figures
 
 - [`ps_colors()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_colors.md)
   : Get Pristine Seas colors
+
+- [`ps_font_default()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_font_default.md)
+  : The Pristine Seas house typeface
+
+- [`ps_ink()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_ink.md)
+  [`ps_theme_colors()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_ink.md)
+  : The Ink Behind The Themes
 
 - [`ps_researchers`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_researchers.md)
   : Scientists Lookup Table
@@ -83,10 +101,10 @@
   : Stratify Depths into Standard Categories
 
 - [`theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps.md)
-  : Pristine Seas ggplot2 theme
+  : Pristine Seas chart theme
 
 - [`theme_ps_map()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps_map.md)
-  : Pristine Seas map theme (ggplot2)
+  : Pristine Seas map theme
 
 - [`validate_and_export_csv()`](https://pristine-seas.github.io/PristineSeasR2/reference/validate_and_export_csv.md)
   : Validate a Data Frame's Columns Against a BigQuery Table, Then
