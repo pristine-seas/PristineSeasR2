@@ -23,7 +23,7 @@ seed_cache <- function(detections, dir, buffer_m = 500, view = "ocean") {
   png <- system.file("img", "Rlogo.png", package = "png")
   if (!nzchar(png)) png <- file.path(R.home("doc"), "html", "logo.jpg")
   for (v in view) {
-    for (f in s2_thumb_path(detections$detect_id, dir, buffer_m, px, v)) file.copy(png, f)
+    for (f in psd_thumb_path(detections$detect_id, dir, buffer_m, px, v)) file.copy(png, f)
   }
   dir
 }
@@ -66,7 +66,7 @@ test_that("a matched detection carries its MMSI into popup and caption", {
   m   <- explore_s2_detections(d, cache_dir = dir)
 
   popups <- m$x$calls[[which(vapply(m$x$calls, function(c) c$method, "") == "addCircleMarkers")]]$args
-  popups <- unlist(popups)[grepl("s2-pop", unlist(popups))]
+  popups <- unlist(popups)[grepl("psd-pop", unlist(popups))]
 
   # the matched row names its vessel, in both places the reader can look
   expect_match(popups[1], "412345678")
@@ -124,7 +124,7 @@ test_that("two views give every detection two crops, side by side", {
   # the popup link says so
   popups <- unlist(m$x$calls[[which(vapply(m$x$calls, function(c) c$method, "") ==
                                       "addCircleMarkers")]]$args)
-  expect_match(popups[grepl("s2-pop", popups)][1], "View Sentinel-2 crops")
+  expect_match(popups[grepl("psd-pop", popups)][1], "View Sentinel-2 crops")
 })
 
 test_that("a single view still renders one panel and reads as a thumbnail", {
@@ -137,7 +137,7 @@ test_that("a single view still renders one panel and reads as a thumbnail", {
   expect_true(all(vapply(items, function(it) length(it$urls) == 1L, logical(1))))
   popups <- unlist(m$x$calls[[which(vapply(m$x$calls, function(c) c$method, "") ==
                                       "addCircleMarkers")]]$args)
-  expect_match(popups[grepl("s2-pop", popups)][1], "View Sentinel-2 thumbnail")
+  expect_match(popups[grepl("psd-pop", popups)][1], "View Sentinel-2 thumbnail")
 })
 
 test_that("an unrecognised view is rejected", {
@@ -163,12 +163,12 @@ test_that("the gallery is added to the export, never to the returned widget", {
   m <- explore_s2_detections(d, cache_dir = dir, title = "t", export_path = out)
 
   # what the caller prints is the plain map — one hook, the crop viewer
-  hooks <- vapply(m$jsHooks$render, function(h) grepl("s2-dash", h$code), logical(1))
+  hooks <- vapply(m$jsHooks$render, function(h) grepl("psd-dash", h$code), logical(1))
   expect_false(any(hooks))
 
   # the exported page is the dashboard
   html <- paste(readLines(out, warn = FALSE), collapse = "\n")
-  expect_match(html, "s2-dash", fixed = TRUE)
+  expect_match(html, "psd-dash", fixed = TRUE)
   expect_match(html, "by detection score", fixed = TRUE)
 })
 
@@ -207,12 +207,14 @@ test_that("exporting leaves one file and no dependency folder beside it", {
   expect_false(dir.exists(file.path(out_dir, "map_files")))
 })
 
-test_that("a cold cache without an Earth Engine project fails by saying so", {
+test_that("a cold cache without an Earth Engine project warns and degrades gracefully", {
   d <- make_detections()                       # nothing seeded: every crop is missing
-  expect_error(
-    explore_s2_detections(d, cache_dir = withr::local_tempdir()),
+  expect_warning(
+    m <- explore_s2_detections(d, cache_dir = withr::local_tempdir()),
     "pass `ee_project`", fixed = TRUE
   )
+  # markers still render, just without crops — the documented degrade path
+  expect_s3_class(m, "leaflet")
 })
 
 test_that("ee_connect refuses an empty project rather than passing it on", {

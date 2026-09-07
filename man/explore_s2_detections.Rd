@@ -15,6 +15,7 @@ explore_s2_detections(
   matched_color = "#4EC9E8",
   unmatched_color = "#8A949E",
   gallery = TRUE,
+  gallery_order = "by detection score",
   legend_title = NULL,
   title = NULL,
   subtitle = "National Geographic Pristine Seas",
@@ -28,7 +29,8 @@ explore_s2_detections(
 \item{detections}{A detection table, or a path to a CSV of one — such as a
 pull from GFW's \code{detect_scene_match_pipe} tables. Must include \code{detect_id},
 \code{detect_lat}, \code{detect_lon}, \code{scene_id}, \code{presence_score} and \code{cloud_score}.
-Optional columns used when present: \code{detect_timestamp}, \code{length_m_inferred},
+Optional columns used when present: \code{detect_timestamp} (or \code{when}),
+\code{length_m_inferred} (or \code{length_m}),
 \code{matched} (logical), and \code{mmsi} — or \code{ssvid}, GFW's name for the same
 number on AIS data. Each adds a line to the popup and the crop's caption;
 \code{matched}, or \code{ssvid} standing in for it, is also what splits the markers
@@ -69,6 +71,10 @@ scrolls the gallery to its thumbnail. \code{TRUE} by default, and it adds nothin
 to the file — the thumbnails are crops the page already carries. The widget
 this function \emph{returns} is always the plain map, since a two-pane dashboard
 wants a full window rather than a report's figure column.}
+
+\item{gallery_order}{How the contact sheet is sorted, named under its count.
+Rows are drawn in the order they arrive, so this labels that order rather
+than imposing one.}
 
 \item{legend_title}{Heading over the legend. Defaults to the detection count.}
 
