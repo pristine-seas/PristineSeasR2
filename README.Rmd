@@ -37,9 +37,9 @@ knitr::knit_hooks$set(source = function(x, options) {
 [![Documentation](https://img.shields.io/badge/docs-pristine--seas.github.io-005F87.svg)](https://pristine-seas.github.io/PristineSeasR2/)
 <!-- badges: end -->
 
-PristineSeasR2 is built for the [Pristine Seas](https://www.nationalgeographic.org/society/our-programs/pristine-seas/) research team and the collaborators and partners who work with us. Its tools carry an expedition's data the whole way, from raw field sheets to the shared database to the report. It standardizes how we organize, check, and present expedition data, helping us reduce errors and keep our science rigorous, transparent, and reproducible.
+PristineSeasR2 is built for the [Pristine Seas](https://www.nationalgeographic.org/society/our-programs/pristine-seas/) research team and the collaborators and partners who work with us. Its tools carry an expedition's data the whole way, from raw field sheets to the shared database to the report. It standardises how we organise, check and present expedition data, helping us reduce errors and keep our science rigorous, transparent and reproducible.
 
-Every tool is documented, with articles on the [colour system](https://pristine-seas.github.io/PristineSeasR2/articles/colour-system.html) and on [thermal stress](https://pristine-seas.github.io/PristineSeasR2/articles/crw-dhw.html), on the [package site](https://pristine-seas.github.io/PristineSeasR2/).
+Every tool is documented on the [package site](https://pristine-seas.github.io/PristineSeasR2/), along with articles on the [colour system](https://pristine-seas.github.io/PristineSeasR2/articles/colour-system.html) and on [thermal stress](https://pristine-seas.github.io/PristineSeasR2/articles/crw-dhw.html).
 
 ## Installation
 
@@ -48,7 +48,7 @@ Every tool is documented, with articles on the [colour system](https://pristine-
 pak::pak("pristine-seas/PristineSeasR2")
 ```
 
-That installs everything the vocabularies, themes, tables and interactive maps need. A few tools reach further and ask for more on first use:
+That installs everything the vocabularies, themes, tables and interactive maps need. A few tools reach outside the package and need a little more:
 
 * `map_uvs_sites()` draws its basemaps with **maptiles**, **tidyterra** and **ggspatial**, and offers to install them the first time it is called. The Mapbox basemap also needs a token in the `MAPBOX_TOKEN` environment variable.
 * `get_taxonomic_ranks()` queries the World Register of Marine Species through **worrms**.
@@ -67,7 +67,7 @@ That installs everything the vocabularies, themes, tables and interactive maps n
 
 ## From field sheet to report
 
-The tools follow an expedition's data through its life: set up and prepare the expedition, work at sea, process and check the data, explore it, and publish figures, maps and tables that read as one family. Everything below runs on the bundled `rmi_2023_uvs_sites` and `rmi_2023_uvs_blt_stations`, the sixty underwater visual survey sites of the 2023 expedition to the northern atolls of the Marshall Islands and their fish belt-transect stations, so it can be run anywhere, with no Drive or database connection.
+The tools follow an expedition's data through its life: set up and prepare the expedition, work at sea, process and check the data, explore it, and publish figures, maps and tables that read as one family. Everything below runs on the bundled `rmi_2023_uvs_sites` and `rmi_2023_uvs_blt_stations`, the sixty underwater visual survey (UVS) sites of the 2023 expedition to the northern atolls of the Marshall Islands and their fish belt-transect stations, so every example runs anywhere, with no Drive or database connection.
 
 ```{r setup}
 library(PristineSeasR2)
@@ -151,6 +151,7 @@ names(allowed_vocab)
 
 allowed_vocab$exposure
 
+# a valid column passes silently
 validate_vocab(rmi_2023_uvs_sites$exposure, "exposure")
 ```
 
@@ -205,7 +206,7 @@ The same family of maps covers fish biomass, benthic cover, invertebrates and re
 
 ### 5. Publish
 
-Every figure, map and table draws on the same palettes and themes, so a report from any expedition reads as Pristine Seas. `theme_ps()` sets charts on warm paper and `theme_ps_map()` sets maps on deep water, and both share the same type, the same palettes through `scale_fill_ps()`, `scale_color_ps()` and `scale_shape_ps()`, and the same legend geometry, so they can sit side by side on a page and read as a pair. The palettes are keyed to `allowed_vocab`, so a validated column lands on its colours without a lookup.
+Every figure, map and table draws on the same palettes and themes, so a report from any expedition reads as Pristine Seas. `theme_ps()` sets charts on warm paper and `theme_ps_map()` sets maps on deep water, and both share the same typeface, the same palettes through `scale_fill_ps()`, `scale_color_ps()` and `scale_shape_ps()`, and the same legend geometry, so they can sit side by side on a page and read as a pair. The palettes are keyed to `allowed_vocab`, so a validated column lands on its colours without a lookup.
 
 ```{r chart, fold = TRUE, fig.width = 9.5, fig.height = 4.2, dev = "svglite"}
 # Each station carries its total biomass and the share of each trophic group.
@@ -253,7 +254,7 @@ ggplot(by_atoll, aes(biomass, region, fill = trophic_group)) +
 
 A survey site map for the report is one call. `map_uvs_sites()` takes the standard sites table, fits the frame to the sites chosen, and draws them on satellite imagery with habitat as shape and exposure as fill, a compass rose, a scale bar and a locator globe, all in the house style. Here, the sites of Bikar Atoll.
 
-```{r map, fig.width = 8, fig.height = 8}
+```{r map, fig.width = 6, fig.height = 8.9, out.width = "55%", fig.align = "center", dev.args = list(background = ps_ink("map")[["canvas"]])}
 map_uvs_sites(rmi_2023_uvs_sites, region = "Bikar")
 ```
 
@@ -292,7 +293,7 @@ knitr::include_graphics("man/figures/README-effort-table.png")
 
 ## Getting help
 
-Open an [issue](https://github.com/pristine-seas/PristineSeasR2/issues) for bugs and requests. The package is developed by the Pristine Seas science team and is under active development, so the API may still change between minor versions. To cite it, run `citation("PristineSeasR2")`.
+Open an [issue](https://github.com/pristine-seas/PristineSeasR2/issues) for bugs and requests. The package is maintained by the Pristine Seas science team and is still evolving, so the API may change between minor versions. To cite it, run `citation("PristineSeasR2")`.
 
 <p align="center">
 <img src="man/figures/wordmark.png" width="360" alt="National Geographic Pristine Seas" />
