@@ -31,7 +31,10 @@ explore_s2_detections(
   boundary_color = "#B6D94C",
   matched_color = "#4EC9E8",
   unmatched_color = "#8A949E",
+  class_col = NULL,
+  palette = NULL,
   gallery = TRUE,
+  gallery_order = "by detection score",
   legend_title = NULL,
   title = NULL,
   subtitle = "National Geographic Pristine Seas",
@@ -49,13 +52,13 @@ explore_s2_detections(
   A detection table, or a path to a CSV of one — such as a pull from
   GFW's `detect_scene_match_pipe` tables. Must include `detect_id`,
   `detect_lat`, `detect_lon`, `scene_id`, `presence_score` and
-  `cloud_score`. Optional columns used when present: `detect_timestamp`,
-  `length_m_inferred`, `matched` (logical), and `mmsi` — or `ssvid`,
-  GFW's name for the same number on AIS data. Each adds a line to the
-  popup and the crop's caption; `matched`, or `ssvid` standing in for
-  it, is also what splits the markers into matched and unmatched, and
-  the MMSI is what makes a matched detection a vessel you can look up
-  rather than just an object on the water.
+  `cloud_score`. Optional columns used when present: `detect_timestamp`
+  (or `when`), `length_m_inferred` (or `length_m`), `matched` (logical),
+  and `mmsi` — or `ssvid`, GFW's name for the same number on AIS data.
+  Each adds a line to the popup and the crop's caption; `matched`, or
+  `ssvid` standing in for it, is also what splits the markers into
+  matched and unmatched, and the MMSI is what makes a matched detection
+  a vessel you can look up rather than just an object on the water.
 
 - cache_dir:
 
@@ -97,7 +100,23 @@ explore_s2_detections(
 - matched_color, unmatched_color:
 
   Marker colours for detections matched to AIS and detections not
-  matched.
+  matched. Ignored when `class_col` is active.
+
+- class_col:
+
+  Name of a column giving each matched detection an identity — a vessel
+  type, say — beyond the plain matched/unmatched split. Defaults to
+  `"type"` when present, so a table built with a vessel-type join needs
+  no argument at all; `NULL` keeps the plain two-colour behaviour
+  regardless of what the table carries. The same generalisation
+  [`explore_s1_detections()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_s1_detections.md)
+  already makes, for the same reason: a match is an identity, not just a
+  broadcast.
+
+- palette:
+
+  Named colours, one per level of `class_col`. Defaults to a grey ramp
+  when `class_col` is active and no palette is given.
 
 - gallery:
 
@@ -109,6 +128,12 @@ explore_s2_detections(
   carries. The widget this function *returns* is always the plain map,
   since a two-pane dashboard wants a full window rather than a report's
   figure column.
+
+- gallery_order:
+
+  How the contact sheet is sorted, named under its count. Rows are drawn
+  in the order they arrive, so this labels that order rather than
+  imposing one.
 
 - legend_title:
 

@@ -27,26 +27,25 @@ Palettes are returned as named character vectors of hex color codes.
 ## Examples
 
 ``` r
-ps_colors()                    # list available palettes
-#> [1] "depth_strata"       "exposure"           "trophic_group"     
-#> [4] "functional_groups"  "trophic_group2"     "functional_groups2"
-#> [7] "uvs_habitats"       "invert_groups"     
-ps_colors("trophic_group")     # named vector
+ps_colors()                 # list available palettes
+#> [1] "depth_strata"  "trophic_group" "benthic_cover" "exposure"     
+#> [5] "habitat"      
+ps_colors("trophic_group")  # named vector
 #>                   shark            top_predator         lower_carnivore 
-#>               "#7A0010"               "#E0B83F"               "#8EC9F0" 
+#>               "#75161D"               "#AC2D00"               "#B96310" 
 #> herbivore | detritivore             planktivore 
-#>               "#1F7A4C"               "#B9A3E3" 
-ps_colors("functional_groups") # named vector
+#>               "#40AE82"               "#C1C2FA" 
+ps_colors("benthic_cover")  # named vector
 #>                 hard_coral                        cca 
-#>                  "#2E4A9E"                  "#FF7FA7" 
-#>                 soft_coral                algae_erect 
-#>                  "#6FD3E3"                  "#2FA84F" 
-#>           algae_encrusting               algae_canopy 
-#>                  "#8FCFA9"                  "#8A7A3A" 
-#>                    sponges                      other 
-#>                  "#E07A5F"                  "#7A5C8F" 
-#>              cyanobacteria                       turf 
-#>                  "#0B0B0B"                  "#4A3A2A" 
-#> sediment | rubble | barren 
-#>                  "#D9D9D9" 
+#>                  "#FFCD16"                  "#E563A4" 
+#>                    sponges                 soft_coral 
+#>                  "#393A81"                  "#DE98E3" 
+#>                      other           algae_encrusting 
+#>                  "#BAB5B1"                  "#0D5F5B" 
+#>                algae_erect               algae_canopy 
+#>                  "#8EBB67"                  "#784620" 
+#> sediment | rubble | barren                       turf 
+#>                  "#E8DDB7"                  "#7B8563" 
+#>              cyanobacteria 
+#>                  "#2C2234" 
 ```

@@ -15,7 +15,7 @@ explore_uvs_sites(
   sites,
   region_palette,
   subregion_palette,
-  habitat_palette = ps_colors("uvs_habitats"),
+  habitat_palette = ps_colors("habitat"),
   exposure_palette = ps_colors("exposure"),
   title = NULL,
   subtitle = "National Geographic Pristine Seas",
@@ -45,10 +45,12 @@ explore_uvs_sites(
   Named character vectors mapping each habitat/exposure category to a
   hex color. Default to
   [`ps_colors()`](https://pristine-seas.github.io/PristineSeasR2/reference/ps_colors.md)'s
-  `"uvs_habitats"` and `"exposure"` palettes, which are fixed taxonomies
-  shared across every expedition. A level with no color in the supplied
-  palette gets a generated fallback color (with a warning) rather than
-  failing.
+  `"habitat"` and `"exposure"` palettes. The exposure palette covers
+  every level of the vocabulary; the habitat palette names the five
+  zones sampled on most trips, so pass
+  `ps_habitat_colors(<habitats present>)` when a trip sampled others. A
+  level with no color in the supplied palette gets a generated fallback
+  color (with a warning) rather than failing.
 
 - title:
 

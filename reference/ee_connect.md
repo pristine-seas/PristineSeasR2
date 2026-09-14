@@ -1,9 +1,11 @@
 # Connect to Google Earth Engine
 
 Opens the `rgee` connection that
+[`explore_s1_detections()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_s1_detections.md)
+and
 [`explore_s2_detections()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_s2_detections.md)
-renders its crops through, working around two things that otherwise make
-`rgee` unusable from a knitr chunk:
+render their crops through, working around two things that otherwise
+make `rgee` unusable from a knitr chunk:
 
 - `rgee` asks Earth Engine for the account's legacy asset root, but the
   `earthengine-api` no longer answers that call — it returns nothing

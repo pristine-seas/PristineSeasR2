@@ -38,6 +38,6 @@ a simple base R swatch plot.
 ``` r
 if (FALSE) { # \dontrun{
 ps_show_palette("trophic_group")
-ps_show_palette("functional_groups", ncol = 3)
+ps_show_palette("benthic_cover", ncol = 4)
 } # }
 ```

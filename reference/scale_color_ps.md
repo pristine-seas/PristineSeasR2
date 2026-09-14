@@ -52,7 +52,7 @@ library(ggplot2)
 
 # Species diversity by habitat (points with error bars)
 diversity <- data.frame(habitat = factor(c("fore_reef", "back_reef", "patch_reef"),
-                                         levels = names(ps_colors("uvs_habitats"))),
+                                         levels = names(ps_colors("habitat"))),
                         species_richness = c(42, 35, 20),
                         se = c(10, 8, 9))
 
@@ -60,7 +60,7 @@ ggplot(diversity,
        aes(x = species_richness, y = habitat, color = habitat)) +
   geom_point(size = 4) +
   geom_errorbar(aes(xmin = species_richness - se, xmax = species_richness + se), width = 0.2) +
-  scale_color_ps("uvs_habitats", drop = TRUE) +
+  scale_color_ps("habitat", drop = TRUE) +
   labs(x = "Species richness", y = NULL) +
   theme_ps()
 
