@@ -38,7 +38,7 @@ create_expedition <- function(expedition_name, create_readme = TRUE) {
   }
 
   # Get drive paths
-  drive_paths <- get_drive_paths()
+  drive_paths <- ps_science_paths()
 
   # Create full expedition path
   expedition_folder <- file.path(drive_paths$expeditions, clean_name)

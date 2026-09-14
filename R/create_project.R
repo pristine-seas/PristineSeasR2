@@ -36,7 +36,7 @@ create_project <- function(project_name) {
   }
 
   # Get drive paths
-  drive_paths <- get_drive_paths()
+  drive_paths <- ps_science_paths()
 
   # Create full project path
   project_folder <- file.path(drive_paths$projects, clean_name)

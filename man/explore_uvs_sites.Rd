@@ -8,7 +8,7 @@ explore_uvs_sites(
   sites,
   region_palette,
   subregion_palette,
-  habitat_palette = ps_colors("uvs_habitats"),
+  habitat_palette = ps_colors("habitat"),
   exposure_palette = ps_colors("exposure"),
   title = NULL,
   subtitle = "National Geographic Pristine Seas",
@@ -29,10 +29,12 @@ define these once in the expedition's setup script.}
 
 \item{habitat_palette, exposure_palette}{Named character vectors mapping
 each habitat/exposure category to a hex color. Default to
-\code{\link[=ps_colors]{ps_colors()}}'s \code{"uvs_habitats"} and \code{"exposure"} palettes, which are
-fixed taxonomies shared across every expedition. A level with no color
-in the supplied palette gets a generated fallback color (with a
-warning) rather than failing.}
+\code{\link[=ps_colors]{ps_colors()}}'s \code{"habitat"} and \code{"exposure"} palettes. The exposure
+palette covers every level of the vocabulary; the habitat palette names
+the five zones sampled on most trips, so pass
+\verb{ps_habitat_colors(<habitats present>)} when a trip sampled others. A
+level with no color in the supplied palette gets a generated fallback
+color (with a warning) rather than failing.}
 
 \item{title}{Map title shown in the banner on the \emph{exported} standalone
 map only (see \code{export_path}) — not shown on the version this function

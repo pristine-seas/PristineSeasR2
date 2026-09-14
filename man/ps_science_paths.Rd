@@ -2,69 +2,34 @@
 % Please edit documentation in R/ps_science_paths.R
 \name{ps_science_paths}
 \alias{ps_science_paths}
-\title{Get standardized Pristine Seas Google Drive paths}
+\alias{get_drive_paths}
+\title{Find the Pristine Seas SCIENCE folder on this machine}
 \usage{
-ps_science_paths(mustWork = FALSE)
+ps_science_paths(quiet = FALSE)
+
+get_drive_paths()
 }
 \arguments{
-\item{mustWork}{Logical. If \code{TRUE}, the function errors when the SCIENCE
-folder is not found. If \code{FALSE} (default), a warning is issued and a
-best-guess path is returned.}
+\item{quiet}{Logical. Suppress the message naming which folder was chosen when several qualify.}
 }
 \value{
-A named list with normalized paths:
-\describe{
-\item{science}{Path to \code{Pristine Seas/SCIENCE}}
-\item{datasets}{Path to \code{SCIENCE/datasets}}
-\item{expeditions}{Path to \code{SCIENCE/expeditions}}
-\item{projects}{Path to \code{SCIENCE/projects}}
-}
+A named list of paths with forward slashes: \code{science}, \code{datasets}, \code{expeditions}, \code{projects}.
 }
 \description{
-Returns normalized local paths to the Pristine Seas Science Google Drive
-folder structure:
+Returns the local paths to the shared \verb{Pristine Seas/SCIENCE} folder and its \code{datasets}, \code{expeditions} and \code{projects} subfolders, wherever Google Drive for Desktop has put them. Works on macOS and Windows, with ngs.org or personal accounts, and whether the folder sits in \emph{My Drive}, in a \emph{Shared drive}, or reaches you through a shortcut.
+
+\code{get_drive_paths()} is the original name, kept as a plain alias so existing scripts keep working.
 }
 \details{
-\preformatted{
-My Drive/
-└── Pristine Seas/
-    └── SCIENCE/
-        ├── datasets/
-        ├── expeditions/
-        └── projects/
-}
-
-The function works on Mac and Windows and avoids hard-coded user paths.
-
-Path resolution order:
-\enumerate{
-\item If the environment variable \code{PS_SCIENCE_PATH} is set, it is used
-as the SCIENCE folder.
-\item Otherwise, the function detects the local Google Drive "My Drive"
-directory and searches for \code{"Pristine Seas/SCIENCE"}.
-\item If multiple matches exist, an \code{ngs.org} account is preferred.
-}
-
-This function requires Google Drive for Desktop with the
-\code{Pristine Seas/SCIENCE} folder synced locally.
-
-For non-standard setups (e.g., custom drive letters, CI, or shared machines),
-set an environment variable in \code{.Renviron}:
-
-\preformatted{
-PS_SCIENCE_PATH=G:/My Drive/Pristine Seas/SCIENCE
-}
-
-All returned paths use forward slashes for cross-platform compatibility.
+If \code{PS_SCIENCE_PATH} (or the option \code{PristineSeasR2.science_path}) is set, it is used as is; pointing it at a missing folder is an error. Otherwise every Google Drive root on the machine is searched: \emph{My Drive}, each \emph{Shared drive}, and the shortcut targets Drive keeps for folders shared with you. A hit must contain at least one of the three subfolders. When several qualify, an ngs.org account wins, then a live account over a stale \code{(date)} copy left by a re-login. If nothing qualifies, the error lists every location searched and how to fix it.
 }
 \examples{
 \dontrun{
-paths <- get_drive_paths()
+paths <- ps_science_paths()
+list.files(paths$expeditions)
 
-paths$science
-paths$datasets
-
-readr::read_csv(file.path(paths$datasets, "fish", "blt_data.csv"))
+# For an unusual setup, once, in .Renviron (usethis::edit_r_environ()):
+# PS_SCIENCE_PATH="D:/Drive/Pristine Seas/SCIENCE"
 }
 
 }

@@ -27,26 +27,24 @@ library(ggplot2)
 # Benthic cover composition (stacked bar) - all functional groups
 
 benthic <- data.frame(site             = rep(c("Site A", "Site B"), each = 11),
-                     functional_group = factor(rep(c("hard_coral", "soft_coral", "cca", "turf",
-                                                     "algae_erect", "algae_encrusting", "algae_canopy",
-                                                     "sponges", "cyanobacteria", "other", "sediment | rubble | barren"), 2),
-                                               levels = rev(names(ps_colors("functional_groups")))),
-                     cover            = c(32, 5, 18, 15, 8, 3, 2, 4, 1, 2, 10, 22, 8, 12, 20, 10, 5, 4, 6, 3, 3, 7))
+                     functional_group = factor(rep(names(ps_colors("benthic_cover")), 2),
+                                               levels = rev(names(ps_colors("benthic_cover")))),
+                     cover            = c(52, 20, 2, 4, 2, 3, 2, 1, 6, 7, 1,
+                                          14, 8, 4, 4, 4, 5, 18, 2, 12, 23, 6))
 
 ggplot(benthic,
        aes(x = site, y = cover, fill = functional_group)) +
   geom_col(position = "stack") +
-  scale_fill_ps("functional_groups") +
+  scale_fill_ps("benthic_cover") +
   labs(x = NULL, y = "Cover (\%)", fill = "Functional group") +
   theme_ps()
 
 # Fish biomass by trophic group (stacked bar)
 
 fish_trophic <- data.frame(site = rep(c("Protected", "Fished"), each = 5),
-                           trophic_group = factor(rep(c("shark", "top_predator", "lower_carnivore",
-                                                        "herbivore | detritivore", "planktivore"), 2),
+                           trophic_group = factor(rep(names(ps_colors("trophic_group")), 2),
                                                   levels = rev(names(ps_colors("trophic_group")))),
-  biomass = c(45, 120, 180, 210, 95, 5, 35, 150, 190, 80)/2)
+                           biomass = c(45, 120, 180, 210, 95, 5, 35, 150, 190, 80) / 2)
 
 ggplot(fish_trophic,
        aes(x = site, y = biomass, fill = trophic_group)) +

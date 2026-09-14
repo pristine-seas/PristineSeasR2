@@ -4,107 +4,86 @@
 # All palettes in one registry
 ps_palettes <- list(
 
-  depth_strata = c(supershallow = "#8DE7F2",
-                   shallow      = "#69A9D0",
-                   deep         = "#2E6498",
-                   superdeep    = "#111A35"),
+  depth_strata = c("supershallow" = "#96D8DE",
+                   "shallow"      = "#52B2CD",
+                   "deep"         = "#007EB1",
+                   "superdeep"    = "#015871"),
 
-  exposure = c(windward  = "#9B302B",
-               leeward   = "#34749B",
-               lagoon    = "#198F88",
-               exposed   = "#D46B5B",
-               channel   = "#1F4E79",
-               sheltered = "#79C9C1",
-               unknown   = "#AEB5B8"),
+  trophic_group = c("shark"                   = "#75161D",
+                    "top_predator"            = "#AC2D00",
+                    "lower_carnivore"         = "#B96310",
+                    "herbivore | detritivore" = "#40AE82",
+                    "planktivore"             = "#C1C2FA"),
 
-  trophic_group = c(shark                     = "#7A0010",
-                    top_predator              = "#E0B83F",
-                    lower_carnivore           = "#8EC9F0",
-                    "herbivore | detritivore" = "#1F7A4C",
-                    planktivore               = "#B9A3E3"),
+  benthic_cover = c("hard_coral"                 = "#FFCD16",
+                    "cca"                        = "#E563A4",
+                    "sponges"                    = "#393A81",
+                    "soft_coral"                 = "#DE98E3",
+                    "other"                      = "#BAB5B1",
+                    "algae_encrusting"           = "#0D5F5B",
+                    "algae_erect"                = "#8EBB67",
+                    "algae_canopy"               = "#784620",
+                    "sediment | rubble | barren" = "#E8DDB7",
+                    "turf"                       = "#7B8563",
+                    "cyanobacteria"              = "#2C2234"),
 
-  functional_groups = c(hard_coral                   = "#2E4A9E",
-                        cca                          = "#FF7FA7",
-                        soft_coral                   = "#6FD3E3",
-                        algae_erect                  = "#2FA84F",
-                        algae_encrusting             = "#8FCFA9",
-                        algae_canopy                 = "#8A7A3A",
-                        sponges                      = "#E07A5F",
-                        other                        = "#7A5C8F",
-                        cyanobacteria                = "#0B0B0B",
-                        turf                         = "#4A3A2A",
-                        "sediment | rubble | barren" = "#D9D9D9"),
+  exposure = c("unknown"   = "#BAB5B1",
+               "sheltered" = "#FDD2D7",
+               "lagoon"    = "#F3A7B1",
+               "leeward"   = "#E07F8E",
+               "channel"   = "#BC5B6C",
+               "windward"  = "#8F404F",
+               "exposed"   = "#602A34"),
 
-  trophic_group2 = c(shark                     = "#651A32",
-                      top_predator              = "#E48B22",
-                      lower_carnivore           = "#3C82B5",
-                      "herbivore | detritivore" = "#178A78",
-                      planktivore               = "#8B70B2"),
+  # Five slots, named for the zones sampled on most trips. When a trip samples
+  # other habitats, reassign the slots in order with ps_habitat_colors().
+  habitat = c("fore_reef"     = "#005F87",
+              "back_reef"     = "#DCA04F",
+              "patch_reef"    = "#A5DBE0",
+              "fringing_reef" = "#6F3F1B",
+              "bank"          = "#8E81CE")
 
-  functional_groups2 = c(hard_coral                    = "#F4B740",
-                          cca                           = "#DE5B8C",
-                          soft_coral                    = "#7E5AA2",
-                          sponges                       = "#46B4C9",
-                          algae_erect                   = "#4E9E5B",
-                          algae_encrusting              = "#7FC8B3",
-                          algae_canopy                  = "#245C54",
-                          other                         = "#A8A29A",
-                          "sediment | rubble | barren"  = "#D3C9A5",
-                          turf                          = "#7A6E3E",
-                          cyanobacteria                 = "#2E1B26"),
+  # Retired 2026-09: too many classes to be distinct, and never used in a
+  # figure. Kept for reference in case an invertebrate palette is revisited.
+  # invert_groups = c("Ark clam"                 = "#5050FF",
+  #                   "Barnacles"                 = "#CE3D32",
+  #                   "Bivalves"                  = "#749B58",
+  #                   "Boxer shrimps"             = "#F0E685",
+  #                   "Brittle stars"             = "#466983",
+  #                   "Carpet sea anemones"       = "#BA6338",
+  #                   "Ceriths"                   = "#5DB1DD",
+  #                   "Conchs"                    = "#802268",
+  #                   "Cone snail"                = "#6BD76B",
+  #                   "Coral crabs"               = "#D595A7",
+  #                   "Crabs"                     = "#924822",
+  #                   "Crown-of-thorns starfish"  = "#837B8D",
+  #                   "Feather stars"             = "#C75127",
+  #                   "Foam oysters"              = "#D58F5C",
+  #                   "Giant clams"               = "#7A65A5",
+  #                   "Hermit crabs"              = "#E4AF69",
+  #                   "Mantis shrimp"             = "#3B1B53",
+  #                   "Nudibranchs"               = "#CDDEB7",
+  #                   "Octopus"                   = "#612A79",
+  #                   "Pearl oysters"             = "#AE1F63",
+  #                   "Penaeid shrimps"           = "#E7C76F",
+  #                   "Sea anemones"              = "#5A655E",
+  #                   "Sea cucumbers"             = "#CC9900",
+  #                   "Sea slugs"                 = "#99CC00",
+  #                   "Sea snails"                = "#A9A9A9",
+  #                   "Sea stars"                 = "#33CC00",
+  #                   "Sea urchins"               = "#00CC33",
+  #                   "Shrimps"                   = "#00CC99",
+  #                   "Slipper lobsters"          = "#0099CC",
+  #                   "Spiny lobsters"            = "#0A47FF",
+  #                   "Sponges"                   = "#4775FF",
+  #                   "Swimming crabs"            = "#FFC20A",
+  #                   "Top shells"                = "#FFD147",
+  #                   "Triton snails"             = "#990033",
+  #                   "Turban snails"             = "#991A00",
+  #                   "Vase snails"               = "#996600",
+  #                   "Worms"                     = "#809900",
+  #                   "Xanthid crabs"             = "#339900")
 
-  uvs_habitats = c(fore_reef      = "#D85C41",
-                   back_reef      = "#F2A06F",
-                   fringing_reef  = "#8F5AA8",
-                   patch_reef     = "#EBA5BE",
-                   pinnacle_reef  = "#A8325A",
-                   reef_flat      = "#47B9C9",
-                   channel_pass   = "#28659A",
-                   reef_pavement  = "#958166",
-                   bank           = "#D5B66F",
-                   rocky_reef     = "#73777E",
-                   wall           = "#303B44",
-                   kelp_forest    = "#176B52",
-                   seagrass       = "#91BA3F"),
-
-  invert_groups = c("Ark clam"                 = "#5050FF",
-                    "Barnacles"                 = "#CE3D32",
-                    "Bivalves"                  = "#749B58",
-                    "Boxer shrimps"             = "#F0E685",
-                    "Brittle stars"             = "#466983",
-                    "Carpet sea anemones"       = "#BA6338",
-                    "Ceriths"                   = "#5DB1DD",
-                    "Conchs"                    = "#802268",
-                    "Cone snail"                = "#6BD76B",
-                    "Coral crabs"               = "#D595A7",
-                    "Crabs"                     = "#924822",
-                    "Crown-of-thorns starfish"  = "#837B8D",
-                    "Feather stars"             = "#C75127",
-                    "Foam oysters"              = "#D58F5C",
-                    "Giant clams"               = "#7A65A5",
-                    "Hermit crabs"              = "#E4AF69",
-                    "Mantis shrimp"             = "#3B1B53",
-                    "Nudibranchs"               = "#CDDEB7",
-                    "Octopus"                   = "#612A79",
-                    "Pearl oysters"             = "#AE1F63",
-                    "Penaeid shrimps"           = "#E7C76F",
-                    "Sea anemones"              = "#5A655E",
-                    "Sea cucumbers"             = "#CC9900",
-                    "Sea slugs"                 = "#99CC00",
-                    "Sea snails"                = "#A9A9A9",
-                    "Sea stars"                 = "#33CC00",
-                    "Sea urchins"               = "#00CC33",
-                    "Shrimps"                   = "#00CC99",
-                    "Slipper lobsters"          = "#0099CC",
-                    "Spiny lobsters"            = "#0A47FF",
-                    "Sponges"                   = "#4775FF",
-                    "Swimming crabs"            = "#FFC20A",
-                    "Top shells"                = "#FFD147",
-                    "Triton snails"             = "#990033",
-                    "Turban snails"             = "#991A00",
-                    "Vase snails"               = "#996600",
-                    "Worms"                     = "#809900",
-                    "Xanthid crabs"             = "#339900")
 )
 
 
@@ -133,9 +112,9 @@ ps_palettes <- list(
 #' Otherwise, a named character vector of hex codes.
 #'
 #' @examples
-#' ps_colors()                    # list available palettes
-#' ps_colors("trophic_group")     # named vector
-#' ps_colors("functional_groups") # named vector
+#' ps_colors()                 # list available palettes
+#' ps_colors("trophic_group")  # named vector
+#' ps_colors("benthic_cover")  # named vector
 #'
 #' @export
 ps_colors <- function(palette = NULL) {
@@ -153,6 +132,45 @@ ps_colors <- function(palette = NULL) {
   }
 
   ps_palettes[[palette]]
+}
+
+
+#' Assign the habitat palette to the habitats a trip sampled
+#'
+#' The `"habitat"` palette has five slots, named by default for the zones
+#' sampled on most expeditions (fore reef, back reef, patch reef, fringing
+#' reef, bank). Trips that sample other habitats reassign the same five
+#' colours, in order, to the habitats they have, so a figure always uses the
+#' same well-separated set no matter which zones were surveyed.
+#'
+#' @param levels Character. Habitat names in the order they should take the
+#'   palette slots, typically `levels(df$habitat)` or the habitats present in
+#'   the data. At most five.
+#'
+#' @return A named character vector of hex codes, one per level, in the order
+#'   given.
+#'
+#' @examples
+#' ps_habitat_colors(c("fore_reef", "pinnacle_reef", "wall"))
+#'
+#' @seealso [ps_colors()], [ps_shapes()] for the matching habitat shapes
+#' @export
+ps_habitat_colors <- function(levels) {
+
+  levels <- unique(as.character(levels))
+  slots  <- ps_palettes[["habitat"]]
+
+  if (length(levels) == 0L) {
+    stop("`levels` must contain at least one habitat.", call. = FALSE)
+  }
+  if (length(levels) > length(slots)) {
+    stop("The habitat palette has ", length(slots), " slots; ",
+         length(levels), " habitats were supplied.", call. = FALSE)
+  }
+
+  out <- unname(slots[seq_along(levels)])
+  names(out) <- levels
+  out
 }
 
 
@@ -174,7 +192,7 @@ ps_colors <- function(palette = NULL) {
 #' @examples
 #' \dontrun{
 #' ps_show_palette("trophic_group")
-#' ps_show_palette("functional_groups", ncol = 3)
+#' ps_show_palette("benthic_cover", ncol = 4)
 #' }
 #'
 #' @importFrom graphics par plot.new rect text title
@@ -285,7 +303,7 @@ ps_show_palette <- function(palette, show_labels = TRUE, ncol = NULL) {
 #'
 #' # Species diversity by habitat (points with error bars)
 #' diversity <- data.frame(habitat = factor(c("fore_reef", "back_reef", "patch_reef"),
-#'                                          levels = names(ps_colors("uvs_habitats"))),
+#'                                          levels = names(ps_colors("habitat"))),
 #'                         species_richness = c(42, 35, 20),
 #'                         se = c(10, 8, 9))
 #'
@@ -293,7 +311,7 @@ ps_show_palette <- function(palette, show_labels = TRUE, ncol = NULL) {
 #'        aes(x = species_richness, y = habitat, color = habitat)) +
 #'   geom_point(size = 4) +
 #'   geom_errorbar(aes(xmin = species_richness - se, xmax = species_richness + se), width = 0.2) +
-#'   scale_color_ps("uvs_habitats", drop = TRUE) +
+#'   scale_color_ps("habitat", drop = TRUE) +
 #'   labs(x = "Species richness", y = NULL) +
 #'   theme_ps()
 #'
@@ -328,26 +346,24 @@ scale_color_ps <- function(palette, drop = FALSE, ...) {
 #' # Benthic cover composition (stacked bar) - all functional groups
 #'
 #' benthic <- data.frame(site             = rep(c("Site A", "Site B"), each = 11),
-#'                      functional_group = factor(rep(c("hard_coral", "soft_coral", "cca", "turf",
-#'                                                      "algae_erect", "algae_encrusting", "algae_canopy",
-#'                                                      "sponges", "cyanobacteria", "other", "sediment | rubble | barren"), 2),
-#'                                                levels = rev(names(ps_colors("functional_groups")))),
-#'                      cover            = c(32, 5, 18, 15, 8, 3, 2, 4, 1, 2, 10, 22, 8, 12, 20, 10, 5, 4, 6, 3, 3, 7))
+#'                      functional_group = factor(rep(names(ps_colors("benthic_cover")), 2),
+#'                                                levels = rev(names(ps_colors("benthic_cover")))),
+#'                      cover            = c(52, 20, 2, 4, 2, 3, 2, 1, 6, 7, 1,
+#'                                           14, 8, 4, 4, 4, 5, 18, 2, 12, 23, 6))
 #'
 #' ggplot(benthic,
 #'        aes(x = site, y = cover, fill = functional_group)) +
 #'   geom_col(position = "stack") +
-#'   scale_fill_ps("functional_groups") +
+#'   scale_fill_ps("benthic_cover") +
 #'   labs(x = NULL, y = "Cover (%)", fill = "Functional group") +
 #'   theme_ps()
 #'
 #' # Fish biomass by trophic group (stacked bar)
 #'
 #' fish_trophic <- data.frame(site = rep(c("Protected", "Fished"), each = 5),
-#'                            trophic_group = factor(rep(c("shark", "top_predator", "lower_carnivore",
-#'                                                         "herbivore | detritivore", "planktivore"), 2),
+#'                            trophic_group = factor(rep(names(ps_colors("trophic_group")), 2),
 #'                                                   levels = rev(names(ps_colors("trophic_group")))),
-#'   biomass = c(45, 120, 180, 210, 95, 5, 35, 150, 190, 80)/2)
+#'                            biomass = c(45, 120, 180, 210, 95, 5, 35, 150, 190, 80) / 2)
 #'
 #' ggplot(fish_trophic,
 #'        aes(x = site, y = biomass, fill = trophic_group)) +

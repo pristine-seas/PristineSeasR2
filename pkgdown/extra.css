@@ -1,0 +1,27 @@
+/* The Pristine Seas shield is portrait, so pkgdown's default 120px logo
+   width overruns the masthead. Size it to sit inside the title block. */
+.template-home main img.logo,
+.page-header img.logo,
+img.logo { width: auto; height: 90px; margin-top: 2px; }
+
+/* Lead line under the page title: the header rule moves below it so the
+   title, shield and subtitle read as one block */
+.template-home .page-header { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; min-height: 0; }
+.template-home .page-header h1 { margin-bottom: 0; }
+.template-home p.subtitle {
+  font-size: 1.25rem;
+  color: var(--bs-secondary-color, #6c757d);
+  margin: 0.25rem 0 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--bs-border-color, #dee2e6);
+}
+
+/* Code blocks: a pale blue drawn from the depth palette instead of the
+   highlighter's cream, so code reads as a distinct surface on the paper */
+pre, pre code, div.sourceCode, pre.sourceCode {
+  background-color: #E9F1F4;
+}
+pre { border: 1px solid rgba(0, 95, 135, 0.12); }
+
+/* Console output is marked up as comments; keep it upright so tables read */
+pre code span.co { font-style: normal; }

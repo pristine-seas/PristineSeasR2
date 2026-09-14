@@ -28,8 +28,13 @@ explore_s1_detections(
 \arguments{
 \item{detections}{A data frame, or a path to a CSV, with \code{detect_id},
 \code{detect_lat}, \code{detect_lon} and \code{scene_id}. Used when present:
-\code{detect_timestamp} (or \code{when}), \code{length_m} (or \code{length_m_inferred}), and a
-class column.}
+\code{detect_timestamp} (or \code{when}), \code{length_m} (or \code{length_m_inferred}), a
+class column, \code{fishing_score}, \code{presence_score} and \code{matching_score}
+(GFW's own confidence in the AIS identity behind a match, NA where a
+detection has none). With \code{fishing_score}, the gallery and arrow-key
+order runs highest score first, as \code{\link[=explore_s2_detections]{explore_s2_detections()}} already
+orders by \code{presence_score}; without it, rows are shown in the order they
+arrive.}
 
 \item{class_col}{Name of the column colouring the markers. Defaults to
 \code{"fleet"} when present, then \code{"class"}; \code{NULL} draws every marker alike.}
@@ -53,9 +58,9 @@ Earth Engine URLs, which expire within days.}
 \item{boundary_color, gallery, legend_title, title, subtitle, export_path}{As in
 \code{\link[=explore_s2_detections]{explore_s2_detections()}}.}
 
-\item{gallery_order}{How the contact sheet is sorted, named under its count.
-Rows are drawn in the order they arrive, so this labels that order rather
-than imposing one.}
+\item{gallery_order}{Label shown under the contact sheet's count, describing
+the order it is actually in: by \code{fishing_score} when the column is
+present, otherwise the order rows arrive in.}
 
 \item{ee_project, ee_python, ee_asset_home}{Earth Engine connection details,
 used only when a crop is missing from \code{cache_dir}.}

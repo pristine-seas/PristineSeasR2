@@ -33,10 +33,12 @@
 #'   define these once in the expedition's setup script.
 #' @param habitat_palette,exposure_palette Named character vectors mapping
 #'   each habitat/exposure category to a hex color. Default to
-#'   [ps_colors()]'s `"uvs_habitats"` and `"exposure"` palettes, which are
-#'   fixed taxonomies shared across every expedition. A level with no color
-#'   in the supplied palette gets a generated fallback color (with a
-#'   warning) rather than failing.
+#'   [ps_colors()]'s `"habitat"` and `"exposure"` palettes. The exposure
+#'   palette covers every level of the vocabulary; the habitat palette names
+#'   the five zones sampled on most trips, so pass
+#'   `ps_habitat_colors(<habitats present>)` when a trip sampled others. A
+#'   level with no color in the supplied palette gets a generated fallback
+#'   color (with a warning) rather than failing.
 #' @param title Map title shown in the banner on the *exported* standalone
 #'   map only (see `export_path`) — not shown on the version this function
 #'   returns, since an inline report already has its own section heading.
@@ -66,7 +68,7 @@
 explore_uvs_sites <- function(sites,
                           region_palette,
                           subregion_palette,
-                          habitat_palette  = ps_colors("uvs_habitats"),
+                          habitat_palette  = ps_colors("habitat"),
                           exposure_palette = ps_colors("exposure"),
                           title       = NULL,
                           subtitle    = "National Geographic Pristine Seas",

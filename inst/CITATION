@@ -1,0 +1,15 @@
+bibentry(
+  bibtype      = "Manual",
+  title        = "PristineSeasR2: The Science Toolkit of National Geographic Pristine Seas",
+  author       = person("Pristine Seas Research Team"),
+  organization = "National Geographic Society",
+  year         = format(Sys.Date(), "%Y"),
+  note         = paste("R package version", meta$Version),
+  url          = "https://pristine-seas.github.io/PristineSeasR2/",
+  header       = "To cite PristineSeasR2 in publications, please use:",
+  textVersion  = paste0(
+    "Pristine Seas Research Team (", format(Sys.Date(), "%Y"), "). ",
+    "PristineSeasR2: The Science Toolkit of National Geographic Pristine Seas. ",
+    "National Geographic Society. R package version ", meta$Version, ". ",
+    "https://pristine-seas.github.io/PristineSeasR2/")
+)

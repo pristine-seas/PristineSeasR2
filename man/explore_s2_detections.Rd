@@ -14,6 +14,8 @@ explore_s2_detections(
   boundary_color = "#B6D94C",
   matched_color = "#4EC9E8",
   unmatched_color = "#8A949E",
+  class_col = NULL,
+  palette = NULL,
   gallery = TRUE,
   gallery_order = "by detection score",
   legend_title = NULL,
@@ -62,7 +64,18 @@ working when those expire, which takes days.}
 \item{boundary_color}{Colour of that outline. Default \code{"#B6D94C"}.}
 
 \item{matched_color, unmatched_color}{Marker colours for detections matched to
-AIS and detections not matched.}
+AIS and detections not matched. Ignored when \code{class_col} is active.}
+
+\item{class_col}{Name of a column giving each matched detection an identity —
+a vessel type, say — beyond the plain matched/unmatched split. Defaults to
+\code{"type"} when present, so a table built with a vessel-type join needs no
+argument at all; \code{NULL} keeps the plain two-colour behaviour regardless of
+what the table carries. The same generalisation \code{\link[=explore_s1_detections]{explore_s1_detections()}}
+already makes, for the same reason: a match is an identity, not just a
+broadcast.}
+
+\item{palette}{Named colours, one per level of \code{class_col}. Defaults to a
+grey ramp when \code{class_col} is active and no palette is given.}
 
 \item{gallery}{Give the exported map a second pane: every detection as a
 thumbnail, ordered by detection score, linked both ways to the map. Clicking

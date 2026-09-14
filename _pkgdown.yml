@@ -2,6 +2,127 @@ url: https://pristine-seas.github.io/PristineSeasR2/
 
 template:
   bootstrap: 5
+  theme: atom-one-light
   bslib:
-    bootswatch: sandstone
+    # The site sits on the same ink as theme_ps(): pampas paper, the title ink,
+    # the depth blue as accent. Type follows the colour-system document.
+    bg: "#F4F1EA"
+    fg: "#14181A"
+    primary: "#005F87"
+    secondary: "#6B7376"
+    link-color: "#005F87"
+    body-color: "#3C4145"
+    headings-color: "#14181A"
+    base_font: {google: "Archivo"}
+    heading_font: {google: "Newsreader"}
+    code_font: {google: "IBM Plex Mono"}
 
+home:
+  title: PristineSeasR2 · the science toolkit of National Geographic Pristine Seas
+  links:
+  - text: Pristine Seas
+    href: https://www.nationalgeographic.org/society/our-programs/pristine-seas/
+
+navbar:
+  bg: light
+  structure:
+    left:  [reference, articles, news]
+    right: [search, github]
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: The colour system
+        href: articles/colour-system.html
+      - text: Thermal stress (DHW)
+        href: articles/crw-dhw.html
+
+articles:
+- title: Figures
+  navbar: ~
+  contents:
+  - articles/colour-system
+- title: Data
+  navbar: ~
+  contents:
+  - crw-dhw
+
+reference:
+- title: Expedition setup
+  desc: The shared Drive, the standard folder tree, and who is on the team.
+  contents:
+  - create_expedition
+  - create_expedition_readme
+  - create_project
+  - ps_science_paths
+  - ps_researchers
+
+- title: Vocabularies and validation
+  desc: The controlled vocabularies survey data must follow, and the tools that hold it to them.
+  contents:
+  - allowed_vocab
+  - validate_vocab
+  - clean_field_names
+  - validate_and_export_csv
+  - stratify
+  - station_suffix
+
+- title: Exploration maps
+  desc: Interactive maps of a survey while the expedition is still at sea. One design, every protocol.
+  contents:
+  - explore_uvs_sites
+  - explore_fish_biomass
+  - explore_benthic_cover
+  - explore_invert_density
+  - explore_recruit_density
+  - default_benthic_cover_groups
+
+- title: Report maps
+  desc: Survey sites on satellite imagery, in the house style, for the page.
+  contents:
+  - map_uvs_sites
+
+- title: Satellite detections
+  desc: Global Fishing Watch vessel detections, each with the imagery it was made from.
+  contents:
+  - explore_s1_detections
+  - explore_s2_detections
+  - ee_connect
+
+- title: Figures and tables
+  desc: One design in two inks. Charts on paper, maps on water, and the house table styles.
+  contents:
+  - theme_ps
+  - theme_ps_map
+  - ps_ink
+  - ps_font_default
+  - guide_ps_colourbar
+  - gt_theme_ps
+  - gt_theme_ps_light
+
+- title: Colour and shape
+  desc: The data palettes and the habitat shapes, and the ggplot2 scales that use them.
+  contents:
+  - ps_colors
+  - ps_habitat_colors
+  - ps_show_palette
+  - scale_fill_ps
+  - scale_color_ps
+  - ps_shapes
+  - scale_shape_ps
+
+- title: Environment and taxonomy
+  desc: Context from outside the survey.
+  contents:
+  - get_crw_dhw_bbox
+  - get_crw_dhw_sf
+  - get_taxonomic_ranks
+
+- title: Data
+  desc: A real expedition to try the tools on.
+  contents:
+  - rmi_2023_uvs_sites
+
+- title: Package
+  contents:
+  - PristineSeasR2-package

@@ -4,9 +4,11 @@
 \name{PristineSeasR2-package}
 \alias{PristineSeasR2}
 \alias{PristineSeasR2-package}
-\title{PristineSeasR2: Marine Conservation Data Analysis Tools for Pristine Seas}
+\title{PristineSeasR2: The Science Toolkit of National Geographic Pristine Seas}
 \description{
-Tools for analyzing marine biodiversity data from Pristine Seas expeditions. Includes functions for taxonomic data cleaning, standardized vocabularies, color palettes for visualization, and spatial analysis utilities.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Tools for the Pristine Seas research team, collaborators and partners to carry expedition data from raw field sheets to the shared database to the report, the same way everywhere. Controlled vocabularies and validation for survey data, the standard expedition folder tree and Drive paths, interactive maps to explore surveys and satellite vessel detections, and ggplot2 themes, gt table styles, and colour and shape palettes so every figure, map and table reads as one family. Built for reproducible, consistent work across many expeditions, regions, languages and specialties.
 }
 \seealso{
 Useful links:

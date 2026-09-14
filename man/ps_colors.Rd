@@ -21,8 +21,8 @@ Retrieve Pristine Seas color palettes by name.
 Palettes are returned as named character vectors of hex color codes.
 }
 \examples{
-ps_colors()                    # list available palettes
-ps_colors("trophic_group")     # named vector
-ps_colors("functional_groups") # named vector
+ps_colors()                 # list available palettes
+ps_colors("trophic_group")  # named vector
+ps_colors("benthic_cover")  # named vector
 
 }

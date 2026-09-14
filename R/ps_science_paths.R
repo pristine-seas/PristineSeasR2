@@ -1,157 +1,107 @@
-#' Get standardized Pristine Seas Google Drive paths
+# ps_science_paths.R -----------------------------------------------------------
+# Find the shared Pristine Seas SCIENCE folder on any teammate's machine. Drive for Desktop has moved its mount point over the years, accounts differ (ngs.org, personal), shared folders arrive as shortcuts, and Windows and macOS lay it all out differently. So instead of assuming one layout we look everywhere the folder can be and take the best hit.
+
+#' Find the Pristine Seas SCIENCE folder on this machine
 #'
-#' Returns normalized local paths to the Pristine Seas Science Google Drive
-#' folder structure:
-#'
-#' \preformatted{
-#' My Drive/
-#' └── Pristine Seas/
-#'     └── SCIENCE/
-#'         ├── datasets/
-#'         ├── expeditions/
-#'         └── projects/
-#' }
-#'
-#' The function works on Mac and Windows and avoids hard-coded user paths.
-#'
-#' Path resolution order:
-#' \enumerate{
-#'   \item If the environment variable \code{PS_SCIENCE_PATH} is set, it is used
-#'   as the SCIENCE folder.
-#'   \item Otherwise, the function detects the local Google Drive "My Drive"
-#'   directory and searches for \code{"Pristine Seas/SCIENCE"}.
-#'   \item If multiple matches exist, an \code{ngs.org} account is preferred.
-#' }
-#'
-#' @param mustWork Logical. If \code{TRUE}, the function errors when the SCIENCE
-#'   folder is not found. If \code{FALSE} (default), a warning is issued and a
-#'   best-guess path is returned.
-#'
-#' @return A named list with normalized paths:
-#' \describe{
-#'   \item{science}{Path to \code{Pristine Seas/SCIENCE}}
-#'   \item{datasets}{Path to \code{SCIENCE/datasets}}
-#'   \item{expeditions}{Path to \code{SCIENCE/expeditions}}
-#'   \item{projects}{Path to \code{SCIENCE/projects}}
-#' }
+#' Returns the local paths to the shared `Pristine Seas/SCIENCE` folder and its `datasets`, `expeditions` and `projects` subfolders, wherever Google Drive for Desktop has put them. Works on macOS and Windows, with ngs.org or personal accounts, and whether the folder sits in *My Drive*, in a *Shared drive*, or reaches you through a shortcut.
 #'
 #' @details
-#' This function requires Google Drive for Desktop with the
-#' \code{Pristine Seas/SCIENCE} folder synced locally.
+#' If `PS_SCIENCE_PATH` (or the option `PristineSeasR2.science_path`) is set, it is used as is; pointing it at a missing folder is an error. Otherwise every Google Drive root on the machine is searched: *My Drive*, each *Shared drive*, and the shortcut targets Drive keeps for folders shared with you. A hit must contain at least one of the three subfolders. When several qualify, an ngs.org account wins, then a live account over a stale `(date)` copy left by a re-login. If nothing qualifies, the error lists every location searched and how to fix it.
 #'
-#' For non-standard setups (e.g., custom drive letters, CI, or shared machines),
-#' set an environment variable in \code{.Renviron}:
+#' @param quiet Logical. Suppress the message naming which folder was chosen when several qualify.
 #'
-#' \preformatted{
-#' PS_SCIENCE_PATH=G:/My Drive/Pristine Seas/SCIENCE
-#' }
-#'
-#' All returned paths use forward slashes for cross-platform compatibility.
+#' @return A named list of paths with forward slashes: `science`, `datasets`, `expeditions`, `projects`.
 #'
 #' @examples
 #' \dontrun{
-#' paths <- get_drive_paths()
+#' paths <- ps_science_paths()
+#' list.files(paths$expeditions)
 #'
-#' paths$science
-#' paths$datasets
-#'
-#' readr::read_csv(file.path(paths$datasets, "fish", "blt_data.csv"))
+#' # For an unusual setup, once, in .Renviron (usethis::edit_r_environ()):
+#' # PS_SCIENCE_PATH="D:/Drive/Pristine Seas/SCIENCE"
 #' }
 #'
 #' @export
-ps_science_paths <- function(mustWork = FALSE) {
+ps_science_paths <- function(quiet = FALSE) {
 
-  norm <- function(p) normalizePath(p, winslash = "/", mustWork = FALSE)
-
-  os <- Sys.info()[["sysname"]]
-  is_mac <- identical(os, "Darwin")
-  is_win <- identical(os, "Windows")
-
-  # ---- 0) Optional override ----
-  override <- Sys.getenv("PS_SCIENCE_PATH", unset = "")
+  override <- getOption("PristineSeasR2.science_path", Sys.getenv("PS_SCIENCE_PATH"))
   if (nzchar(override)) {
-    base_path <- override
-
-  } else {
-
-    # ---- 1) Find candidate "My Drive" roots ----
-    my_drive_roots <- character(0)
-
-    if (is_mac) {
-
-      cloud <- path.expand("~/Library/CloudStorage")
-      if (dir.exists(cloud)) {
-        accts <- list.dirs(cloud, recursive = FALSE, full.names = TRUE)
-        gdrive <- accts[grepl("^GoogleDrive-", basename(accts))]
-        my_drive_roots <- file.path(gdrive, "My Drive")
-      }
-
-    } else if (is_win) {
-
-      # Common: Google Drive mounted as a drive letter containing "My Drive"
-      drive_letters <- paste0(LETTERS, ":/")
-      my_drive_roots <- file.path(drive_letters, "My Drive")
-      my_drive_roots <- my_drive_roots[dir.exists(my_drive_roots)]
-
-      # Fallbacks if not mounted as a drive letter
-      if (length(my_drive_roots) == 0) {
-        home <- Sys.getenv("USERPROFILE", unset = "")
-        fallbacks <- c(
-          file.path(home, "Google Drive", "My Drive"),
-          file.path(home, "GoogleDrive", "My Drive")
-        )
-        my_drive_roots <- fallbacks[dir.exists(fallbacks)]
-      }
-
-    } else {
-      stop("Unsupported OS. Mac and Windows only.", call. = FALSE)
+    if (!dir.exists(override)) {
+      stop("PS_SCIENCE_PATH points to a folder that does not exist:\n  ", override,
+           "\nFix it in .Renviron (usethis::edit_r_environ()) or unset it to search Google Drive.", call. = FALSE)
     }
-
-    if (length(my_drive_roots) == 0) {
-      stop("Google Drive 'My Drive' folder not found. Is Google Drive Desktop installed and signed in?",
-           call. = FALSE)
-    }
-
-    # ---- 2) Look for actual SCIENCE folder inside each root ----
-    science_candidates <- file.path(my_drive_roots, "Pristine Seas", "SCIENCE")
-    exists <- dir.exists(science_candidates)
-
-    if (!any(exists)) {
-
-      msg <- paste0(
-        "Could not find 'Pristine Seas/SCIENCE' inside any detected Google Drive.\n",
-        "Searched:\n- ", paste(norm(my_drive_roots), collapse = "\n- "), "\n\n",
-        "Fixes:\n",
-        " - Ensure the folder is synced locally, or\n",
-        " - Set PS_SCIENCE_PATH to the SCIENCE folder location."
-      )
-
-      if (isTRUE(mustWork)) stop(msg, call. = FALSE) else warning(msg, call. = FALSE)
-
-      # Best guess fallback
-      base_path <- file.path(my_drive_roots[1], "Pristine Seas", "SCIENCE")
-
-    } else {
-
-      hits <- science_candidates[exists]
-
-      # Prefer ngs.org if multiple matches (mainly relevant on Mac)
-      ngs <- hits[grepl("ngs\\.org", hits, ignore.case = TRUE)]
-      base_path <- if (length(ngs) > 0) ngs[1] else hits[1]
-    }
+    return(.ps_science_list(override))
   }
 
-  # ---- 3) Final existence check ----
-  if (!dir.exists(base_path)) {
-    msg <- paste0("SCIENCE folder not found at:\n  ", norm(base_path))
-    if (isTRUE(mustWork)) stop(msg, call. = FALSE) else warning(msg, call. = FALSE)
+  roots <- .ps_drive_roots()
+  hits  <- .ps_science_candidates(roots)
+
+  if (!length(hits)) {
+    stop("Could not find 'Pristine Seas/SCIENCE' on this machine.\n",
+         "Searched (My Drive, Shared drives and shortcuts under):\n",
+         if (length(roots)) paste0("  - ", roots, collapse = "\n") else "  - no Google Drive folder found", "\n",
+         "Fixes: make sure Google Drive for Desktop is signed in; add a shortcut to 'Pristine Seas' in My Drive; ",
+         "or set PS_SCIENCE_PATH in .Renviron (usethis::edit_r_environ()).", call. = FALSE)
   }
 
-  # ---- 4) Return standardized paths ----
-  list(
-    science     = norm(base_path),
-    datasets    = norm(file.path(base_path, "datasets")),
-    expeditions = norm(file.path(base_path, "expeditions")),
-    projects    = norm(file.path(base_path, "projects"))
-  )
+  if (length(hits) > 1 && !quiet) {
+    message("Several SCIENCE folders found; using\n  ", hits[1], "\nPassed over:\n",
+            paste0("  ", hits[-1], collapse = "\n"), "\nSet PS_SCIENCE_PATH to choose explicitly.")
+  }
+
+  .ps_science_list(hits[1])
+}
+
+#' @rdname ps_science_paths
+#' @description
+#' `get_drive_paths()` is the original name, kept as a plain alias so existing scripts keep working.
+#' @export
+get_drive_paths <- function() {
+  ps_science_paths()
+}
+
+# Internals --------------------------------------------------------------------
+
+.ps_science_list <- function(base) {
+  norm <- function(p) normalizePath(p, winslash = "/", mustWork = FALSE)
+  list(science     = norm(base),
+       datasets    = norm(file.path(base, "datasets")),
+       expeditions = norm(file.path(base, "expeditions")),
+       projects    = norm(file.path(base, "projects")))
+}
+
+# Every existing folder that can act as a Google Drive account root, i.e. may hold "My Drive", "Shared drives" or ".shortcut-targets-by-id".
+.ps_drive_roots <- function(os = Sys.info()[["sysname"]], home = path.expand("~"),
+                            userprofile = Sys.getenv("USERPROFILE")) {
+  roots <- switch(os,
+    Darwin = c(list.files(file.path(home, "Library", "CloudStorage"), "^GoogleDrive-", full.names = TRUE),
+               "/Volumes/GoogleDrive", file.path(home, "Google Drive")),
+    Windows = c(paste0(LETTERS, ":")[dir.exists(paste0(LETTERS, ":/My Drive"))],
+                list.files(userprofile, "^(Google ?Drive|My Drive)", full.names = TRUE), userprofile),
+    stop("Google Drive layouts are known for macOS and Windows only. Set PS_SCIENCE_PATH to the SCIENCE folder.", call. = FALSE))
+  unique(roots[dir.exists(roots)])
+}
+
+# Qualifying SCIENCE folders under the given roots, best first, as normalized paths.
+.ps_science_candidates <- function(roots) {
+  if (!length(roots)) return(character(0))
+
+  # Places a shared folder can sit: My Drive, the root itself (a mirrored folder), each Shared drive, and each shortcut target. The folder may be "Pristine Seas/SCIENCE" or a shortcut straight to SCIENCE.
+  bases <- unlist(lapply(roots, function(r) c(
+    file.path(r, "My Drive"), r,
+    list.dirs(file.path(r, "Shared drives"), recursive = FALSE),
+    list.dirs(file.path(r, ".shortcut-targets-by-id"), recursive = FALSE))))
+  paths <- c(file.path(bases, "Pristine Seas", "SCIENCE"), file.path(bases, "SCIENCE"))
+  paths <- paths[dir.exists(paths)]
+
+  holds_content <- vapply(paths, function(p) any(dir.exists(file.path(p, c("datasets", "expeditions", "projects")))), logical(1))
+  paths <- paths[holds_content]
+  if (!length(paths)) return(character(0))
+
+  # Rank: ngs.org account first, then a live account over a "(date)" re-login copy, then the newest. Shortcuts are symlinks, so the same folder can appear twice; keep one.
+  root  <- vapply(paths, function(p) roots[startsWith(p, roots)][1], "")
+  ngs   <- grepl("ngs\\.org", root, ignore.case = TRUE)
+  stale <- grepl("\\(.*\\)$", basename(root))
+  paths <- paths[order(!ngs, stale, -as.numeric(file.mtime(paths)))]
+  unique(normalizePath(paths, winslash = "/", mustWork = FALSE))
 }

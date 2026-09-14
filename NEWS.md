@@ -1,3 +1,75 @@
+# PristineSeasR2 (development version)
+
+## Data
+
+* `rmi_2023_uvs_sites` bundles the 60 survey sites of the 2023 Marshall
+  Islands expedition, a dated snapshot of `pristine-seas.uvs.sites` in
+  BigQuery taken by the script in `data-raw/`, so examples, articles and tests
+  have a real expedition to draw on without a database or Drive connection.
+
+## Report maps
+
+* `map_uvs_sites()` draws the survey sites of a region or subregion as a
+  ggplot on one of four basemaps: Esri World Imagery by default, Mapbox
+  Satellite with `basemap = "mapbox"` and a token in `MAPBOX_TOKEN`, or the
+  Global Islands coastline drawn in the theme's land ink with
+  `basemap = "coast"`, fetched live from UNEP-WCMC so nothing needs to be on
+  disk, or the National Geographic World Map with `basemap = "natgeo"` for
+  the regional view. On every one of them habitat sets each marker's shape, exposure its
+  fill, the canvas is `theme_ps_map()`, and a scale bar and north arrow sit
+  quietly in the corners, with a locator globe in the top right unless
+  `locator = FALSE`. The frame fits the sites chosen, with a floor on how
+  narrow it may be so a tight cluster still shows its reef; `expand` loosens
+  or tightens it and `extent` sets it outright, and every map hands back the
+  frame it drew as `attr(p, "extent")`. The static
+  counterpart to `explore_uvs_sites()`. `label_sites = TRUE` numbers each
+  marker with the digits that end its `ps_site_id`, placed by **ggrepel**.
+  Needs **maptiles**, **tidyterra** and **ggspatial**, which it offers to
+  install on first use.
+
+## Colour system
+
+The data palettes were redrawn as one coordinated system, measured with
+CIEDE2000 under normal vision, the three dichromacies and greyscale. The
+[colour system article](https://pristine-seas.github.io/PristineSeasR2/articles/colour-system.html)
+on the package site shows every palette under each simulation, its
+distinctiveness, and how the pieces sit together on a chart and on a map.
+
+* `ps_colors()` now carries five palettes: `depth_strata`, `trophic_group`,
+  `benthic_cover`, `exposure` and `habitat`. Keys match `allowed_vocab`, so a
+  validated factor lands on its colour without a lookup.
+
+* `ps_habitat_colors()` reassigns the five habitat slots, in order, to the
+  habitats a trip sampled.
+
+* `ps_shapes()` and `scale_shape_ps()` add the first shape palette. `habitat`
+  covers every level of the vocabulary in three tiers: filled shapes for the
+  zones sampled on most trips, open for the occasional ones, line for the
+  rare. On a map, exposure fills the marker and habitat sets its shape.
+
+## Drive paths
+
+* `ps_science_paths()` is now the one way to find the shared SCIENCE folder,
+  and it is built to be found by anyone on the team. It searches every Google
+  Drive account on the machine, ngs.org or personal, looks in My Drive, Shared
+  drives and the shortcuts Drive creates for folders shared with you, and works
+  on macOS and Windows. A hit must actually hold `datasets`, `expeditions` or
+  `projects`; ngs.org accounts win ties. When nothing is found it lists every
+  location it searched and the three ways to fix it. `PS_SCIENCE_PATH` still
+  overrides everything. `get_drive_paths()` is kept as a plain alias.
+
+## Breaking
+
+* The `functional_groups`, `uvs_habitats`, `trophic_group2`,
+  `functional_groups2` and `invert_groups` palettes are gone. Use
+  `benthic_cover` and `habitat`; the benthic keys now spell the algae the way
+  the vocabulary does (`algae_erect`, not `erect_algae`). The invertebrate
+  palette is kept as a comment in `R/colors.R` should it be revisited.
+
+* `explore_uvs_sites()` defaults its `habitat_palette` to the new `habitat`
+  palette. Pass `ps_habitat_colors(<habitats present>)` for a trip that sampled
+  other zones.
+
 # PristineSeasR2 0.2.0
 
 ## New

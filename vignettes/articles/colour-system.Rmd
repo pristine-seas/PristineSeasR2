@@ -1,0 +1,261 @@
+---
+title: "Pristine Seas colour system"
+description: >
+  Coordinated colour and shape palettes for figures and maps, measured with
+  CIEDE2000 for colour-blind and greyscale reproduction.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse  = TRUE,
+  comment   = "#>",
+  message   = FALSE,
+  warning   = FALSE,
+  fig.width = 8,
+  out.width = "100%",
+  dpi       = 120,
+  dev       = if (requireNamespace("ragg", quietly = TRUE)) "ragg_png" else "png"
+)
+
+library(PristineSeasR2)
+library(ggplot2)
+library(dplyr)
+
+ink   <- ps_ink("chart")
+water <- ps_ink("map")
+```
+
+```{r page-assets, echo=FALSE, results="asis"}
+# The two inks the widgets sit on, straight from the themes, so a palette is
+# previewed on the same paper and water it will be drawn on.
+cat(sprintf(
+  "<style>\n.ps-panel{--paper:%s;--ink:%s;--ink-2:%s;--ink-3:%s;--rule:rgba(20,24,26,.13)}\n%s\n%s</style>\n",
+  ink[["canvas"]], ink[["title"]], ink[["body"]], ink[["muted"]],
+  sprintf(".ps-panel[data-bg=dark]{--paper:%s;--ink:%s;--ink-2:%s;--ink-3:%s;--rule:rgba(238,243,247,.17)}",
+          water[["panel"]], water[["title"]], water[["body"]], water[["muted"]]),
+  paste(readLines("colour-system.css"), collapse = "\n")))
+
+# Presentation metadata the package does not carry: a number and a title for
+# each palette, the classes that carry most figures ("heavy", used to report the
+# closest pair among the ones that matter most), and short column labels.
+meta <- list(
+  depth_strata  = list(num = "1", title = "Depth strata",       heavy = c("shallow", "deep")),
+  trophic_group = list(num = "2", title = "Fish trophic group", heavy = character()),
+  benthic_cover = list(num = "3", title = "Benthic cover",      heavy = c("hard_coral", "turf")),
+  exposure      = list(num = "4", title = "Exposure",           heavy = character()),
+  habitat       = list(num = "5", title = "Habitat",            heavy = names(ps_colors("habitat")))
+)
+short <- c("sediment | rubble | barren" = "sediment", "algae_encrusting" = "encrusting",
+           "algae_erect" = "erect", "algae_canopy" = "canopy", "cyanobacteria" = "cyano",
+           "herbivore | detritivore" = "herbivore", "lower_carnivore" = "carnivore",
+           "top_predator" = "predator")
+tidy <- \(x) gsub(" \\| ", " / ", gsub("_", " ", x))
+
+palettes <- lapply(names(meta), function(id) {
+  cols <- ps_colors(id); m <- meta[[id]]
+  list(id = id, num = m$num, title = m$title,
+       colors = lapply(names(cols), function(k) list(
+         key = k, role = tidy(k),
+         short = if (k %in% names(short)) short[[k]] else tidy(k),
+         hex = unname(cols[[k]]), heavy = k %in% m$heavy)))
+})
+
+# Illustrative reef states, one share per class in palette order.
+states <- list(
+  trophic_group = list(
+    list(name = "Pristine atoll", share = c(30, 30, 10, 18, 12)),
+    list(name = "Lightly fished", share = c(16, 26, 16, 26, 16)),
+    list(name = "Fished",         share = c( 8, 22, 20, 30, 20)),
+    list(name = "Overfished",     share = c( 2,  6, 14, 48, 30))),
+  benthic_cover = list(
+    list(name = "Coral dominated", share = c(52, 20, 2, 4, 2, 3,  2, 1,  6,  7,  1)),
+    list(name = "Mixed",           share = c(32, 14, 3, 5, 3, 4,  7, 1, 10, 18,  3)),
+    list(name = "Algal shift",     share = c(14,  8, 4, 4, 4, 5, 18, 2, 12, 23,  6)),
+    list(name = "Dead reef",       share = c( 3,  3, 3, 1, 3, 3,  9, 1, 30, 32, 12)))
+)
+
+cat("<script>",
+    "window.PS_PALETTES =", jsonlite::toJSON(palettes, auto_unbox = TRUE), ";",
+    "window.PS_STATES =",   jsonlite::toJSON(states,   auto_unbox = TRUE), ";",
+    "window.PS_INK =",      jsonlite::toJSON(list(chart = as.list(ink), map = as.list(water)),
+                                             auto_unbox = TRUE), ";",
+    "</script>\n")
+```
+
+Coordinated palettes for scientific figures, maps and editorial graphics.
+
+Colours are chosen to be ecologically true and visually right, then measured: every pair is checked with CIEDE2000 under normal vision, the three dichromacies and greyscale, on both the light chart paper and the dark map water. Separation is spent where it is needed. The classes that carry most figures get the widest spacing, and the palettes are held apart from one another so they can share a page, or a map.
+
+Every palette lives in `ps_colors()`, and every ggplot2 scale in this package pulls from it:
+
+```{r api}
+ps_colors()
+
+ps_colors("depth_strata")
+```
+
+Names match the vocabulary in `allowed_vocab`, so a factor built from validated data lands on the right colour without a lookup. `scale_fill_ps()` and `scale_color_ps()` take a palette name; `scale_shape_ps()` does the same for the habitat shapes.
+
+## Palettes
+
+Use the controls to see every palette on this page as a colour-blind reader or a greyscale print would, and on either canvas.
+
+<div class="ps-ctl">
+<div class="ctl"><span class="cap">Vision</span>
+<div class="seg-ctl" id="ps-vision" role="group" aria-label="Vision simulation"><button type="button" data-mode="normal" aria-pressed="true">Normal</button><button type="button" data-mode="deutan" aria-pressed="false">Deuteranopia</button><button type="button" data-mode="protan" aria-pressed="false">Protanopia</button><button type="button" data-mode="tritan" aria-pressed="false">Tritanopia</button><button type="button" data-mode="grey" aria-pressed="false">Greyscale</button></div>
+</div>
+<div class="ctl"><span class="cap">Canvas</span>
+<div class="seg-ctl" id="ps-bg" role="group" aria-label="Canvas"><button type="button" data-bg="light" aria-pressed="true">Chart paper</button><button type="button" data-bg="dark" aria-pressed="false">Map water</button></div>
+</div>
+</div>
+
+### 1. Depth strata
+
+Four blues, dark with depth. The two middle strata carry most figures and get the widest spacing.
+
+<div class="ps-panel ps-pal" data-pal="depth_strata"></div>
+
+### 2. Fish trophic group
+
+Ordered from apex to base so a stacked bar reads top down. The reds are held for sharks and top predators, the classes fishing removes first, so the loss reads as a loss of warmth.
+
+<div class="ps-panel ps-pal" data-pal="trophic_group"></div>
+
+### 3. Benthic cover
+
+Eleven classes, the most a palette here carries. Hard coral and turf are the two a reader compares most, so they sit at opposite ends in hue and lightness. The three algal groups share a green family; the calcifiers, CCA and soft coral, share a pink one.
+
+<div class="ps-panel ps-pal" data-pal="benthic_cover"></div>
+
+### 4. Exposure
+
+A single sequential ramp, sheltered to exposed, plus a neutral grey for sites whose exposure is not recorded. On a site map exposure fills the marker.
+
+<div class="ps-panel ps-pal" data-pal="exposure"></div>
+
+### 5. Habitat
+
+Five slots, named by default for the zones sampled on most trips. A trip that samples other habitats reassigns the same five colours in order with `ps_habitat_colors()`, so a figure always draws on the same well-separated set.
+
+<div class="ps-panel ps-pal" data-pal="habitat"></div>
+
+```{r habitat-helper}
+ps_habitat_colors(c("fore_reef", "pinnacle_reef", "wall"))
+```
+
+Habitat also has a shape palette, `ps_shapes("habitat")`, and it covers every level of the vocabulary in three tiers by how often a habitat is sampled. The filled and open tiers share the same five silhouettes so a legend reads as one family. On a map, exposure fills the marker and habitat sets its shape: filled shapes take the exposure as their fill with the ink as outline, and open and line shapes take it as their stroke over a halo in the canvas colour.
+
+<div class="ps-panel">
+<span class="pcap">Filled (21–25) — sampled on most trips</span>
+<div class="shapes"><span><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7"/></svg>fore reef</span><span><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13"/></svg>back reef</span><span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 1.5 L16.5 9 L9 16.5 L1.5 9 Z"/></svg>patch reef</span><span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2 L16 15.5 L2 15.5 Z"/></svg>fringing reef</span><span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2.5 L16 2.5 L9 16 Z"/></svg>bank</span></div>
+<span class="pcap">Open (0–2, 5–6) — sampled occasionally</span>
+<div class="shapes open"><span><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7"/></svg>pinnacle reef</span><span><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13"/></svg>reef flat</span><span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 1.5 L16.5 9 L9 16.5 L1.5 9 Z"/></svg>wall</span><span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2 L16 15.5 L2 15.5 Z"/></svg>reef pavement</span><span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2.5 L16 2.5 L9 16 Z"/></svg>rocky reef</span></div>
+<span class="pcap">Line (3, 4, 8) — rarely sampled</span>
+<div class="shapes line"><span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2 V16 M2 9 H16"/></svg>channel pass</span><span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3.6 3.6 L14.4 14.4 M14.4 3.6 L3.6 14.4"/></svg>kelp forest</span><span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2 V16 M2 9 H16 M4.1 4.1 L13.9 13.9 M13.9 4.1 L4.1 13.9"/></svg>seagrass</span></div>
+<span class="pcap">On maps — exposure fills the marker, habitat sets its shape</span>
+<div class="mkrow" id="ps-markers"></div>
+</div>
+
+## Distinctiveness
+
+Two colours are distinct when a reader can tell them apart without a legend beside them. CIEDE2000, written ΔE₀₀, is the standard measure of that perceived difference. A value under 10 is a near match; 20 separates most readers; above 30 no one confuses the pair. The matrix follows the vision control above, and the report beneath it names the closest pair, the closest pair among the classes that carry most figures, and any colour that comes close to one in another palette.
+
+<div class="ps-panel dist">
+<div class="seg-ctl" id="ps-palctl" role="group" aria-label="Palette"></div>
+<div class="mxwrap"><table class="mx" id="ps-mx"></table></div>
+<div class="scale"><span>Closer</span><div class="grad" id="ps-grad"></div><span>More distinct</span></div>
+<p class="srange" id="ps-srange"></p>
+<div class="reports">
+<div class="pairs"><span class="pcap" id="ps-pcap"></span><ul id="ps-pairlist"></ul></div>
+<div class="pairs cross" id="ps-crossblock"><span class="pcap" id="ps-ccap"></span><ul id="ps-crosslist"></ul></div>
+</div>
+</div>
+
+## In R
+
+The scales take a palette name and match levels by name, so the data decides which colours appear and the palette decides their order.
+
+```{r benthic-r, fig.height=3.8}
+benthic <- bind_rows(lapply(states$benthic_cover, \(s) {
+  tibble(state = s$name, class = names(ps_colors("benthic_cover")), share = s$share)
+})) |>
+  mutate(state = factor(state, levels = rev(unique(state))),
+         class = factor(class, levels = rev(names(ps_colors("benthic_cover")))))
+
+ggplot(benthic, aes(x = share, y = state, fill = class)) +
+  geom_col(position = position_fill(reverse = TRUE), width = 0.72,
+           colour = ink[["canvas"]], linewidth = 0.4) +
+  scale_fill_ps("benthic_cover", labels = tidy) +
+  scale_x_continuous(labels = \(x) paste0(x * 100, "%"), expand = c(0, 0)) +
+  labs(x = NULL, y = NULL, fill = "Benthic cover") +
+  theme_ps() +
+  theme(panel.grid.major.y = element_blank(), legend.position = "bottom")
+```
+
+A site map uses three scales at once. Exposure is mapped to both `fill` and `colour` so it reaches the filled and the open shapes; the colour legend is dropped and the fill legend is drawn with filled circles so there is one exposure key. A halo layer under the open shapes lifts them off the canvas.
+
+```{r site-markers}
+sites <- tibble(
+  lon      = c(-171.32, -171.18, -171.05, -171.26, -171.12, -171.20,
+               -171.30, -171.08, -171.15, -171.24),
+  lat      = c( -13.82,  -13.76,  -13.85,  -13.93,  -13.90,  -13.70,
+                -13.68,  -13.72,  -13.98,  -13.80),
+  habitat  = c("fore_reef", "back_reef", "patch_reef", "fringing_reef", "bank",
+               "pinnacle_reef", "wall", "reef_flat", "channel_pass", "kelp_forest"),
+  exposure = c("windward", "lagoon", "sheltered", "leeward", "exposed",
+               "exposed", "windward", "lagoon", "channel", "unknown")
+) |>
+  mutate(filled = ps_shapes("habitat")[habitat] >= 21)
+
+site_markers <- function(sites, theme, ink) {
+  ggplot(sites, aes(lon, lat, shape = habitat)) +
+    geom_point(data = filter(sites, !filled), size = 4.6, stroke = 2.6,
+               colour = ink[["panel"]], show.legend = FALSE) +
+    geom_point(data = filter(sites, !filled), aes(colour = exposure, fill = exposure),
+               size = 4.2, stroke = 1.2) +
+    geom_point(data = filter(sites, filled), aes(fill = exposure),
+               size = 4.2, stroke = 0.6, colour = ink[["title"]]) +
+    scale_shape_ps("habitat", drop = TRUE, labels = tidy) +
+    scale_fill_ps("exposure", drop = TRUE, name = "Exposure") +
+    scale_color_ps("exposure", drop = TRUE, guide = "none") +
+    guides(shape = guide_legend(override.aes = list(fill = ink[["muted"]],
+                                                    colour = ink[["title"]])),
+           fill  = guide_legend(override.aes = list(shape = 21,
+                                                    colour = ink[["title"]]))) +
+    labs(x = NULL, y = NULL, shape = "Habitat") +
+    theme +
+    theme(legend.box = "vertical", legend.justification = "left")
+}
+```
+
+```{r site-markers-chart, fig.height=4.2}
+site_markers(sites, theme_ps(), ink)
+```
+
+```{r site-markers-map, fig.height=4.2}
+site_markers(sites, theme_ps_map(), water)
+```
+
+## The palettes as R code
+
+For a script that cannot take the package as a dependency.
+
+```{r code, echo=FALSE, comment=""}
+fmt <- function(name, cols) {
+  keys <- sprintf('"%s"', names(cols))
+  w <- max(nchar(keys))
+  pad <- strrep(" ", nchar(name) + 5)
+  vals <- if (is.character(cols)) sprintf('"%s"', cols) else format(cols, width = 2)
+  lines <- sprintf("%s%-*s = %s", c(paste0(name, " = c("), rep(pad, length(cols) - 1)),
+                   w, keys, vals)
+  paste0(paste(lines, collapse = ",\n"), ")")
+}
+
+blocks <- c(vapply(ps_colors(), \(p) fmt(p, ps_colors(p)), ""),
+            fmt("habitat_shape", ps_shapes("habitat")))
+cat(paste(blocks, collapse = "\n\n"))
+```
+
+```{r page-script, echo=FALSE, results="asis"}
+cat("<script>\n", paste(readLines("colour-system.js"), collapse = "\n"), "\n</script>\n")
+```
