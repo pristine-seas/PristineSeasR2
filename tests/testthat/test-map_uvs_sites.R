@@ -116,6 +116,24 @@ test_that("a caller's extent becomes the frame, and comes back in degrees", {
   expect_error(frame_from_extent("Bikar"), "degrees")
 })
 
+test_that("axis breaks are round, never finer than 0.01, and about five to an axis", {
+  expect_equal(axis_breaks(167.633, 167.661), c(167.64, 167.65, 167.66))   # 3 km frame
+  expect_equal(axis_breaks(170.05, 170.16), seq(170.06, 170.16, by = 0.02)) # Bikar
+  expect_equal(axis_breaks(167.05, 167.93), seq(167.2, 167.8, by = 0.2))   # a region
+  expect_equal(axis_breaks(164.6, 168.0), c(165, 166, 167, 168))
+  lat <- axis_breaks(-14.401, -14.162)
+  expect_equal(diff(lat), rep(0.05, length(lat) - 1))
+  expect_lte(length(axis_breaks(0, 100)), 6L)
+  expect_equal(axis_breaks(168.24, 170.80), seq(168.5, 170.5, by = 0.5))    # two atolls
+})
+
+test_that("export height follows the frame's proportions", {
+  square <- c(xmin = 0, ymin = 0, xmax = 1000, ymax = 1000)
+  tall   <- c(xmin = 0, ymin = 0, xmax = 1000, ymax = 2000)
+  expect_equal(export_height(square, width = 8), (8 - 1.1) * 1 + 2.6)
+  expect_equal(export_height(tall,   width = 8), (8 - 1.1) * 2 + 2.6)
+})
+
 test_that("tile zoom gives a frame about the pixel width asked for", {
   # 32 km square: zoom 13 tiles are 4892 m / 256 px, so 1675 px, nearest 2000
   bb <- c(xmin = 0, ymin = 0, xmax = 32000, ymax = 32000)
@@ -231,4 +249,19 @@ test_that("returns a ggplot with the title block and the frame it drew", {
 
   expect_match(map_uvs_sites(rmi_2023_uvs_sites, region = "Bikar", basemap = "coast")$labels$caption,
                "Global Islands")
+})
+
+test_that("export writes a PDF into a folder it creates and returns the map invisibly", {
+  skip_if_offline()
+  skip_on_cran()
+
+  out <- file.path(tempfile("maps"), "bikar.pdf")
+  on.exit(unlink(dirname(out), recursive = TRUE))
+
+  res <- withVisible(map_uvs_sites(rmi_2023_uvs_sites, region = "Bikar", basemap = "coast",
+                                   export = out))
+  expect_false(res$visible)
+  expect_s3_class(res$value, "ggplot")
+  expect_true(file.exists(out))
+  expect_gt(file.size(out), 10000)
 })

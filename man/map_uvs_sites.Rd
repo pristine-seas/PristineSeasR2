@@ -19,7 +19,10 @@ map_uvs_sites(
   title = "Underwater visual survey sites",
   subtitle = NULL,
   caption = NULL,
-  base_size = 12
+  base_size = 12,
+  export = NULL,
+  width = 8,
+  height = NULL
 )
 }
 \arguments{
@@ -81,11 +84,23 @@ for the basemap drawn, which each provider's terms ask for.}
 
 \item{base_size}{Numeric. Base font size in points, passed to
 \code{\link[=theme_ps_map]{theme_ps_map()}}. Default 12.}
+
+\item{export}{Character. A file path to save the map to as well as
+returning it, typically a \code{.pdf} for the report; any extension
+\code{ggplot2::ggsave()} knows is accepted. A PDF is vector for everything but
+the imagery, which is embedded at its fetched resolution; the house
+typeface is embedded where R can draw through Cairo and set in Helvetica
+otherwise. \code{NULL} (the default) saves nothing.}
+
+\item{width, height}{Numeric. Size of the exported figure in inches.
+\code{width} defaults to 8; \code{height} to \code{NULL}, which sets it from the frame's
+own proportions so the map is neither stretched nor padded.}
 }
 \value{
 A ggplot object, with the frame it drew as \code{attr(p, "extent")}.
 Print it, or save it with \code{ggsave()}; the theme carries its own canvas,
-so no \code{bg} is needed.
+so no \code{bg} is needed. When \code{export} is given the file is written first
+and the map returned invisibly.
 }
 \description{
 Draws the standard Pristine Seas site map for a report: the sites of a
@@ -154,6 +169,9 @@ the same key as the canvas.
 \examples{
 \dontrun{
 map_uvs_sites(rmi_2023_uvs_sites, region = "Bikar")
+
+# Straight to the report
+map_uvs_sites(rmi_2023_uvs_sites, region = "Bikar", export = "figures/bikar_sites.pdf")
 }
 
 }

@@ -122,6 +122,7 @@ reference:
   desc: A real expedition to try the tools on.
   contents:
   - rmi_2023_uvs_sites
+  - rmi_2023_uvs_blt_stations
 
 - title: Package
   contents:

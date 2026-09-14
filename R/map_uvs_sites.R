@@ -14,7 +14,8 @@
 # Internal, in the order the map is built:
 #   uvs_map_selection()   which sites
 #   uvs_map_encode()      shape, fill and outline per site
-#   frame_from_sites(), frame_from_extent(), frame_to_degrees()
+#   frame_from_sites(), frame_from_extent(), frame_to_degrees(), axis_breaks()
+#   export_height(), export_map()
 #   place_globe(), place_rose()   the corners the insets take
 #   basemap_source(), basemap_layer(), tile_zoom(), global_islands()
 #   site_labels(), uvs_site_number()
@@ -126,10 +127,20 @@
 #'   for the basemap drawn, which each provider's terms ask for.
 #' @param base_size Numeric. Base font size in points, passed to
 #'   [theme_ps_map()]. Default 12.
+#' @param export Character. A file path to save the map to as well as
+#'   returning it, typically a `.pdf` for the report; any extension
+#'   `ggplot2::ggsave()` knows is accepted. A PDF is vector for everything but
+#'   the imagery, which is embedded at its fetched resolution; the house
+#'   typeface is embedded where R can draw through Cairo and set in Helvetica
+#'   otherwise. `NULL` (the default) saves nothing.
+#' @param width,height Numeric. Size of the exported figure in inches.
+#'   `width` defaults to 8; `height` to `NULL`, which sets it from the frame's
+#'   own proportions so the map is neither stretched nor padded.
 #'
 #' @return A ggplot object, with the frame it drew as `attr(p, "extent")`.
 #'   Print it, or save it with `ggsave()`; the theme carries its own canvas,
-#'   so no `bg` is needed.
+#'   so no `bg` is needed. When `export` is given the file is written first
+#'   and the map returned invisibly.
 #'
 #' @seealso [explore_uvs_sites()] for the interactive map, [theme_ps_map()] for
 #'   the canvas, [ps_shapes()] and [ps_colors()] for the marker encoding.
@@ -137,6 +148,9 @@
 #' @examples
 #' \dontrun{
 #' map_uvs_sites(rmi_2023_uvs_sites, region = "Bikar")
+#'
+#' # Straight to the report
+#' map_uvs_sites(rmi_2023_uvs_sites, region = "Bikar", export = "figures/bikar_sites.pdf")
 #' }
 #'
 #' @importFrom rlang .data
@@ -155,7 +169,10 @@ map_uvs_sites <- function(sites,
                           title        = "Underwater visual survey sites",
                           subtitle     = NULL,
                           caption      = NULL,
-                          base_size    = 12) {
+                          base_size    = 12,
+                          export       = NULL,
+                          width        = 8,
+                          height       = NULL) {
 
   basemap <- match.arg(basemap)
   if (!is.numeric(expand) || length(expand) != 1L || expand < 0) {
@@ -239,6 +256,7 @@ map_uvs_sites <- function(sites,
   if (is.null(caption))  caption  <- source$credit
 
   unsnake <- function(x) gsub("_", " ", x)
+  deg     <- frame_to_degrees(lim)
 
   p <- ggplot2::ggplot() +
     ground +
@@ -256,22 +274,33 @@ map_uvs_sites <- function(sites,
       fill  = ggplot2::guide_legend(order = 2, override.aes = list(shape  = 21,
                                                                   colour = ink[["title"]]))
     ) +
-    # A tall, narrow frame can be given more longitude labels than fit; the
-    # axis drops the ones that would collide rather than printing over itself.
-    ggplot2::scale_x_continuous(guide = ggplot2::guide_axis(check.overlap = TRUE)) +
-    ggplot2::scale_y_continuous(guide = ggplot2::guide_axis(check.overlap = TRUE)) +
+    # Graticule labels on a round step never finer than a hundredth of a
+    # degree, at most six to an axis; the axis still drops any that would
+    # collide on a very narrow frame.
+    ggplot2::scale_x_continuous(breaks = axis_breaks(deg[["xmin"]], deg[["xmax"]]),
+                                guide  = ggplot2::guide_axis(check.overlap = TRUE)) +
+    ggplot2::scale_y_continuous(breaks = axis_breaks(deg[["ymin"]], deg[["ymax"]]),
+                                guide  = ggplot2::guide_axis(check.overlap = TRUE)) +
     ggplot2::coord_sf(xlim = lim[c("xmin", "xmax")], ylim = lim[c("ymin", "ymax")],
                       expand = FALSE, crs = 3857) +
     ggplot2::labs(title = title, subtitle = subtitle, caption = caption) +
     theme_ps_map(base_size = base_size) +
-    # The two keys stack: a tall map is narrow, and one row of thirteen
-    # entries would run past its edges.
-    ggplot2::theme(legend.box       = "vertical",
-                   legend.box.just  = "left",
-                   legend.spacing.y = grid::unit(2, "mm"))
+    # The two keys stack, flush with the panel's left edge: a tall map is
+    # narrow, and one centred row of thirteen entries would run past its
+    # edges.
+    ggplot2::theme(legend.box           = "vertical",
+                   legend.box.just      = "left",
+                   legend.justification = "left",
+                   legend.location      = "panel",
+                   legend.spacing.y     = grid::unit(2, "mm"))
 
-  attr(p, "extent") <- frame_to_degrees(lim)
-  p
+  attr(p, "extent") <- deg
+
+  if (is.null(export)) return(p)
+
+  if (is.null(height)) height <- export_height(lim, width)
+  export_map(p, export, width, height)
+  invisible(p)
 }
 
 
@@ -446,6 +475,57 @@ frame_as_sfc <- function(lim) {
 
 frame_short_side <- function(lim) {
   min(lim[["xmax"]] - lim[["xmin"]], lim[["ymax"]] - lim[["ymin"]])
+}
+
+# Graticule breaks for one axis, in degrees: multiples of the finest step
+# from a round ladder that fits at most `n` labels on the axis, and never
+# finer than `min_step`, so a tight frame reads 167.64, 167.65 rather than
+# 167.645.
+axis_breaks <- function(lo, hi, n = 6, min_step = 0.01) {
+  ladder <- c(0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 30)
+  ladder <- ladder[ladder >= min_step]
+  step   <- ladder[which((hi - lo) / ladder <= n)[1]]
+  if (is.na(step)) step <- ladder[length(ladder)]
+  round(seq(ceiling(lo / step) * step, floor(hi / step) * step, by = step), 6)
+}
+
+
+# Export -----------------------------------------------------------------------
+
+# A figure height that fits the frame: the panel keeps the frame's proportions
+# inside the width left after the axis labels, and the title block, axis text,
+# the two stacked legends and the caption add a fixed band below and above.
+export_height <- function(lim, width, side = 1.1, band = 2.6) {
+  aspect <- (lim[["ymax"]] - lim[["ymin"]]) / (lim[["xmax"]] - lim[["xmin"]])
+  (width - side) * aspect + band
+}
+
+# Writes the map. A PDF is tried through Cairo first, which embeds the house
+# typeface; where Cairo is unavailable at run time (a Mac without XQuartz, for
+# one) it falls back to R's own device, on which ps_font_default() has already
+# aliased the typeface onto Helvetica. Anything else is left to ggsave() to
+# pick from the extension.
+export_map <- function(p, path, width, height) {
+  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
+  save <- function(device) {
+    ggplot2::ggsave(path, p, device = device, width = width, height = height,
+                    units = "in", dpi = 300)
+  }
+  if (tolower(tools::file_ext(path)) == "pdf") {
+    # A Cairo device that cannot load warns and then writes nothing, without
+    # an error, so success is judged by the file rather than by the call.
+    written <- tryCatch({
+      suppressWarnings(save(grDevices::cairo_pdf))
+      file.exists(path) && file.size(path) > 0
+    }, error = function(e) FALSE)
+    if (!written) {
+      if (file.exists(path)) unlink(path)
+      save(grDevices::pdf)
+    }
+  } else {
+    save(NULL)
+  }
+  invisible(path)
 }
 
 
