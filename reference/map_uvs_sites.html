@@ -94,7 +94,10 @@ redrawing a map is quick.</p>
 <span>  title <span class="op">=</span> <span class="st">"Underwater visual survey sites"</span>,</span>
 <span>  subtitle <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  caption <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  base_size <span class="op">=</span> <span class="fl">12</span></span>
+<span>  base_size <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  export <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">8</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -184,12 +187,28 @@ for the basemap drawn, which each provider's terms ask for.</p></dd>
 <dd><p>Numeric. Base font size in points, passed to
 <code><a href="theme_ps_map.html">theme_ps_map()</a></code>. Default 12.</p></dd>
 
+
+<dt id="arg-export">export<a class="anchor" aria-label="anchor" href="#arg-export"></a></dt>
+<dd><p>Character. A file path to save the map to as well as
+returning it, typically a <code>.pdf</code> for the report; any extension
+<code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggplot2::ggsave()</a></code> knows is accepted. A PDF is vector for everything but
+the imagery, which is embedded at its fetched resolution; the house
+typeface is embedded where R can draw through Cairo and set in Helvetica
+otherwise. <code>NULL</code> (the default) saves nothing.</p></dd>
+
+
+<dt id="arg-width-height">width, height<a class="anchor" aria-label="anchor" href="#arg-width-height"></a></dt>
+<dd><p>Numeric. Size of the exported figure in inches.
+<code>width</code> defaults to 8; <code>height</code> to <code>NULL</code>, which sets it from the frame's
+own proportions so the map is neither stretched nor padded.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A ggplot object, with the frame it drew as <code>attr(p, "extent")</code>.
 Print it, or save it with <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave()</a></code>; the theme carries its own canvas,
-so no <code>bg</code> is needed.</p>
+so no <code>bg</code> is needed. When <code>export</code> is given the file is written first
+and the map returned invisibly.</p>
     </div>
     <div class="section level2">
     <h2 id="basemaps">Basemaps<a class="anchor" aria-label="anchor" href="#basemaps"></a></h2>
@@ -248,6 +267,9 @@ the canvas, <code><a href="ps_shapes.html">ps_shapes()</a></code> and <code><a h
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu">map_uvs_sites</span><span class="op">(</span><span class="va">rmi_2023_uvs_sites</span>, region <span class="op">=</span> <span class="st">"Bikar"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Straight to the report</span></span></span>
+<span class="r-in"><span><span class="fu">map_uvs_sites</span><span class="op">(</span><span class="va">rmi_2023_uvs_sites</span>, region <span class="op">=</span> <span class="st">"Bikar"</span>, export <span class="op">=</span> <span class="st">"figures/bikar_sites.pdf"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

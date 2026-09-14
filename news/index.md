@@ -4,6 +4,12 @@
 
 ### Data
 
+- `rmi_2023_uvs_blt_stations` bundles the 104 fish belt-transect
+  stations of the same expedition, a snapshot of
+  `pristine-seas.uvs.blt_stations`, with survey effort, fish density and
+  biomass, and the share of biomass in each trophic group, so the
+  figures in the README and articles draw on real survey results.
+
 - `rmi_2023_uvs_sites` bundles the 60 survey sites of the 2023 Marshall
   Islands expedition, a dated snapshot of `pristine-seas.uvs.sites` in
   BigQuery taken by the script in `data-raw/`, so examples, articles and
@@ -30,8 +36,10 @@
   as `attr(p, "extent")`. The static counterpart to
   [`explore_uvs_sites()`](https://pristine-seas.github.io/PristineSeasR2/reference/explore_uvs_sites.md).
   `label_sites = TRUE` numbers each marker with the digits that end its
-  `ps_site_id`, placed by **ggrepel**. Needs **maptiles**, **tidyterra**
-  and **ggspatial**, which it offers to install on first use.
+  `ps_site_id`, placed by **ggrepel**. `export` writes the map to a
+  file, a report-ready PDF through Cairo, sized to the frame’s
+  proportions. Needs **maptiles**, **tidyterra** and **ggspatial**,
+  which it offers to install on first use.
 
 ### Colour system
 

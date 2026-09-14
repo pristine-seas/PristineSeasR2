@@ -148,6 +148,8 @@ A real expedition to try the tools on.
 - [`rmi_2023_uvs_sites`](https://pristine-seas.github.io/PristineSeasR2/reference/rmi_2023_uvs_sites.md)
   : Underwater visual survey sites of the 2023 Marshall Islands
   expedition
+- [`rmi_2023_uvs_blt_stations`](https://pristine-seas.github.io/PristineSeasR2/reference/rmi_2023_uvs_blt_stations.md)
+  : Fish belt-transect stations of the 2023 Marshall Islands expedition
 
 ## Package
 

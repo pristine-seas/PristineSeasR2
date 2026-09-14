@@ -74,34 +74,87 @@ The science toolkit of National Geographic Pristine Seas
 <!-- badges: start -->
 
 <p>PristineSeasR2 is built for the <a href="https://www.nationalgeographic.org/society/our-programs/pristine-seas/" class="external-link">Pristine Seas</a> research team and the collaborators and partners who work with us. Its tools carry an expedition’s data the whole way, from raw field sheets to the shared database to the report. It standardizes how we organize, check, and present expedition data, helping us reduce errors and keep our science rigorous, transparent, and reproducible.</p>
+<p>Every tool is documented, with articles on the <a href="https://pristine-seas.github.io/PristineSeasR2/articles/colour-system.html">colour system</a> and on <a href="https://pristine-seas.github.io/PristineSeasR2/articles/crw-dhw.html">thermal stress</a>, on the <a href="https://pristine-seas.github.io/PristineSeasR2/">package site</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"pristine-seas/PristineSeasR2"</span><span class="op">)</span></span></code></pre></div>
+<p>That installs everything the vocabularies, themes, tables and interactive maps need. A few tools reach further and ask for more on first use:</p>
+<ul>
+<li>
+<code><a href="reference/map_uvs_sites.html">map_uvs_sites()</a></code> draws its basemaps with <strong>maptiles</strong>, <strong>tidyterra</strong> and <strong>ggspatial</strong>, and offers to install them the first time it is called. The Mapbox basemap also needs a token in the <code>MAPBOX_TOKEN</code> environment variable.</li>
+<li>
+<code><a href="reference/get_taxonomic_ranks.html">get_taxonomic_ranks()</a></code> queries the World Register of Marine Species through <strong>worrms</strong>.</li>
+<li>
+<code><a href="reference/explore_s1_detections.html">explore_s1_detections()</a></code> and <code><a href="reference/explore_s2_detections.html">explore_s2_detections()</a></code> render satellite crops through Google Earth Engine, so they need <strong>rgee</strong> and an Earth Engine account.</li>
+<li>
+<code><a href="reference/validate_and_export_csv.html">validate_and_export_csv()</a></code> reads the live table schema from BigQuery, so it needs access to the <code>pristine-seas</code> project.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="at-a-glance">At a glance<a class="anchor" aria-label="anchor" href="#at-a-glance"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>Stage</th>
+<th>Tools</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Set up and prepare</td>
+<td>
+<code><a href="reference/create_expedition.html">create_expedition()</a></code>, <code><a href="reference/create_project.html">create_project()</a></code>, <code><a href="reference/ps_science_paths.html">ps_science_paths()</a></code>, <code><a href="reference/get_crw_dhw_sf.html">get_crw_dhw_sf()</a></code>, <code><a href="reference/get_crw_dhw_bbox.html">get_crw_dhw_bbox()</a></code>
+</td>
+</tr>
+<tr>
+<td>Process and QA/QC</td>
+<td>
+<code><a href="reference/clean_field_names.html">clean_field_names()</a></code>, <code><a href="reference/get_taxonomic_ranks.html">get_taxonomic_ranks()</a></code>, <code><a href="reference/stratify.html">stratify()</a></code>, <code><a href="reference/station_suffix.html">station_suffix()</a></code>, <code>allowed_vocab</code>, <code><a href="reference/validate_vocab.html">validate_vocab()</a></code>, <code><a href="reference/validate_and_export_csv.html">validate_and_export_csv()</a></code>
+</td>
+</tr>
+<tr>
+<td>Explore</td>
+<td>
+<code><a href="reference/explore_uvs_sites.html">explore_uvs_sites()</a></code>, <code><a href="reference/explore_fish_biomass.html">explore_fish_biomass()</a></code>, <code><a href="reference/explore_benthic_cover.html">explore_benthic_cover()</a></code>, <code><a href="reference/explore_invert_density.html">explore_invert_density()</a></code>, <code><a href="reference/explore_recruit_density.html">explore_recruit_density()</a></code>, <code><a href="reference/explore_s1_detections.html">explore_s1_detections()</a></code>, <code><a href="reference/explore_s2_detections.html">explore_s2_detections()</a></code>
+</td>
+</tr>
+<tr>
+<td>Publish</td>
+<td>
+<code><a href="reference/theme_ps.html">theme_ps()</a></code>, <code><a href="reference/theme_ps_map.html">theme_ps_map()</a></code>, <code><a href="reference/map_uvs_sites.html">map_uvs_sites()</a></code>, <code><a href="reference/gt_theme_ps.html">gt_theme_ps()</a></code>, <code><a href="reference/gt_theme_ps_light.html">gt_theme_ps_light()</a></code>, <code><a href="reference/ps_colors.html">ps_colors()</a></code>, <code><a href="reference/ps_shapes.html">ps_shapes()</a></code>, <code><a href="reference/scale_fill_ps.html">scale_fill_ps()</a></code>, <code><a href="reference/scale_color_ps.html">scale_color_ps()</a></code>, <code><a href="reference/scale_shape_ps.html">scale_shape_ps()</a></code>
+</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>
+<code>rmi_2023_uvs_sites</code> and <code>rmi_2023_uvs_blt_stations</code>, the sites and fish stations of one real expedition, to try the tools on</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="from-field-sheet-to-report">From field sheet to report<a class="anchor" aria-label="anchor" href="#from-field-sheet-to-report"></a>
 </h2>
-<p>The tools follow an expedition’s data through its life: set up and prepare the expedition, work at sea, process and check the data, explore it, and publish figures, maps and tables that read as one family.</p>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>The tools follow an expedition’s data through its life: set up and prepare the expedition, work at sea, process and check the data, explore it, and publish figures, maps and tables that read as one family. Everything below runs on the bundled <code>rmi_2023_uvs_sites</code> and <code>rmi_2023_uvs_blt_stations</code>, the sixty underwater visual survey sites of the 2023 expedition to the northern atolls of the Marshall Islands and their fish belt-transect stations, so it can be run anywhere, with no Drive or database connection.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pristine-seas/PristineSeasR2" class="external-link">PristineSeasR2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
-</details><div class="section level3">
+<div class="section level3">
 <h3 id="id_1-set-up-and-prepare">1. Set up and prepare<a class="anchor" aria-label="anchor" href="#id_1-set-up-and-prepare"></a>
 </h3>
-<p>Before the ship leaves, <code><a href="reference/create_expedition.html">create_expedition()</a></code> gives every expedition the same folder tree on the shared Drive, so raw field sheets, processed data and analysis-ready outputs are always where the next person expects them.</p>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/create_expedition.html">create_expedition</a></span><span class="op">(</span><span class="st">"VUT-2025"</span><span class="op">)</span></span>
+<p>Before the ship leaves, <code><a href="reference/create_expedition.html">create_expedition()</a></code> gives every expedition the same folder tree on the shared Drive, so raw field sheets, processed data and analysis-ready outputs are always where the next person expects them. <code><a href="reference/create_project.html">create_project()</a></code> does the same for work that is not tied to one expedition.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/create_expedition.html">create_expedition</a></span><span class="op">(</span><span class="st">"RMI-2023"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Created 11 expedition folders</span></span>
 <span><span class="co">#&gt; Created README.md</span></span></code></pre></div>
-</details><div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>VUT<span class="dv">-2025</span><span class="sc">/</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>RMI<span class="dv">-2023</span><span class="sc">/</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>├── data<span class="sc">/</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>│   ├── primary<span class="sc">/</span></span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>│   │   ├── raw<span class="sc">/</span>          unmodified field data</span>
@@ -112,14 +165,12 @@ Show code
 <span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>├── presentations<span class="sc">/</span>  reports<span class="sc">/</span>  references<span class="sc">/</span></span>
 <span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>└── README.md</span></code></pre></div>
 <p><code><a href="reference/ps_science_paths.html">ps_science_paths()</a></code> finds the shared Drive on any team member’s machine, Mac or Windows, and returns the paths to <code>SCIENCE</code> and its <code>datasets</code>, <code>expeditions</code> and <code>projects</code> folders, so scripts carry no hard-coded paths.</p>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ps_science_paths.html">ps_science_paths</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">paths</span><span class="op">$</span><span class="va">expeditions</span></span>
 <span><span class="co">#&gt; [1] ".../My Drive/Pristine Seas/SCIENCE/expeditions"</span></span></code></pre></div>
-</details><p>Planning also means knowing what the reefs have been through. <code><a href="reference/get_crw_dhw_sf.html">get_crw_dhw_sf()</a></code> pulls NOAA Coral Reef Watch degree heating weeks for any survey area, so the team goes in with a picture of recent thermal stress and what to expect on the reef. The <a href="https://pristine-seas.github.io/PristineSeasR2/articles/crw-dhw.html">thermal stress article</a> walks through it.</p>
+<p>Planning also means knowing what the reefs have been through. <code><a href="reference/get_crw_dhw_sf.html">get_crw_dhw_sf()</a></code> pulls NOAA Coral Reef Watch degree heating weeks for any survey area, so the team goes in with a picture of recent thermal stress and what to expect on the reef. The <a href="https://pristine-seas.github.io/PristineSeasR2/articles/crw-dhw.html">thermal stress article</a> walks through it.</p>
 </div>
 <div class="section level3">
 <h3 id="id_2-at-sea">2. At sea<a class="anchor" aria-label="anchor" href="#id_2-at-sea"></a>
@@ -131,166 +182,150 @@ Show code
 </h3>
 <p>Back from the field, the data is cleaned, checked against the vocabularies and matched to the World Register of Marine Species before anything is analysed.</p>
 <p>Field sheets spell taxa many ways. <code><a href="reference/clean_field_names.html">clean_field_names()</a></code> brings them to one form, and can log every change it made.</p>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/clean_field_names.html">clean_field_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ACROPORA SP."</span>, </span>
-<span>                    <span class="st">"Porites cf. lobata"</span>, </span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/clean_field_names.html">clean_field_names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ACROPORA SP."</span>,</span>
+<span>                    <span class="st">"Porites cf. lobata"</span>,</span>
 <span>                    <span class="st">"Pocillopora (damicornis)"</span>,</span>
-<span>                    <span class="st">"Stylophora  pistillata"</span><span class="op">)</span>, </span>
-<span>                  auto_approve <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-</details><div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#&gt; [1] "Acropora"              "Porites lobata"        "Pocillopora"          </span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; [4] "Stylophora pistillata"</span></span></code></pre></div>
+<span>                    <span class="st">"Stylophora  pistillata"</span><span class="op">)</span>,</span>
+<span>                  auto_approve <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Acropora"              "Porites lobata"        "Pocillopora"          </span></span>
+<span><span class="co">#&gt; [4] "Stylophora pistillata"</span></span></code></pre></div>
 <p><code><a href="reference/get_taxonomic_ranks.html">get_taxonomic_ranks()</a></code> fills in the classification for each accepted AphiaID, one row per taxon, straight from WoRMS.</p>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/get_taxonomic_ranks.html">get_taxonomic_ranks</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">125286</span>, <span class="fl">254941</span><span class="op">)</span>, </span>
-<span>                    ranks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"phylum"</span>, <span class="st">"class"</span>, <span class="st">"order"</span>, <span class="st">"family"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-</details><div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 5</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt;   accepted_aphia_id phylum        class        order           family       </span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt;               &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt;        </span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; 1            125286 Cnidaria      Octocorallia Malacalcyonacea Clavulariidae</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; 2            254941 Echinodermata Asteroidea   Valvatida       Oreasteridae</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/get_taxonomic_ranks.html">get_taxonomic_ranks</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">125286</span>, <span class="fl">254941</span><span class="op">)</span>,</span>
+<span>                    ranks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"phylum"</span>, <span class="st">"class"</span>, <span class="st">"order"</span>, <span class="st">"family"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 5</span></span>
+<span><span class="co">#&gt;   accepted_aphia_id phylum        class        order           family       </span></span>
+<span><span class="co">#&gt;               &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt;        </span></span>
+<span><span class="co">#&gt; 1            125286 Cnidaria      Octocorallia Malacalcyonacea Clavulariidae</span></span>
+<span><span class="co">#&gt; 2            254941 Echinodermata Asteroidea   Valvatida       Oreasteridae</span></span></code></pre></div>
 <p><code><a href="reference/stratify.html">stratify()</a></code> turns depths into the standard survey strata, and <code><a href="reference/station_suffix.html">station_suffix()</a></code> turns the strata into the suffixes that name a station, the same way on every expedition.</p>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">depths_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">8</span>, <span class="fl">12</span>, <span class="fl">22</span>, <span class="fl">45</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/stratify.html">stratify</a></span><span class="op">(</span><span class="va">depths_m</span><span class="op">)</span></span></code></pre></div>
-</details><div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co">#&gt; [1] "supershallow" "shallow"      "shallow"      "deep"         "superdeep"</span></span></code></pre></div>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/station_suffix.html">station_suffix</a></span><span class="op">(</span><span class="fu"><a href="reference/stratify.html">stratify</a></span><span class="op">(</span><span class="va">depths_m</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-</details><div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co">#&gt; [1] "05m" "10m" "10m" "20m" "30m"</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/stratify.html">stratify</a></span><span class="op">(</span><span class="va">depths_m</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "supershallow" "shallow"      "shallow"      "deep"         "superdeep"</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/station_suffix.html">station_suffix</a></span><span class="op">(</span><span class="fu"><a href="reference/stratify.html">stratify</a></span><span class="op">(</span><span class="va">depths_m</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "05m" "10m" "10m" "20m" "30m"</span></span></code></pre></div>
 <p>The controlled vocabularies in <code>allowed_vocab</code>, and <code><a href="reference/validate_vocab.html">validate_vocab()</a></code>, which stops the pipeline on the first non-standard value, catch errors before they spread into the analysis.</p>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">allowed_vocab</span><span class="op">)</span></span></code></pre></div>
-</details><div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co">#&gt; [1] "trophic_group"     "depth_strata"      "exposure"         </span></span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#&gt; [4] "uvs_habitats"      "functional_groups"</span></span></code></pre></div>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">allowed_vocab</span><span class="op">$</span><span class="va">trophic_group</span></span></code></pre></div>
-</details><div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co">#&gt; [1] "shark"                   "top_predator"           </span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="co">#&gt; [3] "lower_carnivore"         "herbivore | detritivore"</span></span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co">#&gt; [5] "planktivore"</span></span></code></pre></div>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/validate_vocab.html">validate_vocab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"shark"</span>, <span class="st">"top_predator"</span>, <span class="st">"planktivore"</span><span class="op">)</span>, <span class="st">"trophic_group"</span><span class="op">)</span></span></code></pre></div>
-</details><details><summary>
-Show code
-</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/validate_vocab.html">validate_vocab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"shark"</span>, <span class="st">"apex_predator"</span><span class="op">)</span>, <span class="st">"trophic_group"</span><span class="op">)</span></span></code></pre></div>
-</details><div class="sourceCode" id="cb20"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co">#&gt; Error:</span></span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="co">#&gt; ! Invalid values found in 'trophic_group'</span></span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="co">#&gt; Found 1 invalid value(s): apex_predator</span></span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="co">#&gt; Allowed values: shark, top_predator, lower_carnivore, herbivore | detritivore, planktivore</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">allowed_vocab</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "trophic_group"     "depth_strata"      "exposure"         </span></span>
+<span><span class="co">#&gt; [4] "uvs_habitats"      "functional_groups"</span></span>
+<span></span>
+<span><span class="va">allowed_vocab</span><span class="op">$</span><span class="va">exposure</span></span>
+<span><span class="co">#&gt; [1] "windward"  "leeward"   "lagoon"    "channel"   "sheltered" "exposed"  </span></span>
+<span><span class="co">#&gt; [7] "unknown"</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/validate_vocab.html">validate_vocab</a></span><span class="op">(</span><span class="va">rmi_2023_uvs_sites</span><span class="op">$</span><span class="va">exposure</span>, <span class="st">"exposure"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/validate_vocab.html">validate_vocab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"windward"</span>, <span class="st">"seaward"</span><span class="op">)</span>, <span class="st">"exposure"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error:</span></span>
+<span><span class="co">#&gt; ! Invalid values found in 'exposure'</span></span>
+<span><span class="co">#&gt; Found 1 invalid value(s): seaward</span></span>
+<span><span class="co">#&gt; Allowed values: windward, leeward, lagoon, channel, sheltered, exposed, unknown</span></span></code></pre></div>
+<p>When a pipeline’s output is ready for the database, <code><a href="reference/validate_and_export_csv.html">validate_and_export_csv()</a></code> checks its columns against the live BigQuery table before writing the CSV, so a renamed or missing column is caught at export rather than after upload.</p>
 </div>
 <div class="section level3">
 <h3 id="id_4-explore">4. Explore<a class="anchor" aria-label="anchor" href="#id_4-explore"></a>
 </h3>
-<p>Once the data is processed, <code><a href="reference/explore_uvs_sites.html">explore_uvs_sites()</a></code> puts every site on an interactive map, coloured by region, subregion, habitat or exposure, with the field notes in each popup, so the team can review a survey together before anything is written up. One call, one design, every expedition. The same family of maps covers fish biomass, benthic cover, invertebrates and recruits with <code><a href="reference/explore_fish_biomass.html">explore_fish_biomass()</a></code>, <code><a href="reference/explore_benthic_cover.html">explore_benthic_cover()</a></code>, <code><a href="reference/explore_invert_density.html">explore_invert_density()</a></code> and <code><a href="reference/explore_recruit_density.html">explore_recruit_density()</a></code>, and satellite vessel detections with <code><a href="reference/explore_s2_detections.html">explore_s2_detections()</a></code>.</p>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sites</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/primary/output/uvs/VUT_2025_uvs_sites.csv"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Regions and subregions differ every expedition, so their colours are set once</span></span>
-<span><span class="co"># in the expedition's setup script. Habitat and exposure use the house palettes.</span></span>
-<span><span class="fu"><a href="reference/explore_uvs_sites.html">explore_uvs_sites</a></span><span class="op">(</span><span class="va">sites</span>,</span>
-<span>                  region_palette    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Torba <span class="op">=</span> <span class="st">"#4E8FA8"</span>, Shefa <span class="op">=</span> <span class="st">"#C98A3D"</span><span class="op">)</span>,</span>
-<span>                  subregion_palette <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Gaua <span class="op">=</span> <span class="st">"#DCA04F"</span>, `Mota Lava` <span class="op">=</span> <span class="st">"#005F87"</span>,</span>
-<span>                                        `Reef Islands` <span class="op">=</span> <span class="st">"#A5DBE0"</span>, `Tongoa/Kuwae Crater` <span class="op">=</span> <span class="st">"#8E81CE"</span>,</span>
-<span>                                        Ureparapara <span class="op">=</span> <span class="st">"#6F3F1B"</span>, `Vot Tande` <span class="op">=</span> <span class="st">"#40AE82"</span><span class="op">)</span>,</span>
-<span>                  title             <span class="op">=</span> <span class="st">"Vanuatu 2025 survey sites"</span>,</span>
+<p>Once the data is processed, <code><a href="reference/explore_uvs_sites.html">explore_uvs_sites()</a></code> puts every site on an interactive map, coloured by region, subregion, habitat or exposure, with the field notes in each popup, so the team can review a survey together before anything is written up. One call, one design, every expedition. Regions and subregions differ every trip, so their colours are set once in the expedition’s setup script; habitat and exposure use the house palettes.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Each atoll was its own region on this expedition, so the two palettes agree</span></span>
+<span><span class="va">atolls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Bikar <span class="op">=</span> <span class="st">"#005F87"</span>, Bokak <span class="op">=</span> <span class="st">"#DCA04F"</span>, Bikini <span class="op">=</span> <span class="st">"#8E81CE"</span>, Rongerik <span class="op">=</span> <span class="st">"#40AE82"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/explore_uvs_sites.html">explore_uvs_sites</a></span><span class="op">(</span><span class="va">rmi_2023_uvs_sites</span>,</span>
+<span>                  region_palette    <span class="op">=</span> <span class="va">atolls</span>,</span>
+<span>                  subregion_palette <span class="op">=</span> <span class="va">atolls</span>,</span>
+<span>                  title             <span class="op">=</span> <span class="st">"Marshall Islands 2023 survey sites"</span>,</span>
 <span>                  export_path       <span class="op">=</span> <span class="st">"figures/uvs_sites.html"</span><span class="op">)</span></span></code></pre></div>
-</details><p><img src="reference/figures/README-uvs-sites.jpg" alt="" width="100%"></p>
+<p><img src="reference/figures/README-uvs-sites.jpg" alt="" width="100%"></p>
+<p>The same family of maps covers fish biomass, benthic cover, invertebrates and recruits with <code><a href="reference/explore_fish_biomass.html">explore_fish_biomass()</a></code>, <code><a href="reference/explore_benthic_cover.html">explore_benthic_cover()</a></code>, <code><a href="reference/explore_invert_density.html">explore_invert_density()</a></code> and <code><a href="reference/explore_recruit_density.html">explore_recruit_density()</a></code>. <code><a href="reference/explore_s1_detections.html">explore_s1_detections()</a></code> and <code><a href="reference/explore_s2_detections.html">explore_s2_detections()</a></code> map Global Fishing Watch vessel detections from Sentinel-1 radar and Sentinel-2 optical imagery, each popup opening the satellite crop the detection was made from.</p>
 </div>
 <div class="section level3">
 <h3 id="id_5-publish">5. Publish<a class="anchor" aria-label="anchor" href="#id_5-publish"></a>
 </h3>
-<p>Every figure, map and table draws on the same palettes and themes, so a report from any expedition reads as Pristine Seas. <code><a href="reference/theme_ps.html">theme_ps()</a></code> sets charts on warm paper and <code><a href="reference/theme_ps_map.html">theme_ps_map()</a></code> sets maps on deep water, and both share the same type, the same palettes through <code><a href="reference/scale_fill_ps.html">scale_fill_ps()</a></code> and <code><a href="reference/scale_color_ps.html">scale_color_ps()</a></code>, and the same legend geometry, so they can sit side by side on a page and read as a pair.</p>
+<p>Every figure, map and table draws on the same palettes and themes, so a report from any expedition reads as Pristine Seas. <code><a href="reference/theme_ps.html">theme_ps()</a></code> sets charts on warm paper and <code><a href="reference/theme_ps_map.html">theme_ps_map()</a></code> sets maps on deep water, and both share the same type, the same palettes through <code><a href="reference/scale_fill_ps.html">scale_fill_ps()</a></code>, <code><a href="reference/scale_color_ps.html">scale_color_ps()</a></code> and <code><a href="reference/scale_shape_ps.html">scale_shape_ps()</a></code>, and the same legend geometry, so they can sit side by side on a page and read as a pair. The palettes are keyed to <code>allowed_vocab</code>, so a validated column lands on its colours without a lookup.</p>
 <details><summary>
 Show code
-</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Each station carries its total biomass and the share of each trophic group.</span></span>
-<span><span class="co"># Station values are averaged to the site, then sites to the island.</span></span>
+<span><span class="co"># Station values are averaged to the site, then sites to the atoll.</span></span>
 <span><span class="va">groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>pct_shark <span class="op">=</span> <span class="st">"shark"</span>, pct_top_predator <span class="op">=</span> <span class="st">"top_predator"</span>, pct_lower_carni <span class="op">=</span> <span class="st">"lower_carnivore"</span>,</span>
 <span>            pct_herbi_detri <span class="op">=</span> <span class="st">"herbivore | detritivore"</span>, pct_plankti <span class="op">=</span> <span class="st">"planktivore"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">by_island</span> <span class="op">&lt;-</span> <span class="va">stations</span> <span class="op">|&gt;</span></span>
+<span><span class="va">by_atoll</span> <span class="op">&lt;-</span> <span class="va">rmi_2023_uvs_blt_stations</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">groups</span><span class="op">)</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"trophic_group"</span>, values_to <span class="op">=</span> <span class="st">"pct"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>trophic_group <span class="op">=</span> <span class="va">groups</span><span class="op">[</span><span class="va">trophic_group</span><span class="op">]</span>, biomass <span class="op">=</span> <span class="va">avg_biomass_gm2</span> <span class="op">*</span> <span class="va">pct</span> <span class="op">/</span> <span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>biomass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">biomass</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">subregion</span>, <span class="va">ps_site_id</span>, <span class="va">trophic_group</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>biomass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">biomass</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">subregion</span>, <span class="va">trophic_group</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>share <span class="op">=</span> <span class="va">biomass</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">biomass</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">subregion</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>subregion     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">subregion</span>, <span class="va">biomass</span>, <span class="va">sum</span><span class="op">)</span>,</span>
-<span>         trophic_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">trophic_group</span>, <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="reference/ps_colors.html">ps_colors</a></span><span class="op">(</span><span class="st">"trophic_group"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>biomass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">biomass</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">region</span>, <span class="va">ps_site_id</span>, <span class="va">trophic_group</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>biomass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">biomass</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">region</span>, <span class="va">trophic_group</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>share <span class="op">=</span> <span class="va">biomass</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">biomass</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">region</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>region        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">region</span>, <span class="va">biomass</span>, <span class="va">sum</span><span class="op">)</span>,</span>
+<span>         trophic_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">trophic_group</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="reference/ps_colors.html">ps_colors</a></span><span class="op">(</span><span class="st">"trophic_group"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># label a segment only when it is wide enough to hold the number, in dark or</span></span>
 <span>  <span class="co"># light text depending on how light the segment's own colour is</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">biomass</span> <span class="op">&gt;=</span> <span class="fl">12</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.0f%%"</span>, <span class="fl">100</span> <span class="op">*</span> <span class="va">share</span><span class="op">)</span>, <span class="st">""</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">biomass</span> <span class="op">&gt;=</span> <span class="fl">25</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.0f%%"</span>, <span class="fl">100</span> <span class="op">*</span> <span class="va">share</span><span class="op">)</span>, <span class="st">""</span><span class="op">)</span>,</span>
 <span>         text  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu">farver</span><span class="fu">::</span><span class="fu"><a href="https://farver.data-imaginist.com/reference/manip_channel.html" class="external-link">get_channel</a></span><span class="op">(</span><span class="fu"><a href="reference/ps_colors.html">ps_colors</a></span><span class="op">(</span><span class="st">"trophic_group"</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">trophic_group</span><span class="op">)</span><span class="op">]</span>, <span class="st">"l"</span>, space <span class="op">=</span> <span class="st">"lab"</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">60</span>,</span>
 <span>                        <span class="fu"><a href="reference/ps_ink.html">ps_ink</a></span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">[[</span><span class="st">"title"</span><span class="op">]</span><span class="op">]</span>, <span class="fu"><a href="reference/ps_ink.html">ps_ink</a></span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">[[</span><span class="st">"canvas"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">n_sites</span> <span class="op">&lt;-</span> <span class="va">sites</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">subregion</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/enframe.html" class="external-link">deframe</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">totals</span>  <span class="op">&lt;-</span> <span class="va">by_island</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">biomass</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">subregion</span><span class="op">)</span></span>
+<span><span class="va">n_sites</span> <span class="op">&lt;-</span> <span class="va">rmi_2023_uvs_sites</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/enframe.html" class="external-link">deframe</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">totals</span>  <span class="op">&lt;-</span> <span class="va">by_atoll</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">biomass</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">region</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">by_island</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">biomass</span>, <span class="va">subregion</span>, fill <span class="op">=</span> <span class="va">trophic_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">by_atoll</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">biomass</span>, <span class="va">region</span>, fill <span class="op">=</span> <span class="va">trophic_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.72</span>, position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_stack.html" class="external-link">position_stack</a></span><span class="op">(</span>reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>           colour <span class="op">=</span> <span class="fu"><a href="reference/ps_ink.html">ps_ink</a></span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">[[</span><span class="st">"canvas"</span><span class="op">]</span><span class="op">]</span>, linewidth <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">label</span>, colour <span class="op">=</span> <span class="va">text</span>, group <span class="op">=</span> <span class="va">trophic_group</span><span class="op">)</span>,</span>
 <span>            position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_stack.html" class="external-link">position_stack</a></span><span class="op">(</span>vjust <span class="op">=</span> <span class="fl">0.5</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>            size <span class="op">=</span> <span class="fl">3.1</span>, family <span class="op">=</span> <span class="fu"><a href="reference/ps_font_default.html">ps_font_default</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">totals</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">total</span>, <span class="va">subregion</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">total</span><span class="op">)</span><span class="op">)</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">totals</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">total</span>, <span class="va">region</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">total</span><span class="op">)</span><span class="op">)</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>            hjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.3</span>, size <span class="op">=</span> <span class="fl">3.1</span>, colour <span class="op">=</span> <span class="fu"><a href="reference/ps_ink.html">ps_ink</a></span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">[[</span><span class="st">"muted"</span><span class="op">]</span><span class="op">]</span>, family <span class="op">=</span> <span class="fu"><a href="reference/ps_font_default.html">ps_font_default</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/scale_fill_ps.html">scale_fill_ps</a></span><span class="op">(</span><span class="st">"trophic_group"</span>, labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_identity.html" class="external-link">scale_colour_identity</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">300</span>, <span class="fl">100</span><span class="op">)</span>, minor_breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">300</span>, <span class="fl">50</span><span class="op">)</span>,</span>
-<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.06</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">600</span>, <span class="fl">100</span><span class="op">)</span>, expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.06</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_y_discrete</a></span><span class="op">(</span>labels <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">" ("</span>, <span class="va">n_sites</span><span class="op">[</span><span class="va">x</span><span class="op">]</span>, <span class="st">")"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title    <span class="op">=</span> <span class="st">"Fish biomass by trophic group"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="st">"Tongoa/Kuwae Crater carries 70% more fish biomass than any other island, and the only sharks"</span>,</span>
-<span>       caption  <span class="op">=</span> <span class="st">"Pristine Seas Vanuatu 2025 expedition, underwater visual surveys. Station biomass averaged to site, then to island."</span>,</span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Bikini carries the most fish biomass of the four atolls; at Rongerik, sharks make up nearly 60% of it"</span>,</span>
+<span>       caption  <span class="op">=</span> <span class="st">"Pristine Seas Marshall Islands 2023 expedition, underwater visual surveys. Station biomass averaged to site, then to atoll."</span>,</span>
 <span>       x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">Biomass</span><span class="op">~</span><span class="op">(</span><span class="va">g</span><span class="op">/</span><span class="va">m</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, y <span class="op">=</span> <span class="cn">NULL</span>, fill <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/theme_ps.html">theme_ps</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
-<span>        panel.grid.major.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>        panel.grid.minor.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="reference/ps_ink.html">ps_ink</a></span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">[[</span><span class="st">"grid"</span><span class="op">]</span><span class="op">]</span>, linewidth <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>        panel.grid.major.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </details><p><img src="reference/figures/README-chart-1.svg" alt="" width="100%"></p>
-<p>A survey site map for the report is one call. <code><a href="reference/map_uvs_sites.html">map_uvs_sites()</a></code> takes the standard sites table, fits the frame to the sites chosen, and draws them on satellite imagery with habitat as shape and exposure as fill, a compass rose, a scale bar and a locator globe, all in the house style. Here, the sites of Bikar Atoll from the bundled <code>rmi_2023_uvs_sites</code>.</p>
-<details><summary>
-Show code
-</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<p>A survey site map for the report is one call. <code><a href="reference/map_uvs_sites.html">map_uvs_sites()</a></code> takes the standard sites table, fits the frame to the sites chosen, and draws them on satellite imagery with habitat as shape and exposure as fill, a compass rose, a scale bar and a locator globe, all in the house style. Here, the sites of Bikar Atoll.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/map_uvs_sites.html">map_uvs_sites</a></span><span class="op">(</span><span class="va">rmi_2023_uvs_sites</span>, region <span class="op">=</span> <span class="st">"Bikar"</span><span class="op">)</span></span></code></pre></div>
-</details><p><img src="reference/figures/README-map-1.png" alt="" width="100%"></p>
-<p>Tables follow the same idea. <code><a href="reference/gt_theme_ps.html">gt_theme_ps()</a></code> turns a summary into the house table, with optional group columns, spanners and heat-filled cells.</p>
+<p><img src="reference/figures/README-map-1.png" alt="" width="100%"></p>
+<p>Tables follow the same idea. <code><a href="reference/gt_theme_ps.html">gt_theme_ps()</a></code> turns a summary into the house table, with optional group columns, spanners, a set-off total column and heat-filled cells. <code><a href="reference/gt_theme_ps_light.html">gt_theme_ps_light()</a></code> is its plain, compact sibling for the diagnostic tables a QA/QC check produces.</p>
 <details><summary>
 Show code
-</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stations</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>stations <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, transects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">n_transects</span><span class="op">)</span>, biomass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">avg_biomass_gm2</span><span class="op">)</span>,</span>
-<span>            .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">region</span>, <span class="va">subregion</span>, <span class="va">ps_site_id</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>sites <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, stations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">stations</span><span class="op">)</span>, transects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">transects</span><span class="op">)</span>, biomass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">biomass</span><span class="op">)</span>,</span>
-<span>            .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">region</span>, <span class="va">subregion</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/gt_theme_ps.html">gt_theme_ps</a></span><span class="op">(</span>groupname_col <span class="op">=</span> <span class="st">"region"</span>, rowname_col <span class="op">=</span> <span class="st">"subregion"</span>,</span>
-<span>              col_labels   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>sites <span class="op">=</span> <span class="st">"Sites"</span>, stations <span class="op">=</span> <span class="st">"Stations"</span>,</span>
-<span>                               transects <span class="op">=</span> <span class="st">"Transects"</span>, biomass <span class="op">=</span> <span class="st">"Mean biomass (g/m²)"</span><span class="op">)</span>,</span>
-<span>              heatmap_cols <span class="op">=</span> <span class="st">"biomass"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/fmt_number.html" class="external-link">fmt_number</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"biomass"</span>, decimals <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+</summary><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">habitats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fore_reef"</span>, <span class="st">"back_reef"</span>, <span class="st">"patch_reef"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">effort</span> <span class="op">&lt;-</span> <span class="va">rmi_2023_uvs_sites</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">region</span>, <span class="va">habitat</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">habitat</span>, values_from <span class="op">=</span> <span class="va">n</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span><span class="va">rmi_2023_uvs_sites</span>, days <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html" class="external-link">n_distinct</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, sites <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">region</span><span class="op">)</span>,</span>
+<span>            by <span class="op">=</span> <span class="st">"region"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">region</span>, <span class="va">days</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">habitats</span><span class="op">)</span>, <span class="va">sites</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">effort_table</span> <span class="op">&lt;-</span> <span class="va">effort</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="reference/gt_theme_ps.html">gt_theme_ps</a></span><span class="op">(</span>rowname_col  <span class="op">=</span> <span class="st">"region"</span>,</span>
+<span>              col_labels   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>days <span class="op">=</span> <span class="st">"Survey days"</span>, sites <span class="op">=</span> <span class="st">"Sites"</span>,</span>
+<span>                               fore_reef <span class="op">=</span> <span class="st">"Fore reef"</span>, back_reef <span class="op">=</span> <span class="st">"Back reef"</span>, patch_reef <span class="op">=</span> <span class="st">"Patch reef"</span><span class="op">)</span>,</span>
+<span>              spanners     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>`Sites by habitat` <span class="op">=</span> <span class="va">habitats</span><span class="op">)</span>,</span>
+<span>              total_col    <span class="op">=</span> <span class="st">"sites"</span>,</span>
+<span>              heatmap_cols <span class="op">=</span> <span class="va">habitats</span>,</span>
+<span>              zero_dash    <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/tab_options.html" class="external-link">tab_options</a></span><span class="op">(</span>table.background.color <span class="op">=</span> <span class="fu"><a href="reference/ps_ink.html">ps_ink</a></span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">[[</span><span class="st">"canvas"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 </details><p><img src="reference/figures/README-effort-table.png" alt="" width="70%" style="display: block; margin: auto;"></p>
+<p><code><a href="reference/ps_show_palette.html">ps_show_palette()</a></code> previews any of the palettes, and the <a href="https://pristine-seas.github.io/PristineSeasR2/articles/colour-system.html">colour system article</a> shows how they were built and how they hold up under colour-blind and greyscale reproduction.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
 </h2>
-<p>Open an <a href="https://github.com/pristine-seas/PristineSeasR2/issues" class="external-link">issue</a> for bugs and requests. The package is developed by the Pristine Seas science team and is under active development, so the API may still change between minor versions.</p>
+<p>Open an <a href="https://github.com/pristine-seas/PristineSeasR2/issues" class="external-link">issue</a> for bugs and requests. The package is developed by the Pristine Seas science team and is under active development, so the API may still change between minor versions. To cite it, run <code>citation("PristineSeasR2")</code>.</p>
 <p align="center">
 <img src="reference/figures/wordmark.png" width="360" alt="National Geographic Pristine Seas"></p>
 </div>
@@ -331,8 +366,8 @@ Show code
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/pristine-seas/PristineSeasR2/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/pristine-seas/PristineSeasR2/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://pristine-seas.github.io/PristineSeasR2/"><img src="https://img.shields.io/badge/docs-pristine--seas.github.io-005F87.svg" alt="Documentation"></a></li>
 </ul>
 </div>
 

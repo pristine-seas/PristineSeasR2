@@ -38,7 +38,10 @@ map_uvs_sites(
   title = "Underwater visual survey sites",
   subtitle = NULL,
   caption = NULL,
-  base_size = 12
+  base_size = 12,
+  export = NULL,
+  width = 8,
+  height = NULL
 )
 ```
 
@@ -129,12 +132,29 @@ map_uvs_sites(
   [`theme_ps_map()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps_map.md).
   Default 12.
 
+- export:
+
+  Character. A file path to save the map to as well as returning it,
+  typically a `.pdf` for the report; any extension
+  [`ggplot2::ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html)
+  knows is accepted. A PDF is vector for everything but the imagery,
+  which is embedded at its fetched resolution; the house typeface is
+  embedded where R can draw through Cairo and set in Helvetica
+  otherwise. `NULL` (the default) saves nothing.
+
+- width, height:
+
+  Numeric. Size of the exported figure in inches. `width` defaults to 8;
+  `height` to `NULL`, which sets it from the frame's own proportions so
+  the map is neither stretched nor padded.
+
 ## Value
 
 A ggplot object, with the frame it drew as `attr(p, "extent")`. Print
 it, or save it with
 [`ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html); the
-theme carries its own canvas, so no `bg` is needed.
+theme carries its own canvas, so no `bg` is needed. When `export` is
+given the file is written first and the map returned invisibly.
 
 ## Basemaps
 
@@ -204,5 +224,8 @@ for the marker encoding.
 ``` r
 if (FALSE) { # \dontrun{
 map_uvs_sites(rmi_2023_uvs_sites, region = "Bikar")
+
+# Straight to the report
+map_uvs_sites(rmi_2023_uvs_sites, region = "Bikar", export = "figures/bikar_sites.pdf")
 } # }
 ```
