@@ -73,15 +73,15 @@ The science toolkit of National Geographic Pristine Seas
 </p>
 <!-- badges: start -->
 
-<p>PristineSeasR2 is built for the <a href="https://www.nationalgeographic.org/society/our-programs/pristine-seas/" class="external-link">Pristine Seas</a> research team and the collaborators and partners who work with us. Its tools carry an expedition’s data the whole way, from raw field sheets to the shared database to the report. It standardizes how we organize, check, and present expedition data, helping us reduce errors and keep our science rigorous, transparent, and reproducible.</p>
-<p>Every tool is documented, with articles on the <a href="https://pristine-seas.github.io/PristineSeasR2/articles/colour-system.html">colour system</a> and on <a href="https://pristine-seas.github.io/PristineSeasR2/articles/crw-dhw.html">thermal stress</a>, on the <a href="https://pristine-seas.github.io/PristineSeasR2/">package site</a>.</p>
+<p>PristineSeasR2 is built for the <a href="https://www.nationalgeographic.org/society/our-programs/pristine-seas/" class="external-link">Pristine Seas</a> research team and the collaborators and partners who work with us. Its tools carry an expedition’s data the whole way, from raw field sheets to the shared database to the report. It standardises how we organise, check and present expedition data, helping us reduce errors and keep our science rigorous, transparent and reproducible.</p>
+<p>Every tool is documented on the <a href="https://pristine-seas.github.io/PristineSeasR2/">package site</a>, along with articles on the <a href="https://pristine-seas.github.io/PristineSeasR2/articles/colour-system.html">colour system</a> and on <a href="https://pristine-seas.github.io/PristineSeasR2/articles/crw-dhw.html">thermal stress</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"pristine-seas/PristineSeasR2"</span><span class="op">)</span></span></code></pre></div>
-<p>That installs everything the vocabularies, themes, tables and interactive maps need. A few tools reach further and ask for more on first use:</p>
+<p>That installs everything the vocabularies, themes, tables and interactive maps need. A few tools reach outside the package and need a little more:</p>
 <ul>
 <li>
 <code><a href="reference/map_uvs_sites.html">map_uvs_sites()</a></code> draws its basemaps with <strong>maptiles</strong>, <strong>tidyterra</strong> and <strong>ggspatial</strong>, and offers to install them the first time it is called. The Mapbox basemap also needs a token in the <code>MAPBOX_TOKEN</code> environment variable.</li>
@@ -141,7 +141,7 @@ The science toolkit of National Geographic Pristine Seas
 <div class="section level2">
 <h2 id="from-field-sheet-to-report">From field sheet to report<a class="anchor" aria-label="anchor" href="#from-field-sheet-to-report"></a>
 </h2>
-<p>The tools follow an expedition’s data through its life: set up and prepare the expedition, work at sea, process and check the data, explore it, and publish figures, maps and tables that read as one family. Everything below runs on the bundled <code>rmi_2023_uvs_sites</code> and <code>rmi_2023_uvs_blt_stations</code>, the sixty underwater visual survey sites of the 2023 expedition to the northern atolls of the Marshall Islands and their fish belt-transect stations, so it can be run anywhere, with no Drive or database connection.</p>
+<p>The tools follow an expedition’s data through its life: set up and prepare the expedition, work at sea, process and check the data, explore it, and publish figures, maps and tables that read as one family. Everything below runs on the bundled <code>rmi_2023_uvs_sites</code> and <code>rmi_2023_uvs_blt_stations</code>, the sixty underwater visual survey (UVS) sites of the 2023 expedition to the northern atolls of the Marshall Islands and their fish belt-transect stations, so every example runs anywhere, with no Drive or database connection.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pristine-seas/PristineSeasR2" class="external-link">PristineSeasR2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -218,6 +218,7 @@ The science toolkit of National Geographic Pristine Seas
 <span><span class="co">#&gt; [1] "windward"  "leeward"   "lagoon"    "channel"   "sheltered" "exposed"  </span></span>
 <span><span class="co">#&gt; [7] "unknown"</span></span>
 <span></span>
+<span><span class="co"># a valid column passes silently</span></span>
 <span><span class="fu"><a href="reference/validate_vocab.html">validate_vocab</a></span><span class="op">(</span><span class="va">rmi_2023_uvs_sites</span><span class="op">$</span><span class="va">exposure</span>, <span class="st">"exposure"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/validate_vocab.html">validate_vocab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"windward"</span>, <span class="st">"seaward"</span><span class="op">)</span>, <span class="st">"exposure"</span><span class="op">)</span></span>
@@ -246,7 +247,7 @@ The science toolkit of National Geographic Pristine Seas
 <div class="section level3">
 <h3 id="id_5-publish">5. Publish<a class="anchor" aria-label="anchor" href="#id_5-publish"></a>
 </h3>
-<p>Every figure, map and table draws on the same palettes and themes, so a report from any expedition reads as Pristine Seas. <code><a href="reference/theme_ps.html">theme_ps()</a></code> sets charts on warm paper and <code><a href="reference/theme_ps_map.html">theme_ps_map()</a></code> sets maps on deep water, and both share the same type, the same palettes through <code><a href="reference/scale_fill_ps.html">scale_fill_ps()</a></code>, <code><a href="reference/scale_color_ps.html">scale_color_ps()</a></code> and <code><a href="reference/scale_shape_ps.html">scale_shape_ps()</a></code>, and the same legend geometry, so they can sit side by side on a page and read as a pair. The palettes are keyed to <code>allowed_vocab</code>, so a validated column lands on its colours without a lookup.</p>
+<p>Every figure, map and table draws on the same palettes and themes, so a report from any expedition reads as Pristine Seas. <code><a href="reference/theme_ps.html">theme_ps()</a></code> sets charts on warm paper and <code><a href="reference/theme_ps_map.html">theme_ps_map()</a></code> sets maps on deep water, and both share the same typeface, the same palettes through <code><a href="reference/scale_fill_ps.html">scale_fill_ps()</a></code>, <code><a href="reference/scale_color_ps.html">scale_color_ps()</a></code> and <code><a href="reference/scale_shape_ps.html">scale_shape_ps()</a></code>, and the same legend geometry, so they can sit side by side on a page and read as a pair. The palettes are keyed to <code>allowed_vocab</code>, so a validated column lands on its colours without a lookup.</p>
 <details><summary>
 Show code
 </summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -295,7 +296,7 @@ Show code
 <p>A survey site map for the report is one call. <code><a href="reference/map_uvs_sites.html">map_uvs_sites()</a></code> takes the standard sites table, fits the frame to the sites chosen, and draws them on satellite imagery with habitat as shape and exposure as fill, a compass rose, a scale bar and a locator globe, all in the house style. Here, the sites of Bikar Atoll.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/map_uvs_sites.html">map_uvs_sites</a></span><span class="op">(</span><span class="va">rmi_2023_uvs_sites</span>, region <span class="op">=</span> <span class="st">"Bikar"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-map-1.png" alt="" width="100%"></p>
+<p><img src="reference/figures/README-map-1.png" alt="" width="55%" style="display: block; margin: auto;"></p>
 <p>Tables follow the same idea. <code><a href="reference/gt_theme_ps.html">gt_theme_ps()</a></code> turns a summary into the house table, with optional group columns, spanners, a set-off total column and heat-filled cells. <code><a href="reference/gt_theme_ps_light.html">gt_theme_ps_light()</a></code> is its plain, compact sibling for the diagnostic tables a QA/QC check produces.</p>
 <details><summary>
 Show code
@@ -325,7 +326,7 @@ Show code
 <div class="section level2">
 <h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
 </h2>
-<p>Open an <a href="https://github.com/pristine-seas/PristineSeasR2/issues" class="external-link">issue</a> for bugs and requests. The package is developed by the Pristine Seas science team and is under active development, so the API may still change between minor versions. To cite it, run <code>citation("PristineSeasR2")</code>.</p>
+<p>Open an <a href="https://github.com/pristine-seas/PristineSeasR2/issues" class="external-link">issue</a> for bugs and requests. The package is maintained by the Pristine Seas science team and is still evolving, so the API may change between minor versions. To cite it, run <code>citation("PristineSeasR2")</code>.</p>
 <p align="center">
 <img src="reference/figures/wordmark.png" width="360" alt="National Geographic Pristine Seas"></p>
 </div>

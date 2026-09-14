@@ -6,15 +6,16 @@ PristineSeasR2 is built for the [Pristine
 Seas](https://www.nationalgeographic.org/society/our-programs/pristine-seas/)
 research team and the collaborators and partners who work with us. Its
 tools carry an expedition’s data the whole way, from raw field sheets to
-the shared database to the report. It standardizes how we organize,
-check, and present expedition data, helping us reduce errors and keep
-our science rigorous, transparent, and reproducible.
+the shared database to the report. It standardises how we organise,
+check and present expedition data, helping us reduce errors and keep our
+science rigorous, transparent and reproducible.
 
-Every tool is documented, with articles on the [colour
+Every tool is documented on the [package
+site](https://pristine-seas.github.io/PristineSeasR2/), along with
+articles on the [colour
 system](https://pristine-seas.github.io/PristineSeasR2/articles/colour-system.html)
 and on [thermal
-stress](https://pristine-seas.github.io/PristineSeasR2/articles/crw-dhw.html),
-on the [package site](https://pristine-seas.github.io/PristineSeasR2/).
+stress](https://pristine-seas.github.io/PristineSeasR2/articles/crw-dhw.html).
 
 ## Installation
 
@@ -25,8 +26,8 @@ pak::pak("pristine-seas/PristineSeasR2")
 ```
 
 That installs everything the vocabularies, themes, tables and
-interactive maps need. A few tools reach further and ask for more on
-first use:
+interactive maps need. A few tools reach outside the package and need a
+little more:
 
 - [`map_uvs_sites()`](https://pristine-seas.github.io/PristineSeasR2/reference/map_uvs_sites.md)
   draws its basemaps with **maptiles**, **tidyterra** and **ggspatial**,
@@ -59,10 +60,10 @@ The tools follow an expedition’s data through its life: set up and
 prepare the expedition, work at sea, process and check the data, explore
 it, and publish figures, maps and tables that read as one family.
 Everything below runs on the bundled `rmi_2023_uvs_sites` and
-`rmi_2023_uvs_blt_stations`, the sixty underwater visual survey sites of
-the 2023 expedition to the northern atolls of the Marshall Islands and
-their fish belt-transect stations, so it can be run anywhere, with no
-Drive or database connection.
+`rmi_2023_uvs_blt_stations`, the sixty underwater visual survey (UVS)
+sites of the 2023 expedition to the northern atolls of the Marshall
+Islands and their fish belt-transect stations, so every example runs
+anywhere, with no Drive or database connection.
 
 ``` r
 
@@ -195,6 +196,7 @@ allowed_vocab$exposure
 #> [1] "windward"  "leeward"   "lagoon"    "channel"   "sheltered" "exposed"  
 #> [7] "unknown"
 
+# a valid column passes silently
 validate_vocab(rmi_2023_uvs_sites$exposure, "exposure")
 ```
 
@@ -262,8 +264,8 @@ report from any expedition reads as Pristine Seas.
 [`theme_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps.md)
 sets charts on warm paper and
 [`theme_ps_map()`](https://pristine-seas.github.io/PristineSeasR2/reference/theme_ps_map.md)
-sets maps on deep water, and both share the same type, the same palettes
-through
+sets maps on deep water, and both share the same typeface, the same
+palettes through
 [`scale_fill_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_fill_ps.md),
 [`scale_color_ps()`](https://pristine-seas.github.io/PristineSeasR2/reference/scale_color_ps.md)
 and
@@ -378,9 +380,8 @@ greyscale reproduction.
 ## Getting help
 
 Open an [issue](https://github.com/pristine-seas/PristineSeasR2/issues)
-for bugs and requests. The package is developed by the Pristine Seas
-science team and is under active development, so the API may still
-change between minor versions. To cite it, run
-`citation("PristineSeasR2")`.
+for bugs and requests. The package is maintained by the Pristine Seas
+science team and is still evolving, so the API may change between minor
+versions. To cite it, run `citation("PristineSeasR2")`.
 
 ![National Geographic Pristine Seas](reference/figures/wordmark.png)
